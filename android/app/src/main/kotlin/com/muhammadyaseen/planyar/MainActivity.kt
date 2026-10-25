@@ -1,4 +1,4 @@
-package com.example.planyar
+package com.muhammadyaseen.planyar
 
 import io.flutter.embedding.android.FlutterActivity
 
