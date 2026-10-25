@@ -1,0 +1,173 @@
+{
+  "@@locale": "en",
+  "appTitle": "Planyar",
+  "@appTitle": {
+    "description": "App name shown in the task switcher and About."
+  },
+  "tabToday": "Today",
+  "@tabToday": {
+    "description": "Bottom navigation tab: today's day view."
+  },
+  "tabCalendar": "Calendar",
+  "@tabCalendar": {
+    "description": "Bottom navigation tab: hourly month calendar."
+  },
+  "tabTasks": "Tasks",
+  "@tabTasks": {
+    "description": "Bottom navigation tab: long-term tasks."
+  },
+  "tabReports": "Reports",
+  "@tabReports": {
+    "description": "Bottom navigation tab: reports and charts."
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Settings page title."
+  },
+  "openSettings": "Open settings",
+  "@openSettings": {
+    "description": "Tooltip / screen-reader label for the gear button in app bars."
+  },
+  "todayEmpty": "Nothing logged yet. Tap + or tap the timeline to add what you did.",
+  "@todayEmpty": {
+    "description": "Empty state on the Today tab (plan §12.8)."
+  },
+  "calendarEmpty": "Your month at a glance will appear here.",
+  "@calendarEmpty": {
+    "description": "Placeholder on the Calendar tab until it is built."
+  },
+  "tasksEmpty": "No tasks yet. Long-running tasks with deadlines will live here.",
+  "@tasksEmpty": {
+    "description": "Empty state on the Tasks tab."
+  },
+  "reportsEmpty": "Reports appear once you have logged some time.",
+  "@reportsEmpty": {
+    "description": "Empty state on the Reports tab."
+  },
+  "settingsPrivacy": "Your data never leaves this device unless you export it.",
+  "@settingsPrivacy": {
+    "description": "Privacy statement (SET-05)."
+  },
+  "settingsDevTools": "Developer tools",
+  "@settingsDevTools": {
+    "description": "Dev-flavor-only entry to the debug tools."
+  },
+  "channelRoutines": "Routines",
+  "@channelRoutines": {
+    "description": "Android notification channel name for routine reminders."
+  },
+  "channelTasks": "Tasks",
+  "@channelTasks": {
+    "description": "Android notification channel name for task reminders."
+  },
+  "channelCheckIns": "Check-ins & summaries",
+  "@channelCheckIns": {
+    "description": "Android notification channel name for the evening check-in and weekly review."
+  },
+  "channelBackups": "Backups",
+  "@channelBackups": {
+    "description": "Android notification channel name for backup reminders."
+  },
+  "startupFailureTitle": "Planyar couldn't open your data",
+  "@startupFailureTitle": {
+    "description": "Shown when the database can't be opened at startup."
+  },
+  "startupFailureBody": "Nothing has been deleted. Please restart the app. If this keeps happening, keep this screen and contact the developer.",
+  "@startupFailureBody": {
+    "description": "Body text of the startup failure screen."
+  },
+  "devToolsTitle": "Developer tools",
+  "@devToolsTitle": {
+    "description": "Dev tools page title (dev flavor only)."
+  },
+  "devNotificationsSection": "Notification test",
+  "@devNotificationsSection": {
+    "description": "Section header for the notification spike."
+  },
+  "devPermissionStatus": "Notifications allowed: {allowed} · Exact alarms: {exact}",
+  "@devPermissionStatus": {
+    "description": "Current permission state in the notification spike.",
+    "placeholders": {
+      "allowed": {
+        "type": "String",
+        "example": "yes"
+      },
+      "exact": {
+        "type": "String",
+        "example": "yes"
+      }
+    }
+  },
+  "devTimeZone": "Time zone: {zone}",
+  "@devTimeZone": {
+    "description": "Device time zone in the notification spike.",
+    "placeholders": {
+      "zone": {
+        "type": "String",
+        "example": "Asia/Baghdad"
+      }
+    }
+  },
+  "devPendingCount": "Pending notifications: {count}",
+  "@devPendingCount": {
+    "description": "Number of pending scheduled notifications.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "devRequestPermission": "Allow notifications",
+  "@devRequestPermission": {
+    "description": "Button: ask for notification permission."
+  },
+  "devShowNow": "Show test now",
+  "@devShowNow": {
+    "description": "Button: show a notification immediately."
+  },
+  "devScheduleInOneMinute": "Schedule test in 1 minute",
+  "@devScheduleInOneMinute": {
+    "description": "Button: schedule a notification one minute from now."
+  },
+  "devCancelAll": "Cancel pending",
+  "@devCancelAll": {
+    "description": "Button: cancel all pending test notifications."
+  },
+  "devScheduledAt": "Scheduled for {time}",
+  "@devScheduledAt": {
+    "description": "Confirmation after scheduling a test notification.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "14:31"
+      }
+    }
+  },
+  "devTestTitle": "Planyar test reminder",
+  "@devTestTitle": {
+    "description": "Title of the test notification."
+  },
+  "devTestBody": "If you can read this, reminders work on this phone.",
+  "@devTestBody": {
+    "description": "Body of the test notification."
+  },
+  "yes": "yes",
+  "@yes": {
+    "description": "Generic yes, used in status lines."
+  },
+  "no": "no",
+  "@no": {
+    "description": "Generic no, used in status lines."
+  },
+  "somethingWentWrong": "Something went wrong: {details}",
+  "@somethingWentWrong": {
+    "description": "Generic error message with technical details (dev tools).",
+    "placeholders": {
+      "details": {
+        "type": "String",
+        "example": "PlatformException"
+      }
+    }
+  }
+}

@@ -17,31 +17,37 @@ void main() {
 
   setUp(() async {
     db = AppDatabase(NativeDatabase.memory());
-    await db.into(db.categories).insert(
-      CategoriesCompanion.insert(id: 'cat-1', name: 'Learning', nameKey: 'learning', createdAt: t0, updatedAt: t0),
-    );
-    await db.into(db.labels).insert(
-      LabelsCompanion.insert(
-        id: 'lbl-1',
-        name: 'Study',
-        nameKey: 'study',
-        colorKey: 'indigo',
-        categoryId: const Value('cat-1'),
-        createdAt: t0,
-        updatedAt: t0,
-      ),
-    );
-    await db.into(db.routines).insert(
-      RoutinesCompanion.insert(
-        id: 'rtn-1',
-        labelId: 'lbl-1',
-        startMinute: 1380,
-        endMinute: 420,
-        startsOn: LocalDate(2026, 10, 1),
-        createdAt: t0,
-        updatedAt: t0,
-      ),
-    );
+    await db
+        .into(db.categories)
+        .insert(
+          CategoriesCompanion.insert(id: 'cat-1', name: 'Learning', nameKey: 'learning', createdAt: t0, updatedAt: t0),
+        );
+    await db
+        .into(db.labels)
+        .insert(
+          LabelsCompanion.insert(
+            id: 'lbl-1',
+            name: 'Study',
+            nameKey: 'study',
+            colorKey: 'indigo',
+            categoryId: const Value('cat-1'),
+            createdAt: t0,
+            updatedAt: t0,
+          ),
+        );
+    await db
+        .into(db.routines)
+        .insert(
+          RoutinesCompanion.insert(
+            id: 'rtn-1',
+            labelId: 'lbl-1',
+            startMinute: 1380,
+            endMinute: 420,
+            startsOn: LocalDate(2026, 10, 1),
+            createdAt: t0,
+            updatedAt: t0,
+          ),
+        );
   });
 
   tearDown(() => db.close());
@@ -171,14 +177,8 @@ void main() {
     });
 
     test('names must be 1–40 trimmed characters', () async {
-      LabelsCompanion label(String id, String name) => LabelsCompanion.insert(
-        id: id,
-        name: name,
-        nameKey: id,
-        colorKey: 'teal',
-        createdAt: t0,
-        updatedAt: t0,
-      );
+      LabelsCompanion label(String id, String name) =>
+          LabelsCompanion.insert(id: id, name: name, nameKey: id, colorKey: 'teal', createdAt: t0, updatedAt: t0);
       expect(db.into(db.labels).insert(label('a', '')), rejected());
       expect(db.into(db.labels).insert(label('b', ' Study')), rejected());
       expect(db.into(db.labels).insert(label('c', 'x' * 41)), rejected());
@@ -266,17 +266,19 @@ void main() {
     });
 
     test('only one open instance per series', () async {
-      await db.into(db.taskSeries).insert(
-        TaskSeriesCompanion.insert(
-          id: 's1',
-          freq: 'monthly',
-          interval: 1,
-          mode: 'schedule',
-          anchorDate: LocalDate(2026, 10, 1),
-          createdAt: t0,
-          updatedAt: t0,
-        ),
-      );
+      await db
+          .into(db.taskSeries)
+          .insert(
+            TaskSeriesCompanion.insert(
+              id: 's1',
+              freq: 'monthly',
+              interval: 1,
+              mode: 'schedule',
+              anchorDate: LocalDate(2026, 10, 1),
+              createdAt: t0,
+              updatedAt: t0,
+            ),
+          );
       await db.into(db.tasks).insert(task('t1', seriesId: 's1'));
       await db.into(db.tasks).insert(task('t2', seriesId: 's1', status: 'completed', completedAt: t0));
       expect(db.into(db.tasks).insert(task('t3', seriesId: 's1')), rejected());
@@ -313,9 +315,9 @@ void main() {
   });
 
   test('settings scope is portable or device', () async {
-    await db.into(db.settings).insert(
-      SettingsCompanion.insert(key: 'themeMode', value: '"system"', scope: 'portable', updatedAt: t0),
-    );
+    await db
+        .into(db.settings)
+        .insert(SettingsCompanion.insert(key: 'themeMode', value: '"system"', scope: 'portable', updatedAt: t0));
     expect(
       db.into(db.settings).insert(SettingsCompanion.insert(key: 'x', value: '1', scope: 'cloud', updatedAt: t0)),
       rejected(),

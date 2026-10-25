@@ -20,9 +20,7 @@ class Settings extends Table {
   Set<Column> get primaryKey => {key};
 
   @override
-  List<String> get customConstraints => [
-    "CHECK (scope IN ('portable', 'device'))",
-  ];
+  List<String> get customConstraints => ["CHECK (scope IN ('portable', 'device'))"];
 }
 
 /// Device-only ledger of scheduled notifications (plan §8.6.1). Never exported.
@@ -40,7 +38,5 @@ class ScheduledNotifications extends Table {
   Set<Column> get primaryKey => {key};
 
   @override
-  List<String> get customConstraints => [
-    'CHECK (platform_id BETWEEN 1 AND 2147483647)',
-  ];
+  List<String> get customConstraints => ['CHECK (platform_id BETWEEN 1 AND 2147483647)'];
 }

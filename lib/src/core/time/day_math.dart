@@ -121,11 +121,7 @@ final class DayMath {
   Set<int> _candidateOffsets(int wallMs) {
     // Offsets that could apply near this wall time. Real zones never change
     // offset twice within two days, so probing ±1 day finds both sides.
-    final offsets = {
-      _offsetMs(wallMs - _msPerDay),
-      _offsetMs(wallMs),
-      _offsetMs(wallMs + _msPerDay),
-    };
+    final offsets = {_offsetMs(wallMs - _msPerDay), _offsetMs(wallMs), _offsetMs(wallMs + _msPerDay)};
     for (final offset in offsets.toList()) {
       offsets.add(_offsetMs(wallMs - offset));
     }

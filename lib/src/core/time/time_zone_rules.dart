@@ -21,8 +21,7 @@ final class SystemTimeZoneRules implements TimeZoneRules {
   String get id => 'system';
 
   @override
-  Duration offsetAt(Instant instant) =>
-      DateTime.fromMillisecondsSinceEpoch(instant.utcMs).timeZoneOffset;
+  Duration offsetAt(Instant instant) => DateTime.fromMillisecondsSinceEpoch(instant.utcMs).timeZoneOffset;
 }
 
 /// A zone with one constant offset and no DST (tests, UTC).

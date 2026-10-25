@@ -123,8 +123,7 @@ void main() {
     });
 
     test('Sleep 23:00 → 07:00 lasts 9 h on fall-back night, 7 h on spring-forward', () {
-      Duration sleep(LocalDate date) =>
-          math.local(date, 1860).difference(math.local(date, 1380));
+      Duration sleep(LocalDate date) => math.local(date, 1860).difference(math.local(date, 1380));
       expect(sleep(d(2026, 10, 31)), const Duration(hours: 9));
       expect(sleep(d(2026, 3, 7)), const Duration(hours: 7));
       expect(sleep(d(2026, 6, 1)), const Duration(hours: 8));
@@ -306,8 +305,11 @@ void main() {
             // Equal, unless m fell in a DST gap (then it moved forward).
             expect(back >= m, isTrue, reason: '$id $date $m → $back');
             if (back != m) {
-              expect(math.offsetAt(t) > math.offsetAt(t - const Duration(minutes: 1)), isTrue,
-                  reason: '$id $date $m moved without a gap');
+              expect(
+                math.offsetAt(t) > math.offsetAt(t - const Duration(minutes: 1)),
+                isTrue,
+                reason: '$id $date $m moved without a gap',
+              );
             }
           }
           date = date.addDays(1);

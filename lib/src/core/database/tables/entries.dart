@@ -49,8 +49,7 @@ class Entries extends Table {
   TextColumn get occurrenceDate => text().nullable().map(const LocalDateConverter())();
 
   /// Set on actual entries logged from a plan (ENT-09).
-  TextColumn get plannedEntryId =>
-      text().nullable().references(Entries, #id, onDelete: KeyAction.setNull)();
+  TextColumn get plannedEntryId => text().nullable().references(Entries, #id, onDelete: KeyAction.setNull)();
   IntColumn get createdAt => integer().map(const InstantConverter())();
   IntColumn get updatedAt => integer().map(const InstantConverter())();
 
