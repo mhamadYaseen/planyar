@@ -22,7 +22,7 @@ Planyar is a calm, offline, single-user personal time planner and journal built 
 
 This follows the team Flutter baseline from the installed `flutter-*` skills, **with an owner-approved deviation: no Dio, Retrofit, network interceptors or `ResponseEntity`** (there is no server). Data sources are Drift DAOs.
 
-- Feature-first layout: `lib/src/{app,config,core,features}`; each feature has `data/`, `domain/`, `presentation/` and `<feature>_injection.dart`.
+- **Clean architecture, feature-based** (owner's explicit request): `lib/src/{app,config,core,features}`; each feature has `data/`, `domain/`, `presentation/` and `<feature>_injection.dart`. Dependencies point inwards (presentation → domain ← data); `test/architecture/layer_boundaries_test.dart` enforces it. `features/dev_tools` is the reference example of a full feature (use cases → Bloc → page + widgets).
 - State: `flutter_bloc` **Bloc (not Cubit)** with Freezed events/state, async fields as `DataState<T>`.
 - DI: GetIt. Routing: GoRouter (`StatefulShellRoute` tabs: Today, Calendar, Tasks, Reports; Settings from the app bar).
 - Database: Drift (SQLite) via `drift_flutter`; settings live in the DB (no `shared_preferences`).
@@ -46,11 +46,27 @@ This follows the team Flutter baseline from the installed `flutter-*` skills, **
 
 ```bash
 flutter pub get
-dart run build_runner build --delete-conflicting-outputs
-flutter analyze
+dart run build_runner build        # this build_runner has no --delete-conflicting-outputs flag
+flutter gen-l10n
+tool/format.sh                     # formats hand-written code only; never format generated files
+flutter analyze --fatal-infos
 flutter test
-flutter build apk --debug      # flavors and release signing arrive in Phase 0
+TZ=America/Santiago flutter test test/core test/features   # one entry of the CI time-zone matrix
+flutter build apk --debug --flavor dev                     # "Planyar Dev", separate app ID and database
+flutter build apk --release --flavor prod                  # needs android/key.properties (docs/RELEASE.md)
+tool/check_release_apk.sh build/app/outputs/flutter-apk/app-prod-release.apk
 ```
+
+Schema changes: bump `schemaVersion`, run `dart run drift_dev make-migrations`, then `dart run drift_dev schema generate drift_schemas/app_database/ test/core/database/migrations/generated/`, write the migration step, and commit the snapshot and tests.
+
+## Gotchas found in Phase 0
+
+- **Imports:** use `package:material_ui/material_ui.dart`, never `package:flutter/material.dart`.
+- **Localizations:** use `[AppLocalizations.delegate, ...GlobalMaterialLocalizations.delegates]` (the `material_ui` class). The generated `AppLocalizations.localizationsDelegates` list holds the SDK's Material localizations, which `material_ui` widgets can't see.
+- **Time zones:** get local-time math from `TimeZoneService.dayMath` (tz database for the device's IANA zone). Never call `DateTime.now()`, `.toLocal()` or `DateTime(y, m, d)` in app code.
+- **Bloc tests with a fixed clock:** a Bloc handles events in the zone it was created in, so wrap **creation** in `withClock`, not the `add` call.
+- **Widget tests:** the default test surface (800 × 600) is wider than the 600 dp rail breakpoint; set a phone size to test the bottom bar.
+- **SQLite CHECKs:** a `CHECK` that evaluates to NULL passes. Guard nullable columns with `IS NOT NULL` inside the check.
 
 ## Working style
 
