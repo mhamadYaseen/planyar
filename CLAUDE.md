@@ -40,7 +40,7 @@ This follows the team Flutter baseline from the installed `flutter-*` skills, **
 - Flutter **3.47.8** / Dart **3.13.7** (Homebrew-installed SDK at `/opt/homebrew/share/flutter`).
 - Android SDK at `~/Library/Android/sdk` (platform 36, build-tools 36.1, platform-tools 37.0.1); JDK is Android Studio's bundled JBR. A second, identical `adb` 37.0.1 exists from Homebrew (`flutter doctor` warns; harmless while versions match).
 - **The internet connection is slow (~0.8 MB/s).** Run long downloads and builds in the background and write their output to a log file the owner can follow with `tail -f`.
-- Git identity is already configured globally. GitHub HTTPS credentials are in the macOS keychain; the `gh` CLI isn't installed.
+- GitHub: `origin` = https://github.com/mhamadYaseen/planyar, branch `main`. Git identity is configured globally; GitHub HTTPS credentials are in the macOS keychain; the `gh` CLI isn't installed. Always `git fetch` and check before rewriting history — never force-push without the owner's explicit OK.
 
 ## Commands
 
