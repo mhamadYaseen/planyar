@@ -82,7 +82,7 @@
 2. **Actual records are sacred.** No automation (routines, imports in merge mode aside from same-ID overwrites, migrations) ever creates, edits or deletes actual entries.
 3. **Plan and actual are separate but connected.** They are different kinds of entry, shown in separate lanes, and can be linked ("Log as actual").
 4. **One concept per screen.** Hourly time (Today, Calendar) and long-term tasks (Tasks) are separate areas. Tasks never appear as time blocks.
-5. **Calm by default.** Neutral surfaces, label colors carry meaning, amber is reserved for warnings, red only for destructive actions and overdue tasks. Few notifications, all optional.
+5. **Calm by default.** Warm neutral surfaces with a golden accent, label colors carry meaning, burnt orange is reserved for warnings, red only for destructive actions and overdue tasks. Few notifications, all optional.
 6. **Predictable time.** Store instants in UTC, show them in the phone's current zone, define days as local midnight to midnight, and test DST and zone changes deliberately.
 7. **Your data is portable.** Everything the user created is in the backup file. Nothing important lives only in OS settings.
 
@@ -265,7 +265,7 @@ Each journey lists acceptance criteria (AC) in testable form. "Today" is assumed
 - **AC4** An entry ending exactly at 00:00 does not appear on the next day.
 
 ### J5 — Save an overlapping entry (ENT-08, §6.6)
-- **AC1** Saving an actual entry 15:00–16:00 when "Work 14:00–17:00" (actual) exists shows an amber inline note "Overlaps with Work 14:00–17:00" before saving, and **Save** still works with one tap.
+- **AC1** Saving an actual entry 15:00–16:00 when "Work 14:00–17:00" (actual) exists shows a warning-colored (burnt orange) inline note "Overlaps with Work 14:00–17:00" before saving, and **Save** still works with one tap.
 - **AC2** After saving, both blocks display side by side in the Actual lane with a ⚠ icon, and the day header shows "⚠ 1 overlap".
 - **AC3** A planned entry overlapping an actual entry does **not** produce a warning.
 - **AC4** Entries that only touch (one ends 15:00, the next starts 15:00) do not overlap.
@@ -585,10 +585,10 @@ You don't expect to change zones, but phones change zones on their own (travel, 
 
 | Place | Treatment |
 |---|---|
-| Editor (before save) | Amber inline note: "⚠ Overlaps with Work 14:00–17:00". Save button unchanged. |
+| Editor (before save) | Warning-colored inline note: "⚠ Overlaps with Work 14:00–17:00". Save button unchanged. |
 | Timeline | Overlapping blocks share the lane side by side (column layout, like most calendars); each shows a ⚠ icon. |
 | Day header | Chip "⚠ 1 overlap" → tap scrolls to it. |
-| Month calendar | Small amber triangle on the day. |
+| Month calendar | Small warning-colored ⚠ triangle on the day. |
 | Reports | Footnote about overlapping time counted under more than one label; tracked total uses time covered (union), so it never exceeds the period length. |
 
 Overlap detection is computed on read (a sweep over the day's entries); it isn't stored. Later: mark an overlap as intentional to silence it (§16).
@@ -1264,7 +1264,7 @@ Versions verified on pub.dev on **2026-10-25**; "verify" means not checked in th
 | `kalender`, `calendar_view` | Pre-1.0 churn / hard to customize for Plan \| Actual lanes. |
 | `google_fonts` (runtime fetching), `PdfGoogleFonts` | Needs network. |
 | `custom_lint`, `golden_toolkit` | Archived / discontinued. |
-| `flex_color_scheme`, `dynamic_color` | `ColorScheme.fromSeed` + our tonal label palette is enough. |
+| `flex_color_scheme`, `dynamic_color` | A hand-built `ColorScheme` from the Warm Focus tokens (§12.2) + our tonal label palette is enough. |
 | `permission_handler` | flutter_local_notifications already checks/requests notification and exact-alarm permissions. Add only if another permission appears. |
 | Firebase (any) | No cloud by design. |
 | Riverpod | Strong alternative, but D-03 keeps your team's Bloc conventions. |
@@ -1578,12 +1578,29 @@ Developer aids in the **dev flavor only**: a debug screen listing pending notifi
 
 ### 12.1 Personality
 
-**Calm, quick, clear.** Think *a well-made paper planner*: soft neutral surfaces, generous spacing, one accent color for the app, and label colors that carry meaning. No gradients, no heavy shadows, no dense toolbars. The busiest thing on screen should be the user's own day.
+**Calm, quick, clear — "Warm Focus".** Think *a well-made paper planner*: warm ivory and charcoal surfaces, generous spacing, one golden accent for the app, and label colors that carry meaning. No gradients, no heavy shadows, no dense toolbars. The busiest thing on screen should be the user's own day.
 
 ### 12.2 Color system
 
-- **App theme:** Material 3 `ColorScheme.fromSeed` with a muted **slate-teal seed (`#3F6E78`)** [D-42]. Light surfaces are warm off-white; dark surfaces are deep gray (not pure black) for comfort.
-- **Label palette:** 16 named hues — gray, brown, red, rose, orange, amber, yellow, lime, green, teal, cyan, sky, blue, indigo, violet, pink. Each key maps to a seed; the app derives a tonal palette per hue (Material color utilities):
+- **App theme — "Warm Focus"** [D-42]: golden accents over calm warm-neutral backgrounds, with dark charcoal for clarity. The Material 3 `ColorScheme` is built by hand from these tokens (not `fromSeed`), so the exact values below are what ships:
+
+| Token | Light | Dark | Used for |
+|---|---|---|---|
+| Accent (gold) | `#D99A22` | `#D99A22` | Filled buttons, FAB, selected dates/chips, switches, progress, highlights. **Never a large background.** |
+| On accent | `#292720` | `#211F1A` | Text/icons on gold (6.1:1 light, 6.7:1 dark). **Never white on gold** (2.4:1 — fails). |
+| Gold ink | `#8A5D00` | `#D99A22` | Gold-coloured *text and icons* on surfaces (text buttons, links, focused field, today marker). Light mode needs this darker tone: plain gold on ivory is only 2.3:1. |
+| Soft highlight | `#F3D77A` | `#5A4310` | Accent containers (selected rows, tonal buttons, nav indicator). Text on it: `#292720` light (10.5:1) / `#F3D77A` dark (6.6:1). |
+| Background | `#FAF7EF` warm ivory | `#211F1A` warm charcoal | Scaffold / page background. |
+| Cards & sheets | `#FFFFFF` | `#2D2A23` | Cards, sheets, dialogs, timeline lanes. |
+| Main text | `#292720` | `#F3F0E8` | Body text, titles (14.0:1 / 14.5:1 on background). |
+| Secondary text | `#706B5F` | `#BDB7A9` | Captions, times, hints (5.0:1 / 8.2:1). |
+| Outline | `#8C8576` | `#9A9384` | Input borders, outlined chips (≥ 3:1). Dividers use a lighter, decorative tone. |
+| Warning | `#A8470F` on `#FCE6D8` | `#FFB083` on `#5C2A0E` | Overlaps, long entries. **Burnt orange**, kept clearly apart from the gold accent, and always with ⚠ icon + text. |
+| Error / destructive | `#B3261E` | `#F2B8B5` | Delete actions, overdue tasks, validation errors. |
+
+  Contrast values were computed with the WCAG 2.x formula; a unit test checks every text/background pair above stays ≥ 4.5:1 (≥ 3:1 for outlines and icons).
+- **Theme modes:** System (default) / Light / Dark (SET-01). Both themes ship from day one.
+- **Label palette:** 16 named hues — gray, brown, red, rose, orange, amber, yellow, lime, green, teal, cyan, sky, blue, indigo, violet, pink — tuned to sit calmly next to the warm neutrals (moderate chroma, no neon). Each key maps to a seed; the app derives a tonal palette per hue with `ColorScheme.fromSeed` (tonal-spot variant, no extra package):
 
 | Use | Light theme | Dark theme |
 |---|---|---|
@@ -1593,7 +1610,7 @@ Developer aids in the **dev flavor only**: a debug screen listing pending notifi
 | Planned block fill | tone 95–98 (very light tint) | tone 20 |
 
   A tone difference of ≥ 50 between text and fill meets WCAG AA 4.5:1 for text, and ≥ 40 meets 3:1 for graphics — so *any* palette color stays readable in both themes. The palette is tested in a golden test (§11).
-- **Reserved semantic colors:** amber = warning (overlaps, long entries); red/error = destructive actions and overdue tasks; green tint = completed. Label palette colors should avoid being mistaken for these: warnings always come with an icon and text.
+- **Reserved semantic colors:** gold = the app's accent (actions, selection); burnt orange = warning (overlaps, long entries); red/error = destructive actions and overdue tasks; green tint = completed. Label colors (including the `amber`, `yellow` and `orange` keys) may look similar to these, so warnings and errors always come with an icon and text, never color alone.
 - **Optional:** dynamic color (Material You wallpaper colors) for app chrome only — Later, off by default, because the label palette is the primary visual language.
 
 ### 12.3 Visual vocabulary
@@ -1819,7 +1836,7 @@ P0 Foundation ─► P1 Entries & Today ─► P2 Backup & import ─► P3 Rout
 | D-29 | 12/24-hour | **Follow device** | Native behavior. |
 | D-30 | Minimum OS | **iOS 15, Android 7.0 (API 24)** — current Flutter's minimums | Device coverage. |
 | D-31 | Font | **Platform default** (SF Pro / Roboto) | Native feel; no bundled font. Alternative: bundle Inter for identical looks. |
-| D-42 | App seed color | **Slate-teal `#3F6E78`** | Visual identity; easy to change. |
+| D-42 | App colors | **"Warm Focus"** (changed 2026-10-25 from slate-teal `#3F6E78`): golden amber accent `#D99A22`, pale yellow highlight `#F3D77A`, ivory `#FAF7EF` / charcoal `#211F1A` backgrounds — full token table in §12.2 | Visual identity; easy to change. |
 
 ---
 
