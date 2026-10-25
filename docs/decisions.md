@@ -24,5 +24,6 @@ Derived from the above:
 
 ## 2026-10-25 — Environment
 
-- Flutter upgraded from 3.44.8 to the current stable (3.47.x) for Dart 3.13 (needed by freezed 4).
+- Flutter upgraded from 3.44.8 to **3.47.8** (Dart 3.13.7) for Dart 3.13 (needed by freezed 4). Android SDK licenses accepted.
+- Project location: `/Users/muhammad/Desktop/projects/planyar` (created by the owner with `flutter create planyar`). Before the first install, the default `com.example.planyar` IDs were changed to **`com.muhammadyaseen.planyar`** for Android (namespace, applicationId, Kotlin package) and iOS (bundle IDs). App label set to **Planyar**.
 - A local 3-line patch in the Flutter SDK checkout (`flutter_tools/.../native_assets/macos/native_assets_host.dart`, an otool null check affecting macOS desktop builds only) was saved as a git stash in `/opt/homebrew/share/flutter` before upgrading: `git -C /opt/homebrew/share/flutter stash list`.
