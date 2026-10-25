@@ -1,0 +1,15 @@
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          databases:
+            app_database: lib/src/core/database/app_database.dart
+          schema_dir: drift_schemas/
+          test_dir: test/core/database/migrations/
+          # Instants are mapped by our own converters; keep drift's default
+          # int storage for any DateTime it might see.
+          store_date_time_values_as_text: false
+      json_serializable:
+        options:
+          explicit_to_json: true
