@@ -90,3 +90,11 @@ Run in a scratch app with every planned package; widget tests pumped a `material
 
 - **Wiring rule:** `MaterialUiCompatibilityBridge` is itself marked deprecated (temporary migration aid), and `--fatal-infos` would flag it. So it's **not** added yet. When the first SDK-Material package lands (table_calendar in Phase 3, fl_chart in Phase 4, printing in Phase 7), wrap the app once in `MaterialApp.router(builder: …)` with a `// ignore: deprecated_member_use` and a comment naming the packages. Remove it when they migrate.
 - **Not verified:** native Android compile of printing / share_plus / file_picker / local_auth / workmanager (the spike's APK build was cut off by a network drop). Check each when it's added.
+
+## 2026-10-27 — Notification spike and build verification
+
+- **Notification spike passed on the Pixel_9 emulator (Android 16, API 36.1)** with the dev build: the Android 13+ prompt appears only when the user taps "Allow notifications" (never at launch, plan §8.6.5); `canScheduleExactNotifications()` is true with no prompt because of `USE_EXACT_ALARM` (D-40); `zonedSchedule` with `exactAllowWhileIdle` registered an `RTC_WAKEUP` alarm with `window=0` (`exactAllowReason=policy_permission`); the reminder fired on time with the app in the background, on the high-importance Routines channel. **Still to do on the owner's real phone** (OEM battery behaviour, plan §11.7).
+- Follow-ups for Phase 6: add a monochrome notification icon (the default launcher icon is used now); the plugin also adds `VIBRATE` and a `DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` (both harmless, no network).
+- **Release APK verified:** 59 MB universal APK, signed with the release key, permissions = POST_NOTIFICATIONS, RECEIVE_BOOT_COMPLETED, USE_EXACT_ALARM, SCHEDULE_EXACT_ALARM (≤ API 32), VIBRATE; **no INTERNET**; 16 KB aligned. (`flutter build apk --split-per-abi` would give a ~20 MB arm64 APK if size ever matters.)
+- **iOS build not verified:** Xcode 26 needs the iOS platform component downloaded first (several GB); deferred until a fast connection is available. iOS isn't released (D-02).
+- Some plugins' build scripts still pull an old Android Gradle plugin (7.3.0) and Kotlin 1.7.10 jars at configuration time; harmless, cached after the first build.

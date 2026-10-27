@@ -54,7 +54,9 @@ void goldenTest(
             },
             home: RepaintBoundary(
               key: _goldenKey,
-              child: Scaffold(body: SafeArea(child: Builder(builder: builder))),
+              child: Scaffold(
+                body: SafeArea(child: Builder(builder: builder)),
+              ),
             ),
           ),
         );
