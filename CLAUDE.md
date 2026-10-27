@@ -39,7 +39,9 @@ This follows the team Flutter baseline from the installed `flutter-*` skills, **
 
 - Flutter **3.47.8** / Dart **3.13.7** (Homebrew-installed SDK at `/opt/homebrew/share/flutter`).
 - Android SDK at `~/Library/Android/sdk` (platform 36, build-tools 36.1, platform-tools 37.0.1); JDK is Android Studio's bundled JBR. A second, identical `adb` 37.0.1 exists from Homebrew (`flutter doctor` warns; harmless while versions match).
-- **The internet connection is slow (~0.8 MB/s).** Run long downloads and builds in the background and write their output to a log file the owner can follow with `tail -f`.
+- **The internet connection is slow (~0.8 MB/s) and drops now and then (DNS failures).** Run long downloads and builds in the background, log to a file the owner can follow with `tail -f`, and retry on network errors (`android/gradle.properties` has longer Gradle timeouts/retries). Only one `flutter` command runs at a time (startup lock), so don't start a second build or test run while one is going.
+- **Android emulator:** AVD `Pixel_9` (Android 16, arm64). Headless: `emulator -avd Pixel_9 -no-window -no-audio -no-snapshot-save`. Gradle, NDK 28.2 and build-tools are cached.
+- **iOS:** Xcode 26.1 is installed but the iOS platform component isn't downloaded yet (several GB). `flutter build ios` starts that download, so don't run it on this connection unless the owner asks.
 - GitHub: `origin` = https://github.com/mhamadYaseen/planyar, branch `main`. Git identity is configured globally; GitHub HTTPS credentials are in the macOS keychain; the `gh` CLI isn't installed. Always `git fetch` and check before rewriting history — never force-push without the owner's explicit OK.
 
 ## Commands
