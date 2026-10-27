@@ -23,6 +23,9 @@ class PlanyarApp extends StatelessWidget {
     supportedLocales: AppLocalizations.supportedLocales,
     routerConfig: router,
     debugShowCheckedModeBanner: false,
+    // When the first package built on package:flutter/material.dart arrives
+    // (table_calendar, fl_chart, printing), wrap `child` in
+    // MaterialUiCompatibilityBridge here — see docs/decisions.md (Material spike).
     builder: (context, child) =>
         F.isDev ? Banner(message: 'DEV', location: BannerLocation.topEnd, child: child!) : child!,
   );

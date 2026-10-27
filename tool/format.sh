@@ -10,4 +10,4 @@ args=()
 find lib test -name '*.dart' \
   ! -name '*.g.dart' ! -name '*.freezed.dart' \
   ! -path '*/l10n/generated/*' ! -path '*/migrations/generated/*' -print0 |
-  xargs -0 dart format "${args[@]}"
+  xargs -0 dart format ${args[@]+"${args[@]}"}

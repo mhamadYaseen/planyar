@@ -73,3 +73,20 @@ The owner chose a warm yellow/amber palette instead of the slate-teal seed. Full
 - This `build_runner` (2.16) has no `--delete-conflicting-outputs` flag.
 - FlutterGen is deferred until the app has assets (icons/splash, Phase 7).
 - Resolved versions: material_ui 1.8.0, cupertino_ui 1.1.4, flutter_bloc 9.1.1, get_it 9.3.0, go_router 18.1.1, freezed 4.0.1 / freezed_annotation 3.1.0, json_serializable 6.15.2, drift 2.35.3 / drift_dev 2.35.2 / drift_flutter 0.3.1 (sqlite3 3.5.2), uuid 4.6.0, clock 1.1.3, timezone 0.11.2, flutter_timezone 5.1.1, flutter_local_notifications 22.3.3, intl 0.20.3, build_runner 2.16.1, bloc_test 10.0.0, mocktail 1.0.5. `drift_flutter` pulls in the empty `sqlite3_flutter_libs 0.6.0+eol` / `sqlcipher_flutter_libs 0.7.0+eol` placeholder packages; they contain no code.
+
+## 2026-10-25 — Material spike (`material_ui` compatibility)
+
+Run in a scratch app with every planned package; widget tests pumped a `material_ui` app with each package's widgets in three wrappings: none / `MaterialUiCompatibilityBridge` / bridge + an SDK `Material(type: transparency)`. **Verified by running tests** unless noted.
+
+| Package (version) | Imports SDK `flutter/material.dart` | Result |
+|---|---|---|
+| fl_chart 1.3.0 | yes | Bar and donut charts work with **no** wrapping. |
+| table_calendar 3.3.0 | yes | Grid works with no wrapping. Its **header** needs bridge **+ SDK `Material`** ancestor ("No Material widget found" otherwise). Plan: hide its header and draw our own. |
+| printing 5.15.1 (`PdfPreview`) / pdf 3.13.1 | yes / no | `PdfPreview` throws "No MaterialLocalizations found" without the bridge; works with it. |
+| alchemist 0.14.1 | yes | Its `AlchemistConfig.theme` takes the SDK `ThemeData`, so it only works if every scenario re-provides the `material_ui` theme, localizations and `Material` by hand. **Decision: use the in-house `matchesGoldenFile` helper (`test/helpers/golden.dart`) instead — no extra package.** Spike goldens passed in light/dark × 1.0/2.0. |
+| flutter_slidable 4.0.3 | yes | Works with no wrapping. |
+| patrol 4.10.0 | yes (1 file) | Resolves; integration tests not run (Phase 6). |
+| share_plus 13.3.1, file_picker 13.2.0, archive 4.5.2, csv 8.0.0, crypto 3.0.7, local_auth 3.0.2, app_settings 9.0.1, workmanager 0.10.10, cryptography 2.9.0 | no | Resolve together with `material_ui`; no Material dependency. |
+
+- **Wiring rule:** `MaterialUiCompatibilityBridge` is itself marked deprecated (temporary migration aid), and `--fatal-infos` would flag it. So it's **not** added yet. When the first SDK-Material package lands (table_calendar in Phase 3, fl_chart in Phase 4, printing in Phase 7), wrap the app once in `MaterialApp.router(builder: …)` with a `// ignore: deprecated_member_use` and a comment naming the packages. Remove it when they migrate.
+- **Not verified:** native Android compile of printing / share_plus / file_picker / local_auth / workmanager (the spike's APK build was cut off by a network drop). Check each when it's added.
