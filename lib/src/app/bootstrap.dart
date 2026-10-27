@@ -3,6 +3,8 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../flavors.dart';
 import '../core/di/injection.dart';
+import '../core/time/time_zone_service.dart';
+import '../features/settings/presentation/bloc/app_settings_bloc.dart';
 import 'app.dart';
 import 'routes/app_router.dart';
 import 'startup_failure_app.dart';
@@ -20,5 +22,5 @@ Future<void> bootstrap() async {
     runApp(StartupFailureApp(details: error.toString()));
     return;
   }
-  runApp(PlanyarApp(router: sl<AppRouter>().router));
+  runApp(PlanyarApp(router: sl<AppRouter>().router, settings: sl<AppSettingsBloc>(), timeZones: sl<TimeZoneService>()));
 }

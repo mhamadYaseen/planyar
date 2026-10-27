@@ -1283,7 +1283,8 @@ mixin _$EntryFormState {
  Instant? get end;/// True once the user set the end; stops planned-duration defaults.
  bool get endTouched;/// The end before "No end yet" was chosen, to bring it back.
  Instant? get endBeforeOpen; String get note; String? get categoryOverrideId;/// Every label (archived too, for names) and the quick-chip order.
- Map<String, Label> get labels; List<Label> get quickLabels;/// Same-kind entries this one would overlap — a warning, never a block.
+ Map<String, Label> get labels; List<Label> get quickLabels;/// For the per-entry category override (CAT-02, under "More").
+ List<Category> get categories;/// Same-kind entries this one would overlap — a warning, never a block.
  List<Entry> get overlaps; EntryCheck get check;/// The saved or deleted entry, for the caller's Undo snackbar.
  Entry? get result; Failure? get failure;
 /// Create a copy of EntryFormState
@@ -1297,20 +1298,20 @@ $EntryFormStateCopyWith<EntryFormState> get copyWith => _$EntryFormStateCopyWith
 @override
 bool operator ==(Object other) {
   final _this = this as EntryFormState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EntryFormState&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.original, _this.original) || other.original == _this.original)&&(identical(other.kind, _this.kind) || other.kind == _this.kind)&&(identical(other.kindTouched, _this.kindTouched) || other.kindTouched == _this.kindTouched)&&(identical(other.labelId, _this.labelId) || other.labelId == _this.labelId)&&(identical(other.start, _this.start) || other.start == _this.start)&&(identical(other.end, _this.end) || other.end == _this.end)&&(identical(other.endTouched, _this.endTouched) || other.endTouched == _this.endTouched)&&(identical(other.endBeforeOpen, _this.endBeforeOpen) || other.endBeforeOpen == _this.endBeforeOpen)&&(identical(other.note, _this.note) || other.note == _this.note)&&(identical(other.categoryOverrideId, _this.categoryOverrideId) || other.categoryOverrideId == _this.categoryOverrideId)&&const DeepCollectionEquality().equals(other.labels, _this.labels)&&const DeepCollectionEquality().equals(other.quickLabels, _this.quickLabels)&&const DeepCollectionEquality().equals(other.overlaps, _this.overlaps)&&(identical(other.check, _this.check) || other.check == _this.check)&&(identical(other.result, _this.result) || other.result == _this.result)&&(identical(other.failure, _this.failure) || other.failure == _this.failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EntryFormState&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.original, _this.original) || other.original == _this.original)&&(identical(other.kind, _this.kind) || other.kind == _this.kind)&&(identical(other.kindTouched, _this.kindTouched) || other.kindTouched == _this.kindTouched)&&(identical(other.labelId, _this.labelId) || other.labelId == _this.labelId)&&(identical(other.start, _this.start) || other.start == _this.start)&&(identical(other.end, _this.end) || other.end == _this.end)&&(identical(other.endTouched, _this.endTouched) || other.endTouched == _this.endTouched)&&(identical(other.endBeforeOpen, _this.endBeforeOpen) || other.endBeforeOpen == _this.endBeforeOpen)&&(identical(other.note, _this.note) || other.note == _this.note)&&(identical(other.categoryOverrideId, _this.categoryOverrideId) || other.categoryOverrideId == _this.categoryOverrideId)&&const DeepCollectionEquality().equals(other.labels, _this.labels)&&const DeepCollectionEquality().equals(other.quickLabels, _this.quickLabels)&&const DeepCollectionEquality().equals(other.categories, _this.categories)&&const DeepCollectionEquality().equals(other.overlaps, _this.overlaps)&&(identical(other.check, _this.check) || other.check == _this.check)&&(identical(other.result, _this.result) || other.result == _this.result)&&(identical(other.failure, _this.failure) || other.failure == _this.failure));
 }
 
 
 @override
 int get hashCode {
   final _this = this as EntryFormState;
-  return Object.hash(runtimeType,_this.status,_this.original,_this.kind,_this.kindTouched,_this.labelId,_this.start,_this.end,_this.endTouched,_this.endBeforeOpen,_this.note,_this.categoryOverrideId,const DeepCollectionEquality().hash(_this.labels),const DeepCollectionEquality().hash(_this.quickLabels),const DeepCollectionEquality().hash(_this.overlaps),_this.check,_this.result,_this.failure);
+  return Object.hash(runtimeType,_this.status,_this.original,_this.kind,_this.kindTouched,_this.labelId,_this.start,_this.end,_this.endTouched,_this.endBeforeOpen,_this.note,_this.categoryOverrideId,const DeepCollectionEquality().hash(_this.labels),const DeepCollectionEquality().hash(_this.quickLabels),const DeepCollectionEquality().hash(_this.categories),const DeepCollectionEquality().hash(_this.overlaps),_this.check,_this.result,_this.failure);
 }
 
 @override
 String toString() {
   final _this = this as EntryFormState;
-  return 'EntryFormState(status: ${_this.status}, original: ${_this.original}, kind: ${_this.kind}, kindTouched: ${_this.kindTouched}, labelId: ${_this.labelId}, start: ${_this.start}, end: ${_this.end}, endTouched: ${_this.endTouched}, endBeforeOpen: ${_this.endBeforeOpen}, note: ${_this.note}, categoryOverrideId: ${_this.categoryOverrideId}, labels: ${_this.labels}, quickLabels: ${_this.quickLabels}, overlaps: ${_this.overlaps}, check: ${_this.check}, result: ${_this.result}, failure: ${_this.failure})';
+  return 'EntryFormState(status: ${_this.status}, original: ${_this.original}, kind: ${_this.kind}, kindTouched: ${_this.kindTouched}, labelId: ${_this.labelId}, start: ${_this.start}, end: ${_this.end}, endTouched: ${_this.endTouched}, endBeforeOpen: ${_this.endBeforeOpen}, note: ${_this.note}, categoryOverrideId: ${_this.categoryOverrideId}, labels: ${_this.labels}, quickLabels: ${_this.quickLabels}, categories: ${_this.categories}, overlaps: ${_this.overlaps}, check: ${_this.check}, result: ${_this.result}, failure: ${_this.failure})';
 }
 
 
@@ -1321,7 +1322,7 @@ abstract mixin class $EntryFormStateCopyWith<$Res>  {
   factory $EntryFormStateCopyWith(EntryFormState value, $Res Function(EntryFormState) _then) = _$EntryFormStateCopyWithImpl;
 @useResult
 $Res call({
- EntryFormStatus status, Entry? original, EntryKind kind, bool kindTouched, String? labelId, Instant? start, Instant? end, bool endTouched, Instant? endBeforeOpen, String note, String? categoryOverrideId, Map<String, Label> labels, List<Label> quickLabels, List<Entry> overlaps, EntryCheck check, Entry? result, Failure? failure
+ EntryFormStatus status, Entry? original, EntryKind kind, bool kindTouched, String? labelId, Instant? start, Instant? end, bool endTouched, Instant? endBeforeOpen, String note, String? categoryOverrideId, Map<String, Label> labels, List<Label> quickLabels, List<Category> categories, List<Entry> overlaps, EntryCheck check, Entry? result, Failure? failure
 });
 
 
@@ -1338,7 +1339,7 @@ class _$EntryFormStateCopyWithImpl<$Res>
 
 /// Create a copy of EntryFormState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? original = freezed,Object? kind = null,Object? kindTouched = null,Object? labelId = freezed,Object? start = freezed,Object? end = freezed,Object? endTouched = null,Object? endBeforeOpen = freezed,Object? note = null,Object? categoryOverrideId = freezed,Object? labels = null,Object? quickLabels = null,Object? overlaps = null,Object? check = null,Object? result = freezed,Object? failure = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? original = freezed,Object? kind = null,Object? kindTouched = null,Object? labelId = freezed,Object? start = freezed,Object? end = freezed,Object? endTouched = null,Object? endBeforeOpen = freezed,Object? note = null,Object? categoryOverrideId = freezed,Object? labels = null,Object? quickLabels = null,Object? categories = null,Object? overlaps = null,Object? check = null,Object? result = freezed,Object? failure = freezed,}) {
   return _then(EntryFormState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as EntryFormStatus,original: freezed == original ? _self.original : original // ignore: cast_nullable_to_non_nullable
@@ -1353,7 +1354,8 @@ as Instant?,note: null == note ? _self.note : note // ignore: cast_nullable_to_n
 as String,categoryOverrideId: freezed == categoryOverrideId ? _self.categoryOverrideId : categoryOverrideId // ignore: cast_nullable_to_non_nullable
 as String?,labels: null == labels ? _self.labels : labels // ignore: cast_nullable_to_non_nullable
 as Map<String, Label>,quickLabels: null == quickLabels ? _self.quickLabels : quickLabels // ignore: cast_nullable_to_non_nullable
-as List<Label>,overlaps: null == overlaps ? _self.overlaps : overlaps // ignore: cast_nullable_to_non_nullable
+as List<Label>,categories: null == categories ? _self.categories : categories // ignore: cast_nullable_to_non_nullable
+as List<Category>,overlaps: null == overlaps ? _self.overlaps : overlaps // ignore: cast_nullable_to_non_nullable
 as List<Entry>,check: null == check ? _self.check : check // ignore: cast_nullable_to_non_nullable
 as EntryCheck,result: freezed == result ? _self.result : result // ignore: cast_nullable_to_non_nullable
 as Entry?,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
@@ -1478,10 +1480,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( EntryFormStatus status,  Entry? original,  EntryKind kind,  bool kindTouched,  String? labelId,  Instant? start,  Instant? end,  bool endTouched,  Instant? endBeforeOpen,  String note,  String? categoryOverrideId,  Map<String, Label> labels,  List<Label> quickLabels,  List<Entry> overlaps,  EntryCheck check,  Entry? result,  Failure? failure)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( EntryFormStatus status,  Entry? original,  EntryKind kind,  bool kindTouched,  String? labelId,  Instant? start,  Instant? end,  bool endTouched,  Instant? endBeforeOpen,  String note,  String? categoryOverrideId,  Map<String, Label> labels,  List<Label> quickLabels,  List<Category> categories,  List<Entry> overlaps,  EntryCheck check,  Entry? result,  Failure? failure)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _EntryFormState() when $default != null:
-return $default(_that.status,_that.original,_that.kind,_that.kindTouched,_that.labelId,_that.start,_that.end,_that.endTouched,_that.endBeforeOpen,_that.note,_that.categoryOverrideId,_that.labels,_that.quickLabels,_that.overlaps,_that.check,_that.result,_that.failure);case _:
+return $default(_that.status,_that.original,_that.kind,_that.kindTouched,_that.labelId,_that.start,_that.end,_that.endTouched,_that.endBeforeOpen,_that.note,_that.categoryOverrideId,_that.labels,_that.quickLabels,_that.categories,_that.overlaps,_that.check,_that.result,_that.failure);case _:
   return orElse();
 
 }
@@ -1499,10 +1501,10 @@ return $default(_that.status,_that.original,_that.kind,_that.kindTouched,_that.l
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( EntryFormStatus status,  Entry? original,  EntryKind kind,  bool kindTouched,  String? labelId,  Instant? start,  Instant? end,  bool endTouched,  Instant? endBeforeOpen,  String note,  String? categoryOverrideId,  Map<String, Label> labels,  List<Label> quickLabels,  List<Entry> overlaps,  EntryCheck check,  Entry? result,  Failure? failure)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( EntryFormStatus status,  Entry? original,  EntryKind kind,  bool kindTouched,  String? labelId,  Instant? start,  Instant? end,  bool endTouched,  Instant? endBeforeOpen,  String note,  String? categoryOverrideId,  Map<String, Label> labels,  List<Label> quickLabels,  List<Category> categories,  List<Entry> overlaps,  EntryCheck check,  Entry? result,  Failure? failure)  $default,) {final _that = this;
 switch (_that) {
 case _EntryFormState():
-return $default(_that.status,_that.original,_that.kind,_that.kindTouched,_that.labelId,_that.start,_that.end,_that.endTouched,_that.endBeforeOpen,_that.note,_that.categoryOverrideId,_that.labels,_that.quickLabels,_that.overlaps,_that.check,_that.result,_that.failure);case _:
+return $default(_that.status,_that.original,_that.kind,_that.kindTouched,_that.labelId,_that.start,_that.end,_that.endTouched,_that.endBeforeOpen,_that.note,_that.categoryOverrideId,_that.labels,_that.quickLabels,_that.categories,_that.overlaps,_that.check,_that.result,_that.failure);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1519,10 +1521,10 @@ return $default(_that.status,_that.original,_that.kind,_that.kindTouched,_that.l
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( EntryFormStatus status,  Entry? original,  EntryKind kind,  bool kindTouched,  String? labelId,  Instant? start,  Instant? end,  bool endTouched,  Instant? endBeforeOpen,  String note,  String? categoryOverrideId,  Map<String, Label> labels,  List<Label> quickLabels,  List<Entry> overlaps,  EntryCheck check,  Entry? result,  Failure? failure)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( EntryFormStatus status,  Entry? original,  EntryKind kind,  bool kindTouched,  String? labelId,  Instant? start,  Instant? end,  bool endTouched,  Instant? endBeforeOpen,  String note,  String? categoryOverrideId,  Map<String, Label> labels,  List<Label> quickLabels,  List<Category> categories,  List<Entry> overlaps,  EntryCheck check,  Entry? result,  Failure? failure)?  $default,) {final _that = this;
 switch (_that) {
 case _EntryFormState() when $default != null:
-return $default(_that.status,_that.original,_that.kind,_that.kindTouched,_that.labelId,_that.start,_that.end,_that.endTouched,_that.endBeforeOpen,_that.note,_that.categoryOverrideId,_that.labels,_that.quickLabels,_that.overlaps,_that.check,_that.result,_that.failure);case _:
+return $default(_that.status,_that.original,_that.kind,_that.kindTouched,_that.labelId,_that.start,_that.end,_that.endTouched,_that.endBeforeOpen,_that.note,_that.categoryOverrideId,_that.labels,_that.quickLabels,_that.categories,_that.overlaps,_that.check,_that.result,_that.failure);case _:
   return null;
 
 }
@@ -1534,7 +1536,7 @@ return $default(_that.status,_that.original,_that.kind,_that.kindTouched,_that.l
 
 
 class _EntryFormState extends EntryFormState {
-  const _EntryFormState({this.status = EntryFormStatus.loading, this.original, this.kind = EntryKind.actual, this.kindTouched = false, this.labelId, this.start, this.end, this.endTouched = false, this.endBeforeOpen, this.note = '', this.categoryOverrideId,  Map<String, Label> labels = const <String, Label>{},  List<Label> quickLabels = const <Label>[],  List<Entry> overlaps = const <Entry>[], this.check = const EntryCheck(), this.result, this.failure}): _labels = labels,_quickLabels = quickLabels,_overlaps = overlaps,super._();
+  const _EntryFormState({this.status = EntryFormStatus.loading, this.original, this.kind = EntryKind.actual, this.kindTouched = false, this.labelId, this.start, this.end, this.endTouched = false, this.endBeforeOpen, this.note = '', this.categoryOverrideId,  Map<String, Label> labels = const <String, Label>{},  List<Label> quickLabels = const <Label>[],  List<Category> categories = const <Category>[],  List<Entry> overlaps = const <Entry>[], this.check = const EntryCheck(), this.result, this.failure}): _labels = labels,_quickLabels = quickLabels,_categories = categories,_overlaps = overlaps,super._();
   
 
 @override@JsonKey() final  EntryFormStatus status;
@@ -1569,6 +1571,15 @@ class _EntryFormState extends EntryFormState {
   return EqualUnmodifiableListView(_quickLabels);
 }
 
+/// For the per-entry category override (CAT-02, under "More").
+ final  List<Category> _categories;
+/// For the per-entry category override (CAT-02, under "More").
+@override@JsonKey() List<Category> get categories {
+  if (_categories is EqualUnmodifiableListView) return _categories;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_categories);
+}
+
 /// Same-kind entries this one would overlap — a warning, never a block.
  final  List<Entry> _overlaps;
 /// Same-kind entries this one would overlap — a warning, never a block.
@@ -1593,18 +1604,18 @@ _$EntryFormStateCopyWith<_EntryFormState> get copyWith => __$EntryFormStateCopyW
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EntryFormState&&(identical(other.status, status) || other.status == status)&&(identical(other.original, original) || other.original == original)&&(identical(other.kind, kind) || other.kind == kind)&&(identical(other.kindTouched, kindTouched) || other.kindTouched == kindTouched)&&(identical(other.labelId, labelId) || other.labelId == labelId)&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&(identical(other.endTouched, endTouched) || other.endTouched == endTouched)&&(identical(other.endBeforeOpen, endBeforeOpen) || other.endBeforeOpen == endBeforeOpen)&&(identical(other.note, note) || other.note == note)&&(identical(other.categoryOverrideId, categoryOverrideId) || other.categoryOverrideId == categoryOverrideId)&&const DeepCollectionEquality().equals(other.labels, _labels)&&const DeepCollectionEquality().equals(other.quickLabels, _quickLabels)&&const DeepCollectionEquality().equals(other.overlaps, _overlaps)&&(identical(other.check, check) || other.check == check)&&(identical(other.result, result) || other.result == result)&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EntryFormState&&(identical(other.status, status) || other.status == status)&&(identical(other.original, original) || other.original == original)&&(identical(other.kind, kind) || other.kind == kind)&&(identical(other.kindTouched, kindTouched) || other.kindTouched == kindTouched)&&(identical(other.labelId, labelId) || other.labelId == labelId)&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&(identical(other.endTouched, endTouched) || other.endTouched == endTouched)&&(identical(other.endBeforeOpen, endBeforeOpen) || other.endBeforeOpen == endBeforeOpen)&&(identical(other.note, note) || other.note == note)&&(identical(other.categoryOverrideId, categoryOverrideId) || other.categoryOverrideId == categoryOverrideId)&&const DeepCollectionEquality().equals(other.labels, _labels)&&const DeepCollectionEquality().equals(other.quickLabels, _quickLabels)&&const DeepCollectionEquality().equals(other.categories, _categories)&&const DeepCollectionEquality().equals(other.overlaps, _overlaps)&&(identical(other.check, check) || other.check == check)&&(identical(other.result, result) || other.result == result)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,status,original,kind,kindTouched,labelId,start,end,endTouched,endBeforeOpen,note,categoryOverrideId,const DeepCollectionEquality().hash(_labels),const DeepCollectionEquality().hash(_quickLabels),const DeepCollectionEquality().hash(_overlaps),check,result,failure);
+    return Object.hash(runtimeType,status,original,kind,kindTouched,labelId,start,end,endTouched,endBeforeOpen,note,categoryOverrideId,const DeepCollectionEquality().hash(_labels),const DeepCollectionEquality().hash(_quickLabels),const DeepCollectionEquality().hash(_categories),const DeepCollectionEquality().hash(_overlaps),check,result,failure);
 }
 
 @override
 String toString() {
-    return 'EntryFormState(status: $status, original: $original, kind: $kind, kindTouched: $kindTouched, labelId: $labelId, start: $start, end: $end, endTouched: $endTouched, endBeforeOpen: $endBeforeOpen, note: $note, categoryOverrideId: $categoryOverrideId, labels: $labels, quickLabels: $quickLabels, overlaps: $overlaps, check: $check, result: $result, failure: $failure)';
+    return 'EntryFormState(status: $status, original: $original, kind: $kind, kindTouched: $kindTouched, labelId: $labelId, start: $start, end: $end, endTouched: $endTouched, endBeforeOpen: $endBeforeOpen, note: $note, categoryOverrideId: $categoryOverrideId, labels: $labels, quickLabels: $quickLabels, categories: $categories, overlaps: $overlaps, check: $check, result: $result, failure: $failure)';
 }
 
 
@@ -1615,7 +1626,7 @@ abstract mixin class _$EntryFormStateCopyWith<$Res> implements $EntryFormStateCo
   factory _$EntryFormStateCopyWith(_EntryFormState value, $Res Function(_EntryFormState) _then) = __$EntryFormStateCopyWithImpl;
 @override @useResult
 $Res call({
- EntryFormStatus status, Entry? original, EntryKind kind, bool kindTouched, String? labelId, Instant? start, Instant? end, bool endTouched, Instant? endBeforeOpen, String note, String? categoryOverrideId, Map<String, Label> labels, List<Label> quickLabels, List<Entry> overlaps, EntryCheck check, Entry? result, Failure? failure
+ EntryFormStatus status, Entry? original, EntryKind kind, bool kindTouched, String? labelId, Instant? start, Instant? end, bool endTouched, Instant? endBeforeOpen, String note, String? categoryOverrideId, Map<String, Label> labels, List<Label> quickLabels, List<Category> categories, List<Entry> overlaps, EntryCheck check, Entry? result, Failure? failure
 });
 
 
@@ -1632,7 +1643,7 @@ class __$EntryFormStateCopyWithImpl<$Res>
 
 /// Create a copy of EntryFormState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? original = freezed,Object? kind = null,Object? kindTouched = null,Object? labelId = freezed,Object? start = freezed,Object? end = freezed,Object? endTouched = null,Object? endBeforeOpen = freezed,Object? note = null,Object? categoryOverrideId = freezed,Object? labels = null,Object? quickLabels = null,Object? overlaps = null,Object? check = null,Object? result = freezed,Object? failure = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? original = freezed,Object? kind = null,Object? kindTouched = null,Object? labelId = freezed,Object? start = freezed,Object? end = freezed,Object? endTouched = null,Object? endBeforeOpen = freezed,Object? note = null,Object? categoryOverrideId = freezed,Object? labels = null,Object? quickLabels = null,Object? categories = null,Object? overlaps = null,Object? check = null,Object? result = freezed,Object? failure = freezed,}) {
   return _then(_EntryFormState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as EntryFormStatus,original: freezed == original ? _self.original : original // ignore: cast_nullable_to_non_nullable
@@ -1647,7 +1658,8 @@ as Instant?,note: null == note ? _self.note : note // ignore: cast_nullable_to_n
 as String,categoryOverrideId: freezed == categoryOverrideId ? _self.categoryOverrideId : categoryOverrideId // ignore: cast_nullable_to_non_nullable
 as String?,labels: null == labels ? _self._labels : labels // ignore: cast_nullable_to_non_nullable
 as Map<String, Label>,quickLabels: null == quickLabels ? _self._quickLabels : quickLabels // ignore: cast_nullable_to_non_nullable
-as List<Label>,overlaps: null == overlaps ? _self._overlaps : overlaps // ignore: cast_nullable_to_non_nullable
+as List<Label>,categories: null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
+as List<Category>,overlaps: null == overlaps ? _self._overlaps : overlaps // ignore: cast_nullable_to_non_nullable
 as List<Entry>,check: null == check ? _self.check : check // ignore: cast_nullable_to_non_nullable
 as EntryCheck,result: freezed == result ? _self.result : result // ignore: cast_nullable_to_non_nullable
 as Entry?,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable

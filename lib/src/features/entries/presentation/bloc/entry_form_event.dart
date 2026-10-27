@@ -13,11 +13,13 @@ final class NewEntryOnDate extends EntryFormRequest {
   final String? labelId;
 }
 
-/// Tap on an empty timeline gap (ENT-11).
+/// Tap on an empty timeline gap (ENT-11). [kind] is the tapped lane's kind
+/// in split mode; null lets the start time decide (ENT-02).
 final class NewEntryInGap extends EntryFormRequest {
-  const NewEntryInGap(this.gap);
+  const NewEntryInGap(this.gap, {this.kind});
 
   final InstantRange gap;
+  final EntryKind? kind;
 }
 
 final class EditEntry extends EntryFormRequest {

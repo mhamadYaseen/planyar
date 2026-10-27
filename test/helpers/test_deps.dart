@@ -46,6 +46,7 @@ class TestDeps {
     delete: DeleteEntry(entries),
     watchLabels: WatchLabels(labels),
     recentUse: GetRecentLabelUse(entries),
+    watchCategories: WatchCategories(categories),
     timeZones: zones,
   );
 

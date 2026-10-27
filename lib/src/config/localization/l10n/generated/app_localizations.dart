@@ -294,6 +294,732 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong: {details}'**
   String somethingWentWrong(String details);
+
+  /// Button: save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// Button: cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Button: delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// Snackbar action: undo the last change.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// Snackbar after saving an entry (J1 AC4).
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get saved;
+
+  /// Snackbar after deleting an entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Entry deleted'**
+  String get entryDeleted;
+
+  /// Snackbar after closing an open entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Entry ended'**
+  String get entryEnded;
+
+  /// Generic error message.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get errorGeneric;
+
+  /// Duration like "2 h 05 m" (minutes are zero-padded by the app).
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h {minutes} m'**
+  String durationHoursMinutes(String hours, String minutes);
+
+  /// Whole-hour duration like "8 h".
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h'**
+  String durationHours(String hours);
+
+  /// Duration under an hour like "45 m".
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} m'**
+  String durationMinutes(String minutes);
+
+  /// Entry kind: what happened.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual'**
+  String get kindActual;
+
+  /// Entry kind: what was planned.
+  ///
+  /// In en, this message translates to:
+  /// **'Planned'**
+  String get kindPlanned;
+
+  /// Tooltip: go to the previous day.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous day'**
+  String get previousDay;
+
+  /// Tooltip: go to the next day.
+  ///
+  /// In en, this message translates to:
+  /// **'Next day'**
+  String get nextDay;
+
+  /// Button: jump back to today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get goToToday;
+
+  /// Tooltip on the date title.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a date'**
+  String get pickDate;
+
+  /// Day header: actual time covered.
+  ///
+  /// In en, this message translates to:
+  /// **'{duration} tracked'**
+  String trackedSummary(String duration);
+
+  /// Day header: planned time.
+  ///
+  /// In en, this message translates to:
+  /// **'{duration} planned'**
+  String plannedSummary(String duration);
+
+  /// Day header chip (VIEW-05).
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 overlap} other{{count} overlaps}}'**
+  String overlapChip(int count);
+
+  /// Chip for open entries (§6.9).
+  ///
+  /// In en, this message translates to:
+  /// **'{count} to finish'**
+  String toFinishChip(int count);
+
+  /// Tooltip: switch the day view to List mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Show as list'**
+  String get showAsList;
+
+  /// Tooltip: switch the day view to the timeline.
+  ///
+  /// In en, this message translates to:
+  /// **'Show timeline'**
+  String get showAsTimeline;
+
+  /// Menu: split lanes (VIEW-03).
+  ///
+  /// In en, this message translates to:
+  /// **'Plan and actual side by side'**
+  String get lanesSplit;
+
+  /// Menu: combined lane (VIEW-03).
+  ///
+  /// In en, this message translates to:
+  /// **'One combined lane'**
+  String get lanesCombined;
+
+  /// Timeline lane header.
+  ///
+  /// In en, this message translates to:
+  /// **'PLAN'**
+  String get lanePlan;
+
+  /// Timeline lane header.
+  ///
+  /// In en, this message translates to:
+  /// **'ACTUAL'**
+  String get laneActual;
+
+  /// FAB tooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Add entry'**
+  String get addEntry;
+
+  /// Empty state for a day other than today.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing on this day. Tap + to add what you did or plan to do.'**
+  String get dayEmptyOtherDay;
+
+  /// Hint at text scale ≥ 150% (§12.7).
+  ///
+  /// In en, this message translates to:
+  /// **'Large text is on. List mode may be easier to read.'**
+  String get largeTextHint;
+
+  /// Pill on an open entry.
+  ///
+  /// In en, this message translates to:
+  /// **'No end'**
+  String get noEnd;
+
+  /// Button on an open entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Set end'**
+  String get setEnd;
+
+  /// Marker at the bottom of an overnight entry.
+  ///
+  /// In en, this message translates to:
+  /// **'continues until {time}'**
+  String continuesUntil(String time);
+
+  /// Marker at the top of an entry that started the day before.
+  ///
+  /// In en, this message translates to:
+  /// **'from {time}'**
+  String continuesFrom(String time);
+
+  /// Hour label for the repeated hour on a fall-back DST day.
+  ///
+  /// In en, this message translates to:
+  /// **'{time} (2nd)'**
+  String repeatedHour(String time);
+
+  /// Screen-reader label for an entry.
+  ///
+  /// In en, this message translates to:
+  /// **'{kind}. {label}. {start} to {end}. {duration}.'**
+  String entrySemantics(String kind, String label, String start, String end, String duration);
+
+  /// Screen-reader label for an open entry.
+  ///
+  /// In en, this message translates to:
+  /// **'{kind}. {label}. Started {start}. No end time.'**
+  String openEntrySemantics(String kind, String label, String start);
+
+  /// Screen-reader note for an overlapping entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Overlaps another entry.'**
+  String get overlapSemantics;
+
+  /// Fallback when a label is missing.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown label'**
+  String get unknownLabel;
+
+  /// Section title in the entry editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Label'**
+  String get labelHeading;
+
+  /// Start time field.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get startLabel;
+
+  /// End time field.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get endLabel;
+
+  /// Chip: end at the current time.
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get endNow;
+
+  /// Chip: save as an open entry (ENT-05).
+  ///
+  /// In en, this message translates to:
+  /// **'No end yet'**
+  String get noEndYet;
+
+  /// Chip: 15 minutes earlier.
+  ///
+  /// In en, this message translates to:
+  /// **'−15'**
+  String get minus15;
+
+  /// Chip: 15 minutes later.
+  ///
+  /// In en, this message translates to:
+  /// **'+15'**
+  String get plus15;
+
+  /// Tooltip for −15.
+  ///
+  /// In en, this message translates to:
+  /// **'15 minutes earlier'**
+  String get earlierBy15;
+
+  /// Tooltip for +15.
+  ///
+  /// In en, this message translates to:
+  /// **'15 minutes later'**
+  String get laterBy15;
+
+  /// Label search field / button.
+  ///
+  /// In en, this message translates to:
+  /// **'Search labels'**
+  String get searchLabels;
+
+  /// Expander in quick add (opens the full editor).
+  ///
+  /// In en, this message translates to:
+  /// **'Note, category'**
+  String get moreOptions;
+
+  /// Note field.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get noteLabel;
+
+  /// Category override field (rarely needed, CAT-02).
+  ///
+  /// In en, this message translates to:
+  /// **'Category for this entry'**
+  String get categoryForEntry;
+
+  /// Default option for the category override.
+  ///
+  /// In en, this message translates to:
+  /// **'From the label'**
+  String get categoryFromLabel;
+
+  /// No category.
+  ///
+  /// In en, this message translates to:
+  /// **'Uncategorized'**
+  String get uncategorized;
+
+  /// Editor warning (J5 AC1).
+  ///
+  /// In en, this message translates to:
+  /// **'Overlaps with {label} {range}. That\'s OK — saving anyway.'**
+  String overlapsWith(String label, String range);
+
+  /// When several entries overlap.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{and 1 more} other{and {count} more}}'**
+  String overlapsMore(int count);
+
+  /// Non-blocking notice over 16 h (ENT-04).
+  ///
+  /// In en, this message translates to:
+  /// **'Long entry — is the end time right?'**
+  String get longEntryNotice;
+
+  /// Blocking problem.
+  ///
+  /// In en, this message translates to:
+  /// **'The end must be after the start.'**
+  String get problemEndNotAfterStart;
+
+  /// Blocking problem.
+  ///
+  /// In en, this message translates to:
+  /// **'An entry can be at most 7 days long.'**
+  String get problemTooLong;
+
+  /// Blocking problem.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a date from 2000 up to five years from now.'**
+  String get problemOutOfRange;
+
+  /// Blocking problem.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes can be up to 2,000 characters.'**
+  String get problemNoteTooLong;
+
+  /// Hint when no label is chosen.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a label to save.'**
+  String get pickLabelFirst;
+
+  /// Editor title.
+  ///
+  /// In en, this message translates to:
+  /// **'New entry'**
+  String get newEntryTitle;
+
+  /// Editor title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit entry'**
+  String get editEntryTitle;
+
+  /// Editor action (ENT-12).
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate'**
+  String get duplicate;
+
+  /// When an entry was deleted meanwhile.
+  ///
+  /// In en, this message translates to:
+  /// **'This entry no longer exists.'**
+  String get entryNotFound;
+
+  /// Page title (S11).
+  ///
+  /// In en, this message translates to:
+  /// **'To finish'**
+  String get toFinishTitle;
+
+  /// Empty state.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to finish. Entries without an end show up here.'**
+  String get toFinishEmpty;
+
+  /// Subtitle of an open entry.
+  ///
+  /// In en, this message translates to:
+  /// **'Started {when} · {elapsed} ago'**
+  String startedAgo(String when, String elapsed);
+
+  /// Chip: end 30 minutes after the start.
+  ///
+  /// In en, this message translates to:
+  /// **'+30m'**
+  String get plus30m;
+
+  /// Chip: end 1 hour after the start.
+  ///
+  /// In en, this message translates to:
+  /// **'+1h'**
+  String get plus1h;
+
+  /// Chip: end 2 hours after the start.
+  ///
+  /// In en, this message translates to:
+  /// **'+2h'**
+  String get plus2h;
+
+  /// Button: choose an end time.
+  ///
+  /// In en, this message translates to:
+  /// **'Set end…'**
+  String get setEndEllipsis;
+
+  /// Picker row (J3 AC1).
+  ///
+  /// In en, this message translates to:
+  /// **'Create \"{name}\"'**
+  String createLabelNamed(String name);
+
+  /// Picker row (LBL-05).
+  ///
+  /// In en, this message translates to:
+  /// **'Restore archived \"{name}\"'**
+  String restoreLabelNamed(String name);
+
+  /// Picker section.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get recentLabels;
+
+  /// Picker section.
+  ///
+  /// In en, this message translates to:
+  /// **'All labels'**
+  String get allLabels;
+
+  /// Link to Labels & categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage labels'**
+  String get manageLabels;
+
+  /// Picker empty state.
+  ///
+  /// In en, this message translates to:
+  /// **'No labels yet. Type a name to create one.'**
+  String get noLabelsYet;
+
+  /// Settings entry and page title (S5).
+  ///
+  /// In en, this message translates to:
+  /// **'Labels & categories'**
+  String get labelsAndCategories;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'New label'**
+  String get newLabel;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'New category'**
+  String get newCategory;
+
+  /// Section of archived labels.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived'**
+  String get archivedLabels;
+
+  /// Usage count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Not used yet} =1{1 entry} other{{count} entries}}'**
+  String entryCount(int count);
+
+  /// Page title (S6).
+  ///
+  /// In en, this message translates to:
+  /// **'Edit label'**
+  String get editLabel;
+
+  /// Page title (S7).
+  ///
+  /// In en, this message translates to:
+  /// **'Edit category'**
+  String get editCategory;
+
+  /// Name field.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameLabel;
+
+  /// Color picker title.
+  ///
+  /// In en, this message translates to:
+  /// **'Color'**
+  String get colorLabel;
+
+  /// Icon picker title.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get iconLabel;
+
+  /// Option: no icon.
+  ///
+  /// In en, this message translates to:
+  /// **'No icon'**
+  String get noIcon;
+
+  /// Category field.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get categoryLabel;
+
+  /// Live preview title (S6).
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get previewLabel;
+
+  /// Button (LBL-05).
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archive;
+
+  /// Button (LBL-05).
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restore;
+
+  /// Name problem.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a name.'**
+  String get nameEmpty;
+
+  /// Name problem.
+  ///
+  /// In en, this message translates to:
+  /// **'Use 40 characters or fewer.'**
+  String get nameTooLong;
+
+  /// Name problem.
+  ///
+  /// In en, this message translates to:
+  /// **'That name is already used, maybe by an archived label.'**
+  String get nameTaken;
+
+  /// Part of the in-use reason.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 entry} other{{count} entries}}'**
+  String usageEntries(int count);
+
+  /// Part of the in-use reason.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 routine} other{{count} routines}}'**
+  String usageRoutines(int count);
+
+  /// Why Delete is disabled (J20 AC2).
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t delete: used by {usage}. Archive it instead to hide it from pickers.'**
+  String labelInUse(String usage);
+
+  /// Joins two phrases.
+  ///
+  /// In en, this message translates to:
+  /// **'{a} and {b}'**
+  String andJoin(String a, String b);
+
+  /// Confirmation dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete \"{name}\"? This can\'t be undone.'**
+  String deleteLabelConfirm(String name);
+
+  /// Shown on archived labels.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived: hidden from pickers, still shown on past entries.'**
+  String get labelArchivedNote;
+
+  /// Category editor section.
+  ///
+  /// In en, this message translates to:
+  /// **'Labels in this category'**
+  String get labelsInCategory;
+
+  /// Dialog title (CAT-04).
+  ///
+  /// In en, this message translates to:
+  /// **'Delete \"{name}\"?'**
+  String deleteCategoryTitle(String name);
+
+  /// Dialog text (CAT-04).
+  ///
+  /// In en, this message translates to:
+  /// **'Move its labels, tasks and entries to:'**
+  String get moveCategoryItemsTo;
+
+  /// Option: category without a color.
+  ///
+  /// In en, this message translates to:
+  /// **'No color'**
+  String get noColor;
+
+  /// Onboarding step 1.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Planyar'**
+  String get onboardingWelcomeTitle;
+
+  /// Onboarding step 1.
+  ///
+  /// In en, this message translates to:
+  /// **'Log what you did, plan what you\'ll do, and see where your time goes. Everything stays on this phone.'**
+  String get onboardingWelcomeBody;
+
+  /// Onboarding button.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get getStarted;
+
+  /// Onboarding step 2.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick some labels'**
+  String get starterTitle;
+
+  /// Onboarding step 2.
+  ///
+  /// In en, this message translates to:
+  /// **'Labels are what you log time with. Rename, recolor or add more any time.'**
+  String get starterBody;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// Settings entry and page title (S25).
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance & time'**
+  String get appearanceAndTime;
+
+  /// Setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get themeLabel;
+
+  /// Theme option.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get themeSystem;
+
+  /// Theme option.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// Theme option.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
+
+  /// Setting (SET-02).
+  ///
+  /// In en, this message translates to:
+  /// **'First day of the week'**
+  String get firstDayOfWeek;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

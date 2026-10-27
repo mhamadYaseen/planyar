@@ -31,6 +31,9 @@ abstract class EntryFormState with _$EntryFormState {
     @Default(<String, Label>{}) Map<String, Label> labels,
     @Default(<Label>[]) List<Label> quickLabels,
 
+    /// For the per-entry category override (CAT-02, under "More").
+    @Default(<Category>[]) List<Category> categories,
+
     /// Same-kind entries this one would overlap — a warning, never a block.
     @Default(<Entry>[]) List<Entry> overlaps,
     @Default(EntryCheck()) EntryCheck check,

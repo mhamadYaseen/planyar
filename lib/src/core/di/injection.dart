@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' show QueryExecutor;
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get_it/get_it.dart';
 import 'package:material_ui/material_ui.dart';
@@ -6,38 +7,55 @@ import 'package:timezone/data/latest_all.dart' as tzdata;
 import '../../../flavors.dart';
 import '../../app/routes/app_router.dart';
 import '../../config/localization/l10n/generated/app_localizations.dart';
+import '../../features/day_view/day_view_injection.dart';
 import '../../features/dev_tools/dev_tools_injection.dart';
+import '../../features/entries/entries_injection.dart';
+import '../../features/labels/labels_injection.dart';
+import '../../features/onboarding/onboarding_injection.dart';
+import '../../features/settings/presentation/bloc/app_settings_bloc.dart';
+import '../../features/settings/settings_injection.dart';
 import '../database/app_database.dart';
 import '../database/database_connection.dart';
 import '../notifications/flutter_local_notifications_gateway.dart';
 import '../notifications/notification_gateway.dart';
+import '../time/minute_ticker.dart';
 import '../time/time_zone_service.dart';
 import '../utils/id_generator.dart';
 
 /// The service locator (team baseline). Widgets don't use it directly;
-/// pages use it only to create their Bloc.
+/// pages and sheets use it only to create their Bloc.
 final GetIt sl = GetIt.instance;
 
 /// Registers everything in the startup order of plan §8.4.4. Throws if the
 /// database can't be opened, so bootstrap can show the failure screen.
-Future<void> setupDependencies({required Flavor flavor}) async {
+///
+/// Tests pass an in-memory [database], fake [notifications], a fixed
+/// [readTimeZone] and a hand-driven [ticker].
+Future<void> setupDependencies({
+  required Flavor flavor,
+  QueryExecutor? database,
+  NotificationGateway? notifications,
+  Future<String> Function()? readTimeZone,
+  MinuteTicker? ticker,
+}) async {
   // 1. Database — opened now (not lazily) so migration errors surface here.
-  final database = AppDatabase(openDatabaseConnection());
-  await database.customSelect('SELECT 1').get();
+  final db = AppDatabase(database ?? openDatabaseConnection());
+  await db.customSelect('SELECT 1').get();
   sl
-    ..registerSingleton<AppDatabase>(database, dispose: (db) => db.close())
-    ..registerLazySingleton<IdGenerator>(() => const UuidV7IdGenerator());
+    ..registerSingleton<AppDatabase>(db, dispose: (db) => db.close())
+    ..registerLazySingleton<IdGenerator>(() => const UuidV7IdGenerator())
+    ..registerLazySingleton<MinuteTicker>(() => ticker ?? const ClockMinuteTicker());
 
   // 2. Time zone (also sets the zone used for scheduling notifications).
   tzdata.initializeTimeZones();
-  final timeZones = TimeZoneService(() async => (await FlutterTimezone.getLocalTimezone()).identifier);
+  final timeZones = TimeZoneService(readTimeZone ?? () async => (await FlutterTimezone.getLocalTimezone()).identifier);
   await timeZones.refresh();
   sl.registerSingleton<TimeZoneService>(timeZones);
 
   // 3. Notifications — initialize never prompts for permission.
+  final gateway = notifications ?? FlutterLocalNotificationsGateway();
   final l10n = lookupAppLocalizations(const Locale('en'));
-  final notifications = FlutterLocalNotificationsGateway();
-  await notifications.initialize(
+  await gateway.initialize(
     channelNames: {
       NotificationChannel.routines: l10n.channelRoutines,
       NotificationChannel.tasks: l10n.channelTasks,
@@ -45,11 +63,16 @@ Future<void> setupDependencies({required Flavor flavor}) async {
       NotificationChannel.backups: l10n.channelBackups,
     },
   );
-  sl.registerSingleton<NotificationGateway>(notifications);
+  sl.registerSingleton<NotificationGateway>(gateway);
 
   // 4. Features.
+  await registerSettingsFeature(sl);
+  registerLabelsFeature(sl);
+  registerEntriesFeature(sl);
+  registerDayViewFeature(sl);
+  registerOnboardingFeature(sl);
   if (flavor == Flavor.dev) registerDevToolsFeature(sl);
 
   // 5. Routing.
-  sl.registerSingleton<AppRouter>(AppRouter(flavor: flavor));
+  sl.registerSingleton<AppRouter>(AppRouter(flavor: flavor, settings: sl<AppSettingsBloc>()));
 }

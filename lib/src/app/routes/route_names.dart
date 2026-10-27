@@ -7,6 +7,14 @@ abstract final class RouteNames {
   static const reports = 'reports';
   static const settings = 'settings';
   static const devTools = 'dev-tools';
+  static const toFinish = 'to-finish';
+  static const labels = 'labels';
+  static const labelNew = 'label-new';
+  static const labelEdit = 'label-edit';
+  static const categoryNew = 'category-new';
+  static const categoryEdit = 'category-edit';
+  static const appearance = 'appearance';
+  static const onboarding = 'onboarding';
 }
 
 abstract final class RoutePaths {
@@ -16,4 +24,8 @@ abstract final class RoutePaths {
   static const reports = '/reports';
   static const settings = '/settings';
   static const devTools = '/settings/dev-tools';
+  static const toFinish = '/today/to-finish';
+  static const labels = '/settings/labels';
+  static const appearance = '/settings/appearance';
+  static const onboarding = '/onboarding';
 }

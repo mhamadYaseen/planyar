@@ -1,0 +1,57 @@
+import 'package:material_ui/material_ui.dart';
+
+/// Curated label icons (LBL-02). Labels store the **key**, never a code
+/// point, so icons survive font changes. Keys must never be renamed.
+abstract final class LabelIcons {
+  static const Map<String, IconData> all = {
+    'sleep': Icons.bedtime_outlined,
+    'work': Icons.work_outline,
+    'study': Icons.school_outlined,
+    'book': Icons.menu_book_outlined,
+    'write': Icons.edit_note,
+    'code': Icons.code,
+    'computer': Icons.computer,
+    'idea': Icons.lightbulb_outline,
+    'language': Icons.translate,
+    'meeting': Icons.groups_outlined,
+    'call': Icons.call_outlined,
+    'email': Icons.mail_outline,
+    'phone': Icons.phone_outlined,
+    'exercise': Icons.fitness_center,
+    'run': Icons.directions_run,
+    'walk': Icons.directions_walk,
+    'bike': Icons.directions_bike,
+    'swim': Icons.pool,
+    'sport': Icons.sports_soccer,
+    'meditate': Icons.self_improvement,
+    'prayer': Icons.mosque_outlined,
+    'health': Icons.favorite_outline,
+    'medical': Icons.medical_services_outlined,
+    'meal': Icons.restaurant,
+    'coffee': Icons.local_cafe_outlined,
+    'break': Icons.free_breakfast_outlined,
+    'cook': Icons.soup_kitchen_outlined,
+    'commute': Icons.directions_bus_outlined,
+    'car': Icons.directions_car_outlined,
+    'travel': Icons.flight_outlined,
+    'home': Icons.home_outlined,
+    'chores': Icons.cleaning_services_outlined,
+    'shopping': Icons.shopping_cart_outlined,
+    'repair': Icons.build_outlined,
+    'garden': Icons.yard_outlined,
+    'money': Icons.payments_outlined,
+    'leisure': Icons.weekend_outlined,
+    'tv': Icons.tv_outlined,
+    'game': Icons.sports_esports_outlined,
+    'music': Icons.music_note_outlined,
+    'art': Icons.palette_outlined,
+    'nature': Icons.park_outlined,
+    'people': Icons.people_outline,
+    'family': Icons.family_restroom,
+    'child': Icons.child_care,
+    'pet': Icons.pets,
+    'social': Icons.forum_outlined,
+  };
+
+  static IconData? of(String? key) => key == null ? null : all[key];
+}

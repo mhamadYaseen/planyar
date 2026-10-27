@@ -169,5 +169,639 @@
         "example": "PlatformException"
       }
     }
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Button: save."
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Button: cancel."
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Button: delete."
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Snackbar action: undo the last change."
+  },
+  "saved": "Saved",
+  "@saved": {
+    "description": "Snackbar after saving an entry (J1 AC4)."
+  },
+  "entryDeleted": "Entry deleted",
+  "@entryDeleted": {
+    "description": "Snackbar after deleting an entry."
+  },
+  "entryEnded": "Entry ended",
+  "@entryEnded": {
+    "description": "Snackbar after closing an open entry."
+  },
+  "errorGeneric": "Something went wrong. Please try again.",
+  "@errorGeneric": {
+    "description": "Generic error message."
+  },
+  "durationHoursMinutes": "{hours} h {minutes} m",
+  "@durationHoursMinutes": {
+    "description": "Duration like \"2 h 05 m\" (minutes are zero-padded by the app).",
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "durationHours": "{hours} h",
+  "@durationHours": {
+    "description": "Whole-hour duration like \"8 h\".",
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "durationMinutes": "{minutes} m",
+  "@durationMinutes": {
+    "description": "Duration under an hour like \"45 m\".",
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "kindActual": "Actual",
+  "@kindActual": {
+    "description": "Entry kind: what happened."
+  },
+  "kindPlanned": "Planned",
+  "@kindPlanned": {
+    "description": "Entry kind: what was planned."
+  },
+  "previousDay": "Previous day",
+  "@previousDay": {
+    "description": "Tooltip: go to the previous day."
+  },
+  "nextDay": "Next day",
+  "@nextDay": {
+    "description": "Tooltip: go to the next day."
+  },
+  "goToToday": "Today",
+  "@goToToday": {
+    "description": "Button: jump back to today."
+  },
+  "pickDate": "Pick a date",
+  "@pickDate": {
+    "description": "Tooltip on the date title."
+  },
+  "trackedSummary": "{duration} tracked",
+  "@trackedSummary": {
+    "description": "Day header: actual time covered.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "plannedSummary": "{duration} planned",
+  "@plannedSummary": {
+    "description": "Day header: planned time.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "overlapChip": "{count, plural, =1{1 overlap} other{{count} overlaps}}",
+  "@overlapChip": {
+    "description": "Day header chip (VIEW-05).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toFinishChip": "{count} to finish",
+  "@toFinishChip": {
+    "description": "Chip for open entries (§6.9).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "showAsList": "Show as list",
+  "@showAsList": {
+    "description": "Tooltip: switch the day view to List mode."
+  },
+  "showAsTimeline": "Show timeline",
+  "@showAsTimeline": {
+    "description": "Tooltip: switch the day view to the timeline."
+  },
+  "lanesSplit": "Plan and actual side by side",
+  "@lanesSplit": {
+    "description": "Menu: split lanes (VIEW-03)."
+  },
+  "lanesCombined": "One combined lane",
+  "@lanesCombined": {
+    "description": "Menu: combined lane (VIEW-03)."
+  },
+  "lanePlan": "PLAN",
+  "@lanePlan": {
+    "description": "Timeline lane header."
+  },
+  "laneActual": "ACTUAL",
+  "@laneActual": {
+    "description": "Timeline lane header."
+  },
+  "addEntry": "Add entry",
+  "@addEntry": {
+    "description": "FAB tooltip."
+  },
+  "dayEmptyOtherDay": "Nothing on this day. Tap + to add what you did or plan to do.",
+  "@dayEmptyOtherDay": {
+    "description": "Empty state for a day other than today."
+  },
+  "largeTextHint": "Large text is on. List mode may be easier to read.",
+  "@largeTextHint": {
+    "description": "Hint at text scale ≥ 150% (§12.7)."
+  },
+  "noEnd": "No end",
+  "@noEnd": {
+    "description": "Pill on an open entry."
+  },
+  "setEnd": "Set end",
+  "@setEnd": {
+    "description": "Button on an open entry."
+  },
+  "continuesUntil": "continues until {time}",
+  "@continuesUntil": {
+    "description": "Marker at the bottom of an overnight entry.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "continuesFrom": "from {time}",
+  "@continuesFrom": {
+    "description": "Marker at the top of an entry that started the day before.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "repeatedHour": "{time} (2nd)",
+  "@repeatedHour": {
+    "description": "Hour label for the repeated hour on a fall-back DST day.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "entrySemantics": "{kind}. {label}. {start} to {end}. {duration}.",
+  "@entrySemantics": {
+    "description": "Screen-reader label for an entry.",
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "openEntrySemantics": "{kind}. {label}. Started {start}. No end time.",
+  "@openEntrySemantics": {
+    "description": "Screen-reader label for an open entry.",
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      }
+    }
+  },
+  "overlapSemantics": "Overlaps another entry.",
+  "@overlapSemantics": {
+    "description": "Screen-reader note for an overlapping entry."
+  },
+  "unknownLabel": "Unknown label",
+  "@unknownLabel": {
+    "description": "Fallback when a label is missing."
+  },
+  "labelHeading": "Label",
+  "@labelHeading": {
+    "description": "Section title in the entry editor."
+  },
+  "startLabel": "Start",
+  "@startLabel": {
+    "description": "Start time field."
+  },
+  "endLabel": "End",
+  "@endLabel": {
+    "description": "End time field."
+  },
+  "endNow": "Now",
+  "@endNow": {
+    "description": "Chip: end at the current time."
+  },
+  "noEndYet": "No end yet",
+  "@noEndYet": {
+    "description": "Chip: save as an open entry (ENT-05)."
+  },
+  "minus15": "−15",
+  "@minus15": {
+    "description": "Chip: 15 minutes earlier."
+  },
+  "plus15": "+15",
+  "@plus15": {
+    "description": "Chip: 15 minutes later."
+  },
+  "earlierBy15": "15 minutes earlier",
+  "@earlierBy15": {
+    "description": "Tooltip for −15."
+  },
+  "laterBy15": "15 minutes later",
+  "@laterBy15": {
+    "description": "Tooltip for +15."
+  },
+  "searchLabels": "Search labels",
+  "@searchLabels": {
+    "description": "Label search field / button."
+  },
+  "moreOptions": "Note, category",
+  "@moreOptions": {
+    "description": "Expander in quick add (opens the full editor)."
+  },
+  "noteLabel": "Note",
+  "@noteLabel": {
+    "description": "Note field."
+  },
+  "categoryForEntry": "Category for this entry",
+  "@categoryForEntry": {
+    "description": "Category override field (rarely needed, CAT-02)."
+  },
+  "categoryFromLabel": "From the label",
+  "@categoryFromLabel": {
+    "description": "Default option for the category override."
+  },
+  "uncategorized": "Uncategorized",
+  "@uncategorized": {
+    "description": "No category."
+  },
+  "overlapsWith": "Overlaps with {label} {range}. That's OK — saving anyway.",
+  "@overlapsWith": {
+    "description": "Editor warning (J5 AC1).",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "range": {
+        "type": "String"
+      }
+    }
+  },
+  "overlapsMore": "{count, plural, =1{and 1 more} other{and {count} more}}",
+  "@overlapsMore": {
+    "description": "When several entries overlap.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "longEntryNotice": "Long entry — is the end time right?",
+  "@longEntryNotice": {
+    "description": "Non-blocking notice over 16 h (ENT-04)."
+  },
+  "problemEndNotAfterStart": "The end must be after the start.",
+  "@problemEndNotAfterStart": {
+    "description": "Blocking problem."
+  },
+  "problemTooLong": "An entry can be at most 7 days long.",
+  "@problemTooLong": {
+    "description": "Blocking problem."
+  },
+  "problemOutOfRange": "Pick a date from 2000 up to five years from now.",
+  "@problemOutOfRange": {
+    "description": "Blocking problem."
+  },
+  "problemNoteTooLong": "Notes can be up to 2,000 characters.",
+  "@problemNoteTooLong": {
+    "description": "Blocking problem."
+  },
+  "pickLabelFirst": "Pick a label to save.",
+  "@pickLabelFirst": {
+    "description": "Hint when no label is chosen."
+  },
+  "newEntryTitle": "New entry",
+  "@newEntryTitle": {
+    "description": "Editor title."
+  },
+  "editEntryTitle": "Edit entry",
+  "@editEntryTitle": {
+    "description": "Editor title."
+  },
+  "duplicate": "Duplicate",
+  "@duplicate": {
+    "description": "Editor action (ENT-12)."
+  },
+  "entryNotFound": "This entry no longer exists.",
+  "@entryNotFound": {
+    "description": "When an entry was deleted meanwhile."
+  },
+  "toFinishTitle": "To finish",
+  "@toFinishTitle": {
+    "description": "Page title (S11)."
+  },
+  "toFinishEmpty": "Nothing to finish. Entries without an end show up here.",
+  "@toFinishEmpty": {
+    "description": "Empty state."
+  },
+  "startedAgo": "Started {when} · {elapsed} ago",
+  "@startedAgo": {
+    "description": "Subtitle of an open entry.",
+    "placeholders": {
+      "when": {
+        "type": "String"
+      },
+      "elapsed": {
+        "type": "String"
+      }
+    }
+  },
+  "plus30m": "+30m",
+  "@plus30m": {
+    "description": "Chip: end 30 minutes after the start."
+  },
+  "plus1h": "+1h",
+  "@plus1h": {
+    "description": "Chip: end 1 hour after the start."
+  },
+  "plus2h": "+2h",
+  "@plus2h": {
+    "description": "Chip: end 2 hours after the start."
+  },
+  "setEndEllipsis": "Set end…",
+  "@setEndEllipsis": {
+    "description": "Button: choose an end time."
+  },
+  "createLabelNamed": "Create \"{name}\"",
+  "@createLabelNamed": {
+    "description": "Picker row (J3 AC1).",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "restoreLabelNamed": "Restore archived \"{name}\"",
+  "@restoreLabelNamed": {
+    "description": "Picker row (LBL-05).",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "recentLabels": "Recent",
+  "@recentLabels": {
+    "description": "Picker section."
+  },
+  "allLabels": "All labels",
+  "@allLabels": {
+    "description": "Picker section."
+  },
+  "manageLabels": "Manage labels",
+  "@manageLabels": {
+    "description": "Link to Labels & categories."
+  },
+  "noLabelsYet": "No labels yet. Type a name to create one.",
+  "@noLabelsYet": {
+    "description": "Picker empty state."
+  },
+  "labelsAndCategories": "Labels & categories",
+  "@labelsAndCategories": {
+    "description": "Settings entry and page title (S5)."
+  },
+  "newLabel": "New label",
+  "@newLabel": {
+    "description": "Button."
+  },
+  "newCategory": "New category",
+  "@newCategory": {
+    "description": "Button."
+  },
+  "archivedLabels": "Archived",
+  "@archivedLabels": {
+    "description": "Section of archived labels."
+  },
+  "entryCount": "{count, plural, =0{Not used yet} =1{1 entry} other{{count} entries}}",
+  "@entryCount": {
+    "description": "Usage count.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editLabel": "Edit label",
+  "@editLabel": {
+    "description": "Page title (S6)."
+  },
+  "editCategory": "Edit category",
+  "@editCategory": {
+    "description": "Page title (S7)."
+  },
+  "nameLabel": "Name",
+  "@nameLabel": {
+    "description": "Name field."
+  },
+  "colorLabel": "Color",
+  "@colorLabel": {
+    "description": "Color picker title."
+  },
+  "iconLabel": "Icon",
+  "@iconLabel": {
+    "description": "Icon picker title."
+  },
+  "noIcon": "No icon",
+  "@noIcon": {
+    "description": "Option: no icon."
+  },
+  "categoryLabel": "Category",
+  "@categoryLabel": {
+    "description": "Category field."
+  },
+  "previewLabel": "Preview",
+  "@previewLabel": {
+    "description": "Live preview title (S6)."
+  },
+  "archive": "Archive",
+  "@archive": {
+    "description": "Button (LBL-05)."
+  },
+  "restore": "Restore",
+  "@restore": {
+    "description": "Button (LBL-05)."
+  },
+  "nameEmpty": "Enter a name.",
+  "@nameEmpty": {
+    "description": "Name problem."
+  },
+  "nameTooLong": "Use 40 characters or fewer.",
+  "@nameTooLong": {
+    "description": "Name problem."
+  },
+  "nameTaken": "That name is already used, maybe by an archived label.",
+  "@nameTaken": {
+    "description": "Name problem."
+  },
+  "usageEntries": "{count, plural, =1{1 entry} other{{count} entries}}",
+  "@usageEntries": {
+    "description": "Part of the in-use reason.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "usageRoutines": "{count, plural, =1{1 routine} other{{count} routines}}",
+  "@usageRoutines": {
+    "description": "Part of the in-use reason.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "labelInUse": "Can't delete: used by {usage}. Archive it instead to hide it from pickers.",
+  "@labelInUse": {
+    "description": "Why Delete is disabled (J20 AC2).",
+    "placeholders": {
+      "usage": {
+        "type": "String"
+      }
+    }
+  },
+  "andJoin": "{a} and {b}",
+  "@andJoin": {
+    "description": "Joins two phrases.",
+    "placeholders": {
+      "a": {
+        "type": "String"
+      },
+      "b": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteLabelConfirm": "Delete \"{name}\"? This can't be undone.",
+  "@deleteLabelConfirm": {
+    "description": "Confirmation dialog.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "labelArchivedNote": "Archived: hidden from pickers, still shown on past entries.",
+  "@labelArchivedNote": {
+    "description": "Shown on archived labels."
+  },
+  "labelsInCategory": "Labels in this category",
+  "@labelsInCategory": {
+    "description": "Category editor section."
+  },
+  "deleteCategoryTitle": "Delete \"{name}\"?",
+  "@deleteCategoryTitle": {
+    "description": "Dialog title (CAT-04).",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "moveCategoryItemsTo": "Move its labels, tasks and entries to:",
+  "@moveCategoryItemsTo": {
+    "description": "Dialog text (CAT-04)."
+  },
+  "noColor": "No color",
+  "@noColor": {
+    "description": "Option: category without a color."
+  },
+  "onboardingWelcomeTitle": "Welcome to Planyar",
+  "@onboardingWelcomeTitle": {
+    "description": "Onboarding step 1."
+  },
+  "onboardingWelcomeBody": "Log what you did, plan what you'll do, and see where your time goes. Everything stays on this phone.",
+  "@onboardingWelcomeBody": {
+    "description": "Onboarding step 1."
+  },
+  "getStarted": "Get started",
+  "@getStarted": {
+    "description": "Onboarding button."
+  },
+  "starterTitle": "Pick some labels",
+  "@starterTitle": {
+    "description": "Onboarding step 2."
+  },
+  "starterBody": "Labels are what you log time with. Rename, recolor or add more any time.",
+  "@starterBody": {
+    "description": "Onboarding step 2."
+  },
+  "skip": "Skip",
+  "@skip": {
+    "description": "Button."
+  },
+  "continueButton": "Continue",
+  "@continueButton": {
+    "description": "Button."
+  },
+  "back": "Back",
+  "@back": {
+    "description": "Button."
+  },
+  "appearanceAndTime": "Appearance & time",
+  "@appearanceAndTime": {
+    "description": "Settings entry and page title (S25)."
+  },
+  "themeLabel": "Theme",
+  "@themeLabel": {
+    "description": "Setting."
+  },
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "Theme option."
+  },
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Theme option."
+  },
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Theme option."
+  },
+  "firstDayOfWeek": "First day of the week",
+  "@firstDayOfWeek": {
+    "description": "Setting (SET-02)."
   }
 }

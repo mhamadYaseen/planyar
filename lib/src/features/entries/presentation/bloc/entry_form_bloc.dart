@@ -35,6 +35,7 @@ class EntryFormBloc extends Bloc<EntryFormEvent, EntryFormState> {
     required this._delete,
     required this._watchLabels,
     required this._recentUse,
+    required this._watchCategories,
     required this._timeZones,
   }) : super(const EntryFormState()) {
     on<_Started>(_onStarted);
@@ -68,6 +69,7 @@ class EntryFormBloc extends Bloc<EntryFormEvent, EntryFormState> {
   final DeleteEntry _delete;
   final WatchLabels _watchLabels;
   final GetRecentLabelUse _recentUse;
+  final WatchCategories _watchCategories;
   final TimeZoneService _timeZones;
 
   DayMath get _math => _timeZones.dayMath;
@@ -77,8 +79,10 @@ class EntryFormBloc extends Bloc<EntryFormEvent, EntryFormState> {
     switch (event.request) {
       case NewEntryOnDate(:final date, :final labelId):
         await _startNew(emit, DefaultsForDate(date), labelId: labelId);
-      case NewEntryInGap(:final gap):
+      case NewEntryInGap(:final gap, :final kind):
         await _startNew(emit, DefaultsForGap(gap));
+        // Tapped in the PLAN or ACTUAL lane: that lane's kind (VIEW-03).
+        if (kind != null) _apply(emit, state.copyWith(kind: kind, kindTouched: true));
       case EditEntry(:final entryId):
         final entry = await _getEntry(entryId);
         if (entry == null) {
@@ -124,11 +128,16 @@ class EntryFormBloc extends Bloc<EntryFormEvent, EntryFormState> {
         );
     }
 
-    await emit.forEach<List<Label>>(
-      _watchLabels(const NoParams()),
-      onData: (labels) {
+    await emit.forEach<(List<Label>, List<Category>)>(
+      combineLatest2(_watchLabels(const NoParams()), _watchCategories(const NoParams()), (l, c) => (l, c)),
+      onData: (data) {
+        final (labels, categories) = data;
         final picker = LabelRules.picker(labels, recentUse: recentUse);
-        return state.copyWith(labels: {for (final l in labels) l.id: l}, quickLabels: picker.quickChips);
+        return state.copyWith(
+          labels: {for (final l in labels) l.id: l},
+          quickLabels: picker.quickChips,
+          categories: categories,
+        );
       },
       onError: (_, _) => state,
     );
