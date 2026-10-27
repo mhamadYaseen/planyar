@@ -1,55 +1,58 @@
 # Planyar — status and next steps
 
-_Last updated: 2026-10-27, Phase 0 session._
+_Last updated: 2026-10-27, end of the Phase 1 session._
 
-## Done
+## Where things stand
 
-### Setup session (2026-10-25)
-- Project plan approved — [PROJECT_PLAN.md](PROJECT_PLAN.md); decisions in [decisions.md](decisions.md).
-- Flutter 3.47.8 / Dart 3.13.7; IDs `com.muhammadyaseen.planyar`; GitHub `origin` = https://github.com/mhamadYaseen/planyar.
+- **Phase 0 (foundation): done** — see "Phase 0" below.
+- **Phase 1 (entries, labels, Today): done in code** on branch `phase-1` (merged into `main` once CI is green). Left for you: the 60 fps check and a reminder test on your real phone (see "Your to-do").
+- **Next: Phase 2 — full backup, export and import** (plan §13).
 
-### Open items from the setup session — all handled
-1. **Unused platforms removed** (owner approved): `linux/`, `macos/`, `web/`, `windows/` deleted; `.metadata` updated.
-2. **First Android build:** see "Verification" below.
-3. **Old `my-project` folder:** left for the owner to delete (not touched).
+## Phase 1 — what's in the app
 
-### Design change
-- Palette switched to **"Warm Focus"** (owner request): gold `#D99A22`, pale yellow `#F3D77A`, ivory/charcoal backgrounds. Contrast-checked token table in plan §12.2; warnings moved from amber to burnt orange; D-42 updated.
-
-### Phase 0 — foundation (plan §13)
-- **Clean architecture, feature-based** (owner request): `lib/src/{app,config,core,features}`, each feature `data/ domain/ presentation/` + `<feature>_injection.dart`. `test/architecture/layer_boundaries_test.dart` enforces pure domain code and inward dependencies. `features/dev_tools` is the reference feature (use cases → Bloc with Freezed events/state → page + widgets).
-- **App shell:** GoRouter `StatefulShellRoute` — Today / Calendar / Tasks / Reports tabs (bottom bar on phones, rail ≥ 600 dp), Settings from the gear. GetIt composition root in `core/di/injection.dart`. Startup opens the DB eagerly and shows a "couldn't open your data" screen on failure.
-- **Theme:** hand-built light/dark `ColorScheme`s from the Warm Focus tokens, `PlanyarColors` extension (gold ink, warning, success), 16-hue label palette. Contrast tests for every pair, all label hues, both themes.
-- **`material_ui`** everywhere; English ARB l10n (`lib/src/config/localization/l10n`). Material spike done — results and wiring rule in decisions.md.
-- **Flavors:** Android `dev` (`…planyar.dev`, "Planyar Dev", DEV banner, Developer tools) and `prod`; iOS `dev`/`prod` schemes and build configurations.
-- **Release signing:** keystore at `~/planyar-signing/` (outside the repo), linked by git-ignored `android/key.properties`. Release builds fail without it (no debug-key fallback). How-to: [RELEASE.md](RELEASE.md).
-- **Database:** Drift `AppDatabase` schema v1 with every plan §7 table and CHECK constraints; v1 snapshot in `drift_schemas/`; migration test harness; constraint tests.
-- **Time:** `Instant`, `LocalDate`, `WallTime`, `DayMath` (injectable zone rules, tz database in production) + `TimeZoneService`. Tests pass in 7 zones in-process and under `TZ=` for the same 7.
-- **Notification spike (code):** `NotificationGateway` + `flutter_local_notifications` implementation, 4 Android channels, manifest permissions (`USE_EXACT_ALARM`, D-40), dev-only page with "Allow / Show now / Schedule in 1 minute / Cancel".
-- **Lints and CI:** strict lints, `flutter analyze --fatal-infos`, 120-column `tool/format.sh`. GitHub Actions `.github/workflows/ci.yml`: generated-code check, format, analyze, tests, 7-zone TZ matrix, dev + prod builds, `tool/check_release_apk.sh` (no `INTERNET`, 16 KB alignment).
+- **Today (S1):** swipe between days, ‹ date › with a date picker, Today button, week strip starting on your first day of week (Friday by default). Header: tracked / planned time, "⚠ 1 overlap" (scrolls to it) and "◷ 2 to finish" chips.
+- **Timeline** with Plan | Actual lanes (or one combined lane), side-by-side overlap columns with ⚠, overnight entries clipped with "from …" / "continues until …" markers, open entries running to now, DST-aware hour labels ("01:00 (2nd)"), now-line, tap an empty gap to add (ENT-11). **List mode** as the fully accessible alternative; the choice is remembered.
+- **Quick add (S2)** — 3 taps when defaults are right (+ → label → Save); smart defaults, Actual/Planned auto-switch, ±15, 30m/1h/2h, Now, "No end yet", live overlap warning, "Saved · Undo". **Full editor (S3)** with note, category override, duplicate, delete (with Undo).
+- **Label picker (S4)** with recent chips, search, "Create '…'" and "Restore archived '…'". **Labels & categories (S5)**, **label editor (S6)** with live preview, 16 colors, 47 icons, archive; delete only when unused (with the reason). **Category editor (S7)** with delete-and-move.
+- **To finish (S11):** End now, +30m/+1h/+2h, Set end…, delete with Undo.
+- **Onboarding** steps 1–2 (welcome, starter labels and categories). **Appearance & time:** theme System/Light/Dark, first day of week.
+- **Dev flavor tools:** notification test, "Add ~5,000 sample entries", frame-timing recorder.
 
 ## Verification (2026-10-27)
 
 | Check | Result |
 |---|---|
-| `flutter analyze --fatal-infos`, `tool/format.sh --check` | Clean |
-| `flutter test` | **122 passed**, 1 skipped (the TZ cross-check runs only when `TZ` is set) |
-| Time tests under `TZ=` × 7 zones | All pass |
-| `flutter build apk --debug --flavor dev` | ✅ Built (first Gradle run needed retries: DNS drops on this connection; `android/gradle.properties` now has longer timeouts/retries) |
-| `flutter build apk --release --flavor prod` | ✅ 59 MB, signed with the release key (certificate SHA-256 matches `~/planyar-signing`), **no `INTERNET` permission**, 16 KB aligned |
-| Dev build on the Pixel_9 emulator (Android 16) | Launches; Warm Focus theme correct; DEV banner; permission prompt "Allow Planyar Dev to send you notifications?"; exact alarm granted via `USE_EXACT_ALARM`; **test reminder fired on time** (16:04:50, app in background) on the Routines channel. The dev build stays installed on that emulator. |
-| iOS build | ⚠️ **Not verified.** Xcode 26 started downloading the iOS platform (several GB) and the build was stopped after ~3 h. Install it once on a fast connection (Xcode → Settings → Components → iOS), then run `flutter build ios --no-codesign --flavor dev`. |
-| GitHub Actions CI | ✅ Green on `a7ea6bf`: codegen current, format, analyze, tests, 7-zone TZ matrix, dev + prod Android builds, release APK check. (The first run caught a test that only passed in this Mac's own zone — fixed.) |
+| `tool/check.sh` (format, `analyze --fatal-infos`, all tests) | ✅ 242 passed (1 skipped: TZ cross-check runs only with `TZ` set) |
+| Journeys J1–J5 and J20 (Phase 1 DoD) | ✅ Widget tests on the real app: real DI, repositories, router, in-memory database |
+| Timeline goldens (overnight, overlap, open entry, DST day; light/dark × 1.0/2.0) | ✅ Generated on this Mac; CI compares them on macOS. They caught and fixed overflow bugs in small blocks |
+| Accessibility guidelines (tap targets, labels, contrast) on Today | ✅ Light and dark |
+| Day query with 20,075 entries | ✅ ~0.15 ms (budget 20 ms) |
+| Release build on the Pixel_9 emulator | ✅ Onboarding → quick add → save → Undo → To finish; 5,005 sample entries display correctly |
+| 60 fps scrolling | ⏳ **Needs your phone.** The emulator renders in software (SwiftShader): even a plain 8-item list measures 65 ms/frame there, so its numbers say nothing about the app |
+| iOS build | ⚠️ Still not verified (needs Xcode's iOS platform download; see Phase 0 notes) |
 
-## Owner to-do
+## Your to-do
 
-1. **Back up `~/planyar-signing/`** now: password manager + an offline USB copy. Instructions are in `~/planyar-signing/README.txt`. Losing it means future updates need an uninstall (data loss).
-2. **Notification spike on your phone:** install the dev APK (`adb install -r build/app/outputs/flutter-apk/app-dev-debug.apk`, or copy it to the phone), open **Settings → Developer tools**, tap **Allow notifications**, then **Schedule test in 1 minute**, lock the phone, and check it arrives on time. Tell me the result (and the phone model).
+1. **Back up `~/planyar-signing/`** (password manager + USB) if you haven't yet — see `~/planyar-signing/README.txt`.
+2. **Try Phase 1 on your phone** (dev build, so your real data stays separate):
+   ```bash
+   flutter build apk --release --flavor dev
+   adb install -r build/app/outputs/flutter-apk/app-dev-release.apk
+   ```
+   Then in "Planyar Dev": Settings → Developer tools → **Add ~5,000 sample entries**, then **Frame timing → Start recording**, scroll the timeline and swipe days for ~30 s, come back and **Stop**. Tell me the numbers ("over 16.7 ms" should be low, a few %). While there, also run the **notification test** from Phase 0 and tell me if it arrived on time.
 3. Delete `/Users/muhammad/Desktop/projects/my-project` (duplicate scaffold) when convenient.
 
-## Next: Phase 1 — entries, labels and Today (plan §13)
+## Next: Phase 2 — backup, export and import (plan §13, §10.4–10.8)
 
-- ENT-01…ENT-12, LBL-01…LBL-06, CAT-01…CAT-05, VIEW-01…VIEW-05, VIEW-07; To finish (S11); onboarding steps 1–2; overlap detection; overnight rendering; Undo.
-- Start with the pure engines, tests first: `OverlapDetector`, `IntervalUnion`, `TimelineLayout` segments (List mode before the timeline).
-- Settings repository on the `settings` table (theme mode SET-01, week start SET-02).
-- Definition of done: plan §13, Phase 1.
+- BAK-01…BAK-06: export all data to a ZIP (manifest.json + data.json, versioned DTOs), share / save via the OS; import with validation → preview → Replace or Merge → one transaction → result.
+- Safety backups before every import and migration (last 5), Recovery screen (S28), erase all data (SET-06).
+- Needs packages from plan §8.13 that aren't added yet: `share_plus`, `file_picker`, `path_provider`, `archive`, `crypto` (all planned; the Material spike found no problems with them).
+- Definition of done: J15–J17, byte-identical round trip, ≥ 20 malformed-file cases leave the DB unchanged, 10k-entry backup imports in < 5 s.
+
+## Phase 0 — foundation (done 2026-10-25/27)
+
+- Open setup items handled: unused platforms removed (owner approved); first Android build works (the connection drops sometimes — Gradle now retries with longer timeouts).
+- "Warm Focus" palette (owner request) with contrast-checked tokens (plan §12.2); clean, feature-based architecture enforced by `test/architecture/layer_boundaries_test.dart`.
+- Flavors (dev/prod) on Android and iOS; release keystore in `~/planyar-signing/` (release builds fail without it — no debug-key fallback); `docs/RELEASE.md`.
+- Drift schema v1 (all plan §7 tables, CHECK constraints), snapshot + migration test; `DayMath` and time types tested in 7 zones; CI with codegen check, format, analyze, tests, 7-zone TZ matrix, Android builds, release APK check (no INTERNET, 16 KB), and macOS goldens.
+- Notification spike passed on the emulator; Material spike results in `docs/decisions.md`.

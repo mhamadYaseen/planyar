@@ -60,8 +60,16 @@ class DayTimelineState extends State<DayTimeline> {
     return 7 * 60;
   }
 
-  void _jumpTo(int minute) {
-    if (!_scroll.hasClients) return;
+  void _jumpTo(int minute, {int attempts = 3}) {
+    if (!_scroll.hasClients || !_scroll.position.hasContentDimensions) {
+      // Not laid out yet (e.g. a page built mid-swipe): try next frame.
+      if (attempts > 0) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) _jumpTo(minute, attempts: attempts - 1);
+        });
+      }
+      return;
+    }
     final offset = (minute / 60 * _hourHeight).clamp(0.0, _scroll.position.maxScrollExtent);
     _scroll.jumpTo(offset);
   }
