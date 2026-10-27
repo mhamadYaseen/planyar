@@ -268,6 +268,30 @@ void main() {
     });
   });
 
+  group('floorToStep (quick-add rounding, ENT-10)', () {
+    test('floors local wall time to 5 minutes', () {
+      final math = zone('Asia/Kathmandu'); // +05:45
+      final t = utc('2026-10-25T08:13:30Z'); // 13:58:30 local
+      final floored = math.floorToStep(t, 5);
+      expect(math.wallTimeOf(floored), WallTime(13, 55));
+      expect(floored, utc('2026-10-25T08:10:00Z'));
+    });
+
+    test('keeps the second pass of a repeated hour', () {
+      final math = zone('America/New_York');
+      final t = utc('2026-11-01T06:33:00Z'); // 01:33 EST (second 01:xx)
+      final floored = math.floorToStep(t, 5);
+      expect(floored, utc('2026-11-01T06:30:00Z'));
+      expect(math.isRepeatedWallTime(floored), isTrue);
+    });
+
+    test('aligned instants stay put', () {
+      final math = zone('Asia/Baghdad');
+      final t = utc('2026-10-25T11:05:00Z');
+      expect(math.floorToStep(t, 5), t);
+    });
+  });
+
   group('rangeBounds', () {
     test('custom range 1–7 Oct means [1 Oct 00:00, 8 Oct 00:00)', () {
       final math = zone('Asia/Baghdad');

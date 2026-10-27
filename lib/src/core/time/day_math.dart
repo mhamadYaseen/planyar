@@ -63,6 +63,14 @@ final class DayMath {
     return InstantRange(startOfDay(first), startOfDay(last.addDays(1)));
   }
 
+  /// [instant] with its local wall time floored to a multiple of
+  /// [stepMinutes] (e.g. "now rounded down to 5 minutes", ENT-10). Keeps the
+  /// offset in effect, so the second pass of a repeated hour stays second.
+  Instant floorToStep(Instant instant, int stepMinutes) {
+    final stepMs = stepMinutes * _msPerMinute;
+    return Instant.fromUtcMs(instant.utcMs - _wallMs(instant) % stepMs);
+  }
+
   /// True when [instant]'s wall-clock time already happened earlier the same
   /// night (the second pass through a fall-back hour, shown as "01:00 (2nd)").
   bool isRepeatedWallTime(Instant instant) {
