@@ -9,20 +9,24 @@ import 'package:planyar/src/core/time/wall_time.dart';
 import 'package:planyar/src/core/utils/data_state.dart';
 import 'package:planyar/src/features/dev_tools/domain/entities/notification_spike_status.dart';
 import 'package:planyar/src/features/dev_tools/domain/usecases/notification_spike_usecases.dart';
+import 'package:planyar/src/features/dev_tools/domain/usecases/seed_sample_data.dart';
 import 'package:planyar/src/features/dev_tools/presentation/bloc/dev_tools_bloc.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 
 import '../../../../helpers/fake_notification_gateway.dart';
+import '../../../../helpers/test_deps.dart';
 
 void main() {
   late FakeNotificationGateway gateway;
   late TimeZoneService timeZones;
+  late TestDeps deps;
   const text = TestNotificationText(title: 'Test', body: 'Body');
   final now = DateTime.utc(2026, 10, 25, 11, 30);
 
   setUpAll(tzdata.initializeTimeZones);
 
   setUp(() async {
+    deps = await TestDeps.create();
     gateway = FakeNotificationGateway();
     timeZones = TimeZoneService(() async => 'Asia/Baghdad');
     // As at app startup; otherwise DayMath falls back to the machine's zone.
@@ -35,7 +39,10 @@ void main() {
     showTest: ShowTestNotification(gateway),
     scheduleTest: ScheduleTestNotification(gateway, timeZones),
     cancelTests: CancelTestNotifications(gateway),
+    seed: SeedSampleData(deps.entries, deps.labels, deps.zones),
   );
+
+  tearDown(() => deps.close());
 
   NotificationSpikeStatus status({bool allowed = false, int pending = 0}) => NotificationSpikeStatus(
     permissions: NotificationPermissions(notificationsAllowed: allowed, exactAlarmsAllowed: true),
@@ -100,6 +107,18 @@ void main() {
       expect(gateway.scheduled, isEmpty);
       expect(bloc.state.lastScheduled, isNull);
       expect(bloc.state.status, DataState.success(status()));
+    },
+  );
+
+  blocTest<DevToolsBloc, DevToolsState>(
+    'seeding adds about 5,000 entries (Phase 1 performance check)',
+    build: build,
+    act: (bloc) => bloc.add(const DevToolsEvent.seedPressed()),
+    wait: const Duration(seconds: 2),
+    verify: (bloc) {
+      final seed = bloc.state.seed;
+      expect(seed, isA<DataSuccess<int>>());
+      expect((seed as DataSuccess<int>).data, inInclusiveRange(4900, 5100));
     },
   );
 }

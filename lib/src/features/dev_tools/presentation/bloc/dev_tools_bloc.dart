@@ -6,6 +6,7 @@ import '../../../../core/usecases/usecase.dart';
 import '../../../../core/utils/data_state.dart';
 import '../../domain/entities/notification_spike_status.dart';
 import '../../domain/usecases/notification_spike_usecases.dart';
+import '../../domain/usecases/seed_sample_data.dart';
 
 part 'dev_tools_bloc.freezed.dart';
 part 'dev_tools_event.dart';
@@ -19,12 +20,17 @@ class DevToolsBloc extends Bloc<DevToolsEvent, DevToolsState> {
     required this._showTest,
     required this._scheduleTest,
     required this._cancelTests,
+    required this._seed,
   }) : super(const DevToolsState()) {
     on<_Started>((event, emit) => _refresh(emit));
     on<_PermissionRequested>(_onPermissionRequested);
     on<_ShowNowPressed>(_onShowNowPressed);
     on<_SchedulePressed>(_onSchedulePressed);
     on<_CancelAllPressed>(_onCancelAllPressed);
+    on<_SeedPressed>((event, emit) async {
+      emit(state.copyWith(seed: const DataState.loading()));
+      emit(state.copyWith(seed: await _seed(SeedSampleData.defaultDays)));
+    });
   }
 
   final GetNotificationSpikeStatus _getStatus;
@@ -32,6 +38,7 @@ class DevToolsBloc extends Bloc<DevToolsEvent, DevToolsState> {
   final ShowTestNotification _showTest;
   final ScheduleTestNotification _scheduleTest;
   final CancelTestNotifications _cancelTests;
+  final SeedSampleData _seed;
 
   Future<void> _refresh(Emitter<DevToolsState> emit) async {
     if (state.status is! DataSuccess) emit(state.copyWith(status: const DataState.loading()));

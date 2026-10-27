@@ -8,6 +8,9 @@ abstract class DevToolsState with _$DevToolsState {
     /// The last scheduled test reminder.
     ScheduledTestNotification? lastScheduled,
 
+    /// Sample data: loading while seeding, then the number added.
+    @Default(DataState<int>.initial()) DataState<int> seed,
+
     /// The last action's failure, shown once in a snackbar.
     Failure? actionFailure,
   }) = _DevToolsState;

@@ -14,4 +14,7 @@ sealed class DevToolsEvent with _$DevToolsEvent {
   const factory DevToolsEvent.schedulePressed(TestNotificationText text) = _SchedulePressed;
 
   const factory DevToolsEvent.cancelAllPressed() = _CancelAllPressed;
+
+  /// Adds ~5,000 sample entries (performance check, Phase 1 DoD).
+  const factory DevToolsEvent.seedPressed() = _SeedPressed;
 }

@@ -44,24 +44,32 @@ final class EntriesRepositoryImpl implements EntriesRepository {
 
   @override
   Future<Entry> create(EntryDraft draft) async {
-    final now = Instant.now();
-    final entry = Entry(
-      id: _ids.newId(),
-      kind: draft.kind,
-      labelId: draft.labelId,
-      start: draft.start,
-      end: draft.end,
-      note: _clean(draft.note),
-      categoryOverrideId: draft.categoryOverrideId,
-      taskId: draft.taskId,
-      tzId: _timeZones.zoneId,
-      utcOffsetMin: _timeZones.dayMath.offsetAt(draft.start).inMinutes,
-      createdAt: now,
-      updatedAt: now,
-    );
+    final entry = _newEntry(draft, Instant.now());
     await _dao.insertRow(entry.toCompanion());
     return entry;
   }
+
+  @override
+  Future<int> createMany(List<EntryDraft> drafts) async {
+    final now = Instant.now();
+    await _dao.insertAll([for (final d in drafts) _newEntry(d, now).toCompanion()]);
+    return drafts.length;
+  }
+
+  Entry _newEntry(EntryDraft draft, Instant now) => Entry(
+    id: _ids.newId(),
+    kind: draft.kind,
+    labelId: draft.labelId,
+    start: draft.start,
+    end: draft.end,
+    note: _clean(draft.note),
+    categoryOverrideId: draft.categoryOverrideId,
+    taskId: draft.taskId,
+    tzId: _timeZones.zoneId,
+    utcOffsetMin: _timeZones.dayMath.offsetAt(draft.start).inMinutes,
+    createdAt: now,
+    updatedAt: now,
+  );
 
   @override
   Future<Entry> update(Entry entry) async {

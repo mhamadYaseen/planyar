@@ -544,4 +544,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get firstDayOfWeek => 'First day of the week';
+
+  @override
+  String get devSampleDataSection => 'Sample data';
+
+  @override
+  String get devSeedButton => 'Add ~5,000 sample entries';
+
+  @override
+  String devSeeded(int count) {
+    return 'Added $count entries.';
+  }
 }

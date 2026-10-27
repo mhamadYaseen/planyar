@@ -28,6 +28,9 @@ abstract interface class EntriesRepository {
 
   Future<Entry> create(EntryDraft draft);
 
+  /// Creates many entries in one batch (sample data now; imports later).
+  Future<int> createMany(List<EntryDraft> drafts);
+
   /// Saves edited fields; sets `updatedAt`.
   Future<Entry> update(Entry entry);
 

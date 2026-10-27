@@ -56,7 +56,7 @@ extension DevToolsEventPatterns on DevToolsEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _PermissionRequested value)?  permissionRequested,TResult Function( _ShowNowPressed value)?  showNowPressed,TResult Function( _SchedulePressed value)?  schedulePressed,TResult Function( _CancelAllPressed value)?  cancelAllPressed,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _PermissionRequested value)?  permissionRequested,TResult Function( _ShowNowPressed value)?  showNowPressed,TResult Function( _SchedulePressed value)?  schedulePressed,TResult Function( _CancelAllPressed value)?  cancelAllPressed,TResult Function( _SeedPressed value)?  seedPressed,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
@@ -64,7 +64,8 @@ return started(_that);case _PermissionRequested() when permissionRequested != nu
 return permissionRequested(_that);case _ShowNowPressed() when showNowPressed != null:
 return showNowPressed(_that);case _SchedulePressed() when schedulePressed != null:
 return schedulePressed(_that);case _CancelAllPressed() when cancelAllPressed != null:
-return cancelAllPressed(_that);case _:
+return cancelAllPressed(_that);case _SeedPressed() when seedPressed != null:
+return seedPressed(_that);case _:
   return orElse();
 
 }
@@ -82,7 +83,7 @@ return cancelAllPressed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _PermissionRequested value)  permissionRequested,required TResult Function( _ShowNowPressed value)  showNowPressed,required TResult Function( _SchedulePressed value)  schedulePressed,required TResult Function( _CancelAllPressed value)  cancelAllPressed,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _PermissionRequested value)  permissionRequested,required TResult Function( _ShowNowPressed value)  showNowPressed,required TResult Function( _SchedulePressed value)  schedulePressed,required TResult Function( _CancelAllPressed value)  cancelAllPressed,required TResult Function( _SeedPressed value)  seedPressed,}){
 final _that = this;
 switch (_that) {
 case _Started():
@@ -90,7 +91,8 @@ return started(_that);case _PermissionRequested():
 return permissionRequested(_that);case _ShowNowPressed():
 return showNowPressed(_that);case _SchedulePressed():
 return schedulePressed(_that);case _CancelAllPressed():
-return cancelAllPressed(_that);}
+return cancelAllPressed(_that);case _SeedPressed():
+return seedPressed(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -104,7 +106,7 @@ return cancelAllPressed(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _PermissionRequested value)?  permissionRequested,TResult? Function( _ShowNowPressed value)?  showNowPressed,TResult? Function( _SchedulePressed value)?  schedulePressed,TResult? Function( _CancelAllPressed value)?  cancelAllPressed,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _PermissionRequested value)?  permissionRequested,TResult? Function( _ShowNowPressed value)?  showNowPressed,TResult? Function( _SchedulePressed value)?  schedulePressed,TResult? Function( _CancelAllPressed value)?  cancelAllPressed,TResult? Function( _SeedPressed value)?  seedPressed,}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
@@ -112,7 +114,8 @@ return started(_that);case _PermissionRequested() when permissionRequested != nu
 return permissionRequested(_that);case _ShowNowPressed() when showNowPressed != null:
 return showNowPressed(_that);case _SchedulePressed() when schedulePressed != null:
 return schedulePressed(_that);case _CancelAllPressed() when cancelAllPressed != null:
-return cancelAllPressed(_that);case _:
+return cancelAllPressed(_that);case _SeedPressed() when seedPressed != null:
+return seedPressed(_that);case _:
   return null;
 
 }
@@ -129,14 +132,15 @@ return cancelAllPressed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function()?  permissionRequested,TResult Function( TestNotificationText text)?  showNowPressed,TResult Function( TestNotificationText text)?  schedulePressed,TResult Function()?  cancelAllPressed,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function()?  permissionRequested,TResult Function( TestNotificationText text)?  showNowPressed,TResult Function( TestNotificationText text)?  schedulePressed,TResult Function()?  cancelAllPressed,TResult Function()?  seedPressed,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _PermissionRequested() when permissionRequested != null:
 return permissionRequested();case _ShowNowPressed() when showNowPressed != null:
 return showNowPressed(_that.text);case _SchedulePressed() when schedulePressed != null:
 return schedulePressed(_that.text);case _CancelAllPressed() when cancelAllPressed != null:
-return cancelAllPressed();case _:
+return cancelAllPressed();case _SeedPressed() when seedPressed != null:
+return seedPressed();case _:
   return orElse();
 
 }
@@ -154,14 +158,15 @@ return cancelAllPressed();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function()  permissionRequested,required TResult Function( TestNotificationText text)  showNowPressed,required TResult Function( TestNotificationText text)  schedulePressed,required TResult Function()  cancelAllPressed,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function()  permissionRequested,required TResult Function( TestNotificationText text)  showNowPressed,required TResult Function( TestNotificationText text)  schedulePressed,required TResult Function()  cancelAllPressed,required TResult Function()  seedPressed,}) {final _that = this;
 switch (_that) {
 case _Started():
 return started();case _PermissionRequested():
 return permissionRequested();case _ShowNowPressed():
 return showNowPressed(_that.text);case _SchedulePressed():
 return schedulePressed(_that.text);case _CancelAllPressed():
-return cancelAllPressed();}
+return cancelAllPressed();case _SeedPressed():
+return seedPressed();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -175,14 +180,15 @@ return cancelAllPressed();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function()?  permissionRequested,TResult? Function( TestNotificationText text)?  showNowPressed,TResult? Function( TestNotificationText text)?  schedulePressed,TResult? Function()?  cancelAllPressed,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function()?  permissionRequested,TResult? Function( TestNotificationText text)?  showNowPressed,TResult? Function( TestNotificationText text)?  schedulePressed,TResult? Function()?  cancelAllPressed,TResult? Function()?  seedPressed,}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _PermissionRequested() when permissionRequested != null:
 return permissionRequested();case _ShowNowPressed() when showNowPressed != null:
 return showNowPressed(_that.text);case _SchedulePressed() when schedulePressed != null:
 return schedulePressed(_that.text);case _CancelAllPressed() when cancelAllPressed != null:
-return cancelAllPressed();case _:
+return cancelAllPressed();case _SeedPressed() when seedPressed != null:
+return seedPressed();case _:
   return null;
 
 }
@@ -423,10 +429,43 @@ String toString() {
 
 
 /// @nodoc
+
+
+class _SeedPressed implements DevToolsEvent {
+  const _SeedPressed();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SeedPressed);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+    return 'DevToolsEvent.seedPressed()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
 mixin _$DevToolsState {
 
  DataState<NotificationSpikeStatus> get status;/// The last scheduled test reminder.
- ScheduledTestNotification? get lastScheduled;/// The last action's failure, shown once in a snackbar.
+ ScheduledTestNotification? get lastScheduled;/// Sample data: loading while seeding, then the number added.
+ DataState<int> get seed;/// The last action's failure, shown once in a snackbar.
  Failure? get actionFailure;
 /// Create a copy of DevToolsState
 /// with the given fields replaced by the non-null parameter values.
@@ -439,20 +478,20 @@ $DevToolsStateCopyWith<DevToolsState> get copyWith => _$DevToolsStateCopyWithImp
 @override
 bool operator ==(Object other) {
   final _this = this as DevToolsState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DevToolsState&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.lastScheduled, _this.lastScheduled) || other.lastScheduled == _this.lastScheduled)&&(identical(other.actionFailure, _this.actionFailure) || other.actionFailure == _this.actionFailure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DevToolsState&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.lastScheduled, _this.lastScheduled) || other.lastScheduled == _this.lastScheduled)&&(identical(other.seed, _this.seed) || other.seed == _this.seed)&&(identical(other.actionFailure, _this.actionFailure) || other.actionFailure == _this.actionFailure));
 }
 
 
 @override
 int get hashCode {
   final _this = this as DevToolsState;
-  return Object.hash(runtimeType,_this.status,_this.lastScheduled,_this.actionFailure);
+  return Object.hash(runtimeType,_this.status,_this.lastScheduled,_this.seed,_this.actionFailure);
 }
 
 @override
 String toString() {
   final _this = this as DevToolsState;
-  return 'DevToolsState(status: ${_this.status}, lastScheduled: ${_this.lastScheduled}, actionFailure: ${_this.actionFailure})';
+  return 'DevToolsState(status: ${_this.status}, lastScheduled: ${_this.lastScheduled}, seed: ${_this.seed}, actionFailure: ${_this.actionFailure})';
 }
 
 
@@ -463,11 +502,11 @@ abstract mixin class $DevToolsStateCopyWith<$Res>  {
   factory $DevToolsStateCopyWith(DevToolsState value, $Res Function(DevToolsState) _then) = _$DevToolsStateCopyWithImpl;
 @useResult
 $Res call({
- DataState<NotificationSpikeStatus> status, ScheduledTestNotification? lastScheduled, Failure? actionFailure
+ DataState<NotificationSpikeStatus> status, ScheduledTestNotification? lastScheduled, DataState<int> seed, Failure? actionFailure
 });
 
 
-$DataStateCopyWith<NotificationSpikeStatus, $Res> get status;$ScheduledTestNotificationCopyWith<$Res>? get lastScheduled;$FailureCopyWith<$Res>? get actionFailure;
+$DataStateCopyWith<NotificationSpikeStatus, $Res> get status;$ScheduledTestNotificationCopyWith<$Res>? get lastScheduled;$DataStateCopyWith<int, $Res> get seed;$FailureCopyWith<$Res>? get actionFailure;
 
 }
 /// @nodoc
@@ -480,11 +519,12 @@ class _$DevToolsStateCopyWithImpl<$Res>
 
 /// Create a copy of DevToolsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? lastScheduled = freezed,Object? actionFailure = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? lastScheduled = freezed,Object? seed = null,Object? actionFailure = freezed,}) {
   return _then(DevToolsState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as DataState<NotificationSpikeStatus>,lastScheduled: freezed == lastScheduled ? _self.lastScheduled : lastScheduled // ignore: cast_nullable_to_non_nullable
-as ScheduledTestNotification?,actionFailure: freezed == actionFailure ? _self.actionFailure : actionFailure // ignore: cast_nullable_to_non_nullable
+as ScheduledTestNotification?,seed: null == seed ? _self.seed : seed // ignore: cast_nullable_to_non_nullable
+as DataState<int>,actionFailure: freezed == actionFailure ? _self.actionFailure : actionFailure // ignore: cast_nullable_to_non_nullable
 as Failure?,
   ));
 }
@@ -508,6 +548,15 @@ $ScheduledTestNotificationCopyWith<$Res>? get lastScheduled {
 
   return $ScheduledTestNotificationCopyWith<$Res>(_self.lastScheduled!, (value) {
     return _then(_self.copyWith(lastScheduled: value));
+  });
+}/// Create a copy of DevToolsState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DataStateCopyWith<int, $Res> get seed {
+  
+  return $DataStateCopyWith<int, $Res>(_self.seed, (value) {
+    return _then(_self.copyWith(seed: value));
   });
 }/// Create a copy of DevToolsState
 /// with the given fields replaced by the non-null parameter values.
@@ -603,10 +652,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DataState<NotificationSpikeStatus> status,  ScheduledTestNotification? lastScheduled,  Failure? actionFailure)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DataState<NotificationSpikeStatus> status,  ScheduledTestNotification? lastScheduled,  DataState<int> seed,  Failure? actionFailure)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DevToolsState() when $default != null:
-return $default(_that.status,_that.lastScheduled,_that.actionFailure);case _:
+return $default(_that.status,_that.lastScheduled,_that.seed,_that.actionFailure);case _:
   return orElse();
 
 }
@@ -624,10 +673,10 @@ return $default(_that.status,_that.lastScheduled,_that.actionFailure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DataState<NotificationSpikeStatus> status,  ScheduledTestNotification? lastScheduled,  Failure? actionFailure)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DataState<NotificationSpikeStatus> status,  ScheduledTestNotification? lastScheduled,  DataState<int> seed,  Failure? actionFailure)  $default,) {final _that = this;
 switch (_that) {
 case _DevToolsState():
-return $default(_that.status,_that.lastScheduled,_that.actionFailure);case _:
+return $default(_that.status,_that.lastScheduled,_that.seed,_that.actionFailure);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -644,10 +693,10 @@ return $default(_that.status,_that.lastScheduled,_that.actionFailure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DataState<NotificationSpikeStatus> status,  ScheduledTestNotification? lastScheduled,  Failure? actionFailure)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DataState<NotificationSpikeStatus> status,  ScheduledTestNotification? lastScheduled,  DataState<int> seed,  Failure? actionFailure)?  $default,) {final _that = this;
 switch (_that) {
 case _DevToolsState() when $default != null:
-return $default(_that.status,_that.lastScheduled,_that.actionFailure);case _:
+return $default(_that.status,_that.lastScheduled,_that.seed,_that.actionFailure);case _:
   return null;
 
 }
@@ -659,12 +708,14 @@ return $default(_that.status,_that.lastScheduled,_that.actionFailure);case _:
 
 
 class _DevToolsState implements DevToolsState {
-  const _DevToolsState({this.status = const DataState<NotificationSpikeStatus>.initial(), this.lastScheduled, this.actionFailure});
+  const _DevToolsState({this.status = const DataState<NotificationSpikeStatus>.initial(), this.lastScheduled, this.seed = const DataState<int>.initial(), this.actionFailure});
   
 
 @override@JsonKey() final  DataState<NotificationSpikeStatus> status;
 /// The last scheduled test reminder.
 @override final  ScheduledTestNotification? lastScheduled;
+/// Sample data: loading while seeding, then the number added.
+@override@JsonKey() final  DataState<int> seed;
 /// The last action's failure, shown once in a snackbar.
 @override final  Failure? actionFailure;
 
@@ -678,18 +729,18 @@ _$DevToolsStateCopyWith<_DevToolsState> get copyWith => __$DevToolsStateCopyWith
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DevToolsState&&(identical(other.status, status) || other.status == status)&&(identical(other.lastScheduled, lastScheduled) || other.lastScheduled == lastScheduled)&&(identical(other.actionFailure, actionFailure) || other.actionFailure == actionFailure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DevToolsState&&(identical(other.status, status) || other.status == status)&&(identical(other.lastScheduled, lastScheduled) || other.lastScheduled == lastScheduled)&&(identical(other.seed, seed) || other.seed == seed)&&(identical(other.actionFailure, actionFailure) || other.actionFailure == actionFailure));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,status,lastScheduled,actionFailure);
+    return Object.hash(runtimeType,status,lastScheduled,seed,actionFailure);
 }
 
 @override
 String toString() {
-    return 'DevToolsState(status: $status, lastScheduled: $lastScheduled, actionFailure: $actionFailure)';
+    return 'DevToolsState(status: $status, lastScheduled: $lastScheduled, seed: $seed, actionFailure: $actionFailure)';
 }
 
 
@@ -700,11 +751,11 @@ abstract mixin class _$DevToolsStateCopyWith<$Res> implements $DevToolsStateCopy
   factory _$DevToolsStateCopyWith(_DevToolsState value, $Res Function(_DevToolsState) _then) = __$DevToolsStateCopyWithImpl;
 @override @useResult
 $Res call({
- DataState<NotificationSpikeStatus> status, ScheduledTestNotification? lastScheduled, Failure? actionFailure
+ DataState<NotificationSpikeStatus> status, ScheduledTestNotification? lastScheduled, DataState<int> seed, Failure? actionFailure
 });
 
 
-@override $DataStateCopyWith<NotificationSpikeStatus, $Res> get status;@override $ScheduledTestNotificationCopyWith<$Res>? get lastScheduled;@override $FailureCopyWith<$Res>? get actionFailure;
+@override $DataStateCopyWith<NotificationSpikeStatus, $Res> get status;@override $ScheduledTestNotificationCopyWith<$Res>? get lastScheduled;@override $DataStateCopyWith<int, $Res> get seed;@override $FailureCopyWith<$Res>? get actionFailure;
 
 }
 /// @nodoc
@@ -717,11 +768,12 @@ class __$DevToolsStateCopyWithImpl<$Res>
 
 /// Create a copy of DevToolsState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? lastScheduled = freezed,Object? actionFailure = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? lastScheduled = freezed,Object? seed = null,Object? actionFailure = freezed,}) {
   return _then(_DevToolsState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as DataState<NotificationSpikeStatus>,lastScheduled: freezed == lastScheduled ? _self.lastScheduled : lastScheduled // ignore: cast_nullable_to_non_nullable
-as ScheduledTestNotification?,actionFailure: freezed == actionFailure ? _self.actionFailure : actionFailure // ignore: cast_nullable_to_non_nullable
+as ScheduledTestNotification?,seed: null == seed ? _self.seed : seed // ignore: cast_nullable_to_non_nullable
+as DataState<int>,actionFailure: freezed == actionFailure ? _self.actionFailure : actionFailure // ignore: cast_nullable_to_non_nullable
 as Failure?,
   ));
 }
@@ -746,6 +798,15 @@ $ScheduledTestNotificationCopyWith<$Res>? get lastScheduled {
 
   return $ScheduledTestNotificationCopyWith<$Res>(_self.lastScheduled!, (value) {
     return _then(_self.copyWith(lastScheduled: value));
+  });
+}/// Create a copy of DevToolsState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DataStateCopyWith<int, $Res> get seed {
+  
+  return $DataStateCopyWith<int, $Res>(_self.seed, (value) {
+    return _then(_self.copyWith(seed: value));
   });
 }/// Create a copy of DevToolsState
 /// with the given fields replaced by the non-null parameter values.

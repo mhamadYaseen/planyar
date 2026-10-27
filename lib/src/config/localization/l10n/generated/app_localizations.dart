@@ -1020,6 +1020,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'First day of the week'**
   String get firstDayOfWeek;
+
+  /// Dev tools section.
+  ///
+  /// In en, this message translates to:
+  /// **'Sample data'**
+  String get devSampleDataSection;
+
+  /// Dev tools: fill the last 770 days.
+  ///
+  /// In en, this message translates to:
+  /// **'Add ~5,000 sample entries'**
+  String get devSeedButton;
+
+  /// Dev tools: result.
+  ///
+  /// In en, this message translates to:
+  /// **'Added {count} entries.'**
+  String devSeeded(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

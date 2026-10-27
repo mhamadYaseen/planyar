@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../../core/notifications/notification_gateway.dart';
 import '../../core/time/time_zone_service.dart';
 import 'domain/usecases/notification_spike_usecases.dart';
+import 'domain/usecases/seed_sample_data.dart';
 import 'presentation/bloc/dev_tools_bloc.dart';
 
 /// Registered only in the dev flavor.
@@ -13,8 +14,15 @@ void registerDevToolsFeature(GetIt sl) {
     ..registerLazySingleton(() => ShowTestNotification(sl<NotificationGateway>()))
     ..registerLazySingleton(() => ScheduleTestNotification(sl<NotificationGateway>(), sl<TimeZoneService>()))
     ..registerLazySingleton(() => CancelTestNotifications(sl<NotificationGateway>()))
+    ..registerLazySingleton(() => SeedSampleData(sl(), sl(), sl()))
     ..registerFactory(
-      () =>
-          DevToolsBloc(getStatus: sl(), requestPermission: sl(), showTest: sl(), scheduleTest: sl(), cancelTests: sl()),
+      () => DevToolsBloc(
+        getStatus: sl(),
+        requestPermission: sl(),
+        showTest: sl(),
+        scheduleTest: sl(),
+        cancelTests: sl(),
+        seed: sl(),
+      ),
     );
 }

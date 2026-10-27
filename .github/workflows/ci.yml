@@ -33,7 +33,8 @@ jobs:
           git diff --exit-code || (echo "::error::Generated files are stale. Run build_runner and gen-l10n, then commit." && exit 1)
       - run: tool/format.sh --check
       - run: flutter analyze --fatal-infos
-      - run: flutter test
+      # Goldens run in their own job on macOS (pixel output is platform-specific).
+      - run: flutter test --exclude-tags golden
 
   time-zones:
     name: Time tests (TZ=${{ matrix.tz }})
@@ -59,9 +60,24 @@ jobs:
           cache: true
       - run: flutter pub get
       # Domain and repository suites (plan §11.3).
-      - run: flutter test test/core test/features
+      - run: flutter test test/core test/features --exclude-tags golden
         env:
           TZ: ${{ matrix.tz }}
+
+  goldens:
+    name: Golden tests (macOS)
+    # Goldens are generated on the owner's Apple Silicon Mac; compare on the same platform.
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter test --tags golden
 
   android:
     name: Android builds

@@ -45,59 +45,88 @@ class EntryBlock extends StatelessWidget {
     final icon = LabelIcons.of(label?.iconKey);
     final end = entry.end;
 
-    final content = Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(8, 3, 4, 3),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (segment.continuesFromPreviousDay && height >= 44)
-            Text('↑ ${l10n.continuesFrom(time.dayAndTime(entry.start))}', style: small, maxLines: 1),
-          Row(
-            spacing: 4,
-            children: [
-              if (icon != null) Icon(icon, size: 14, color: textColor),
-              Expanded(
-                child: Text(
-                  label?.name ?? l10n.unknownLabel,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.labelLarge?.copyWith(color: textColor),
+    // Content may be taller than a short block: it's clipped, never an
+    // overflow error. The bottom marker stays pinned to the block's edge.
+    final content = Stack(
+      children: [
+        Positioned.fill(
+          child: ClipRect(
+            child: OverflowBox(
+              alignment: AlignmentDirectional.topStart,
+              maxHeight: double.infinity,
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(8, 3, 4, 3),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (segment.continuesFromPreviousDay && height >= 44)
+                      Text(
+                        '↑ ${l10n.continuesFrom(time.dayAndTime(entry.start))}',
+                        style: small,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    Row(
+                      spacing: 4,
+                      children: [
+                        if (icon != null) Icon(icon, size: 14, color: textColor),
+                        Expanded(
+                          child: Text(
+                            label?.name ?? l10n.unknownLabel,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.labelLarge?.copyWith(color: textColor),
+                          ),
+                        ),
+                        if (segment.hasOverlap)
+                          Icon(Icons.warning_amber_rounded, size: 16, color: PlanyarColors.of(context).warning),
+                      ],
+                    ),
+                    if (height >= 40)
+                      Text(
+                        end == null ? time.time(entry.start) : time.range(entry.start, end),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: small?.copyWith(fontFeatures: const [FontFeature.tabularFigures()]),
+                      ),
+                    if (segment.isOpen && height >= 64)
+                      Wrap(
+                        spacing: 6,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          _Pill(text: l10n.noEnd, color: textColor),
+                          if (onSetEnd != null)
+                            TextButton(
+                              onPressed: onSetEnd,
+                              style: TextButton.styleFrom(
+                                foregroundColor: textColor,
+                                visualDensity: VisualDensity.compact,
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                              ),
+                              child: Text(l10n.setEnd),
+                            ),
+                        ],
+                      ),
+                  ],
                 ),
               ),
-              if (segment.hasOverlap)
-                Icon(Icons.warning_amber_rounded, size: 16, color: PlanyarColors.of(context).warning),
-            ],
+            ),
           ),
-          if (height >= 40)
-            Text(
-              end == null ? time.time(entry.start) : time.range(entry.start, end),
+        ),
+        if (segment.continuesToNextDay && end != null && height >= 56)
+          PositionedDirectional(
+            start: 8,
+            end: 4,
+            bottom: 3,
+            child: Text(
+              '${l10n.continuesUntil(time.dayAndTime(end))} ↓',
+              style: small,
               maxLines: 1,
-              style: small?.copyWith(fontFeatures: const [FontFeature.tabularFigures()]),
+              overflow: TextOverflow.ellipsis,
             ),
-          if (segment.isOpen && height >= 64)
-            Row(
-              spacing: 6,
-              children: [
-                _Pill(text: l10n.noEnd, color: textColor),
-                if (onSetEnd != null)
-                  TextButton(
-                    onPressed: onSetEnd,
-                    style: TextButton.styleFrom(
-                      foregroundColor: textColor,
-                      visualDensity: VisualDensity.compact,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                    ),
-                    child: Text(l10n.setEnd),
-                  ),
-              ],
-            ),
-          if (segment.continuesToNextDay && end != null && height >= 56) ...[
-            const Spacer(),
-            Text('${l10n.continuesUntil(time.dayAndTime(end))} ↓', style: small, maxLines: 1),
-          ],
-        ],
-      ),
+          ),
+      ],
     );
 
     final Widget block = planned

@@ -803,5 +803,22 @@
   "firstDayOfWeek": "First day of the week",
   "@firstDayOfWeek": {
     "description": "Setting (SET-02)."
+  },
+  "devSampleDataSection": "Sample data",
+  "@devSampleDataSection": {
+    "description": "Dev tools section."
+  },
+  "devSeedButton": "Add ~5,000 sample entries",
+  "@devSeedButton": {
+    "description": "Dev tools: fill the last 770 days."
+  },
+  "devSeeded": "Added {count} entries.",
+  "@devSeeded": {
+    "description": "Dev tools: result.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

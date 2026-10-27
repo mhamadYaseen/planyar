@@ -67,6 +67,8 @@ class EntriesDao extends DatabaseAccessor<AppDatabase> with _$EntriesDaoMixin {
 
   Future<void> insertRow(EntriesCompanion row) => into(entries).insert(row);
 
+  Future<void> insertAll(List<EntriesCompanion> rows) => batch((b) => b.insertAll(entries, rows));
+
   Future<void> replaceRow(EntriesCompanion row) => update(entries).replace(row);
 
   Future<int> deleteById(String id) => (delete(entries)..where((e) => e.id.equals(id))).go();
