@@ -46,11 +46,16 @@ final labels = {
 
 void main() {
   late TimeZoneService zones;
+  late TimeZoneService newYork;
 
   setUpAll(() async {
     tzdata.initializeTimeZones();
     zones = TimeZoneService(() async => 'Asia/Baghdad');
     await zones.refresh();
+    // Must be awaited: before refresh() completes, the service falls back to
+    // the machine's own zone (that bug made CI and local goldens differ).
+    newYork = TimeZoneService(() async => 'America/New_York');
+    await newYork.refresh();
   });
 
   Widget timeline(
@@ -101,14 +106,9 @@ void main() {
     fileName: 'timeline_dst',
     surfaceSize: const Size(400, 600),
     textScales: const [1.0],
-    builder: (_) {
-      final ny = TimeZoneService(() async => 'America/New_York');
-      // Same-process refresh is synchronous enough for a fixed zone.
-      ny.refresh();
-      return timeline(ny, LocalDate(2026, 11, 1), [
-        makeEntry('sleep', labelId: 'sleep', start: '2026-10-31T23:00:00-04:00', end: '2026-11-01T07:00:00-05:00'),
-      ], now: '2026-11-02T12:00:00Z');
-    },
+    builder: (_) => timeline(newYork, LocalDate(2026, 11, 1), [
+      makeEntry('sleep', labelId: 'sleep', start: '2026-10-31T23:00:00-04:00', end: '2026-11-01T07:00:00-05:00'),
+    ], now: '2026-11-02T12:00:00Z'),
     beforeCapture: (tester) async {
       await tester.drag(find.byType(SingleChildScrollView), const Offset(0, 2000));
       await tester.pumpAndSettle();
