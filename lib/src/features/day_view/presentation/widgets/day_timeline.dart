@@ -137,7 +137,9 @@ class DayTimelineState extends State<DayTimeline> {
                           start: 0,
                           width: gutter - 8,
                           child: Text(
-                            hour.isRepeated ? l10n.repeatedHour(time.wall(hour.wallTime)) : time.wall(hour.wallTime),
+                            hour.isRepeated
+                                ? l10n.repeatedHour(time.hourLabel(hour.wallTime))
+                                : time.hourLabel(hour.wallTime),
                             textAlign: TextAlign.end,
                             maxLines: 1,
                             style: theme.textTheme.labelSmall?.copyWith(

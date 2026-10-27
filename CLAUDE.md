@@ -70,6 +70,15 @@ Schema changes: bump `schemaVersion`, run `dart run drift_dev make-migrations`, 
 - **Widget tests:** the default test surface (800 × 600) is wider than the 600 dp rail breakpoint; set a phone size to test the bottom bar.
 - **SQLite CHECKs:** a `CHECK` that evaluates to NULL passes. Guard nullable columns with `IS NOT NULL` inside the check.
 
+## Gotchas found in Phase 1
+
+- **Run `tool/check.sh`** before committing (format check, analyzer, tests). Don't pipe it into `tail`: the pipe hides its exit code.
+- **Freezed** can't generate a private union case (`const factory X._foo()`); make it public and document it as internal.
+- **Widget tests of the app:** use `pumpPlanyar` from `test/helpers/app_harness.dart` (real DI, in-memory database) and `settle(tester)`, not bare `pumpAndSettle`: database streams need real async time. Times show in 12-hour format in widget tests.
+- **Taps after scrolling:** `tester.ensureVisible` doesn't lay out the new position; `pump()` once before tapping. Lazy lists don't build off-screen children: use `scrollUntilVisible` with the page's own `Scrollable`, not `find.byType(Scrollable).last` (text fields have inner scrollables).
+- **Goldens:** `flutter test --update-goldens --tags golden`; they're compared on macOS in CI.
+- **Dev data:** Settings → Developer tools → "Add ~5,000 sample entries" (dev flavor) for performance checks.
+
 ## Working style
 
 - Work phase by phase (plan §13) and cite requirement IDs. Write tests first for the domain engines (DayMath, occurrence planner, task recurrence, reports, import validation, notification planner).

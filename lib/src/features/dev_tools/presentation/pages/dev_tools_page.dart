@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import '../../../../config/localization/l10n/generated/app_localizations.dart';
 import '../../../../core/di/injection.dart';
 import '../bloc/dev_tools_bloc.dart';
+import '../widgets/frame_timing_card.dart';
 import '../widgets/notification_spike_card.dart';
 import '../widgets/sample_data_card.dart';
 
@@ -27,7 +28,13 @@ class DevToolsPage extends StatelessWidget {
           appBar: AppBar(title: Text(l10n.devToolsTitle)),
           body: ListView(
             padding: const EdgeInsetsDirectional.all(16),
-            children: const [NotificationSpikeCard(), SizedBox(height: 16), SampleDataCard()],
+            children: const [
+              NotificationSpikeCard(),
+              SizedBox(height: 16),
+              SampleDataCard(),
+              SizedBox(height: 16),
+              FrameTimingCard(),
+            ],
           ),
         ),
       ),

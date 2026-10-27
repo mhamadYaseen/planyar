@@ -1038,6 +1038,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Added {count} entries.'**
   String devSeeded(int count);
+
+  /// Dev tools section.
+  ///
+  /// In en, this message translates to:
+  /// **'Frame timing'**
+  String get devFrameTimingSection;
+
+  /// Dev tools hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap Start, scroll the timeline and swipe days for a while, then come back and tap Stop.'**
+  String get devFrameHint;
+
+  /// Dev tools: recording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording… go scroll Today, then come back.'**
+  String get devFrameRecording;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Start recording'**
+  String get devFrameStart;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop and show results'**
+  String get devFrameStop;
+
+  /// Dev tools: frame stats.
+  ///
+  /// In en, this message translates to:
+  /// **'{frames} frames · median {p50} ms · 90% {p90} ms · 99% {p99} ms · over 16.7 ms: {slow}%'**
+  String devFrameResult(int frames, String p50, String p90, String p99, String slow);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

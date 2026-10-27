@@ -10,6 +10,7 @@ import '../../domain/entities/entry.dart';
 /// Set end… (ENT-05, J2 AC3). Returns the chosen end.
 Future<Instant?> showEndEntrySheet(BuildContext context, Entry entry) => showModalBottomSheet<Instant>(
   context: context,
+  useRootNavigator: true,
   builder: (context) => SafeArea(
     child: EndEntryOptions(entry: entry, onEnd: (end) => Navigator.of(context).pop(end)),
   ),

@@ -40,6 +40,7 @@ final class TimeFormat {
   final AppLocalizations l10n;
 
   late final _wall = DateFormat(use24h ? 'HH:mm' : 'h:mm a', locale);
+  late final _hour = DateFormat(use24h ? 'HH:mm' : 'h a', locale);
   late final _day = DateFormat('EEE d MMM', locale);
   late final _dayLong = DateFormat('EEEE d MMMM', locale);
   late final _weekdayNarrow = DateFormat('EEEEE', locale);
@@ -58,6 +59,9 @@ final class TimeFormat {
   String wall(WallTime time) => _wall.format(_fields(LocalDate(2000, 1, 1), time));
 
   String time(Instant instant) => wall(math.wallTimeOf(instant));
+
+  /// Timeline hour labels: "14:00" or the compact "2 PM".
+  String hourLabel(WallTime time) => _hour.format(_fields(LocalDate(2000, 1, 1), time));
 
   /// Adds "(2nd)" for the second pass through a fall-back hour (§6.4).
   String timeMarked(Instant instant) =>

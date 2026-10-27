@@ -98,3 +98,29 @@ Run in a scratch app with every planned package; widget tests pumped a `material
 - **Release APK verified:** 59 MB universal APK, signed with the release key, permissions = POST_NOTIFICATIONS, RECEIVE_BOOT_COMPLETED, USE_EXACT_ALARM, SCHEDULE_EXACT_ALARM (≤ API 32), VIBRATE; **no INTERNET**; 16 KB aligned. (`flutter build apk --split-per-abi` would give a ~20 MB arm64 APK if size ever matters.)
 - **iOS build not verified:** Xcode 26 needs the iOS platform component downloaded first (several GB); deferred until a fast connection is available. iOS isn't released (D-02).
 - Some plugins' build scripts still pull an old Android Gradle plugin (7.3.0) and Kotlin 1.7.10 jars at configuration time; harmless, cached after the first build.
+
+## 2026-10-27 — Phase 1 (entries, labels, Today)
+
+**Behaviour choices** (interpretations of the plan, all covered by tests)
+- **Quick-add defaults (ENT-10):** if today's latest actual entry ended within the last 12 h, start there and end at now rounded down to 5 min. Otherwise start now (rounded) with **no end yet** — "starting now". On another day: same time of day, 1 h; actual for a past day, planned for a future day.
+- **Duplicate (ENT-12):** copies label, note, category and duration onto the viewed day at the same wall-clock time; the kind follows the new start.
+- **Overlap chip:** counts overlap *groups* (A–B–C chained = 1), not pairs. Overlaps are computed per day on clipped times, so an overnight entry only warns on the day it actually overlaps.
+- **Gap tap (ENT-11):** a gap up to 2 h is used whole; a longer one becomes a 1-hour slot at the tapped quarter hour. In split lanes the tapped lane decides the kind. The gap area is hidden from screen readers (it duplicates the + button).
+- **Open entries:** drawn to "now" today, otherwise with a 1 h tail; they take part in column layout (so they never draw on top of other blocks) but never in warnings or totals.
+- **Day pager:** page index = days since 1970-01-01, so swipes and date jumps need no index mapping.
+- **Moving the start past the end** keeps the duration; an end time earlier than the start means the next morning.
+- **Labels:** auto colors in a well-separated order (teal, indigo, amber, rose, …); 47 curated icons with stable keys. Starter labels map to Rest / Work / Learning / Health / Personal categories.
+- **Settings keys:** `themeMode`, `firstDayOfWeek`, `timelineMode`, `laneMode` (portable) and `onboardingCompleted` (device). Appearance & time (SET-01/02) shipped early because the settings store existed.
+
+**Architecture**
+- One `EntryFormBloc` serves quick add and the full editor (the plan listed two), so "Note, category" keeps the draft. `EntryActionsBloc` runs End/Delete/Undo for any page; `ToFinishBloc` only watches.
+- Repositories throw small domain exceptions (`NameTakenException`, `LabelInUseException`); use cases turn them into `Failure.validation(reason: …)` for the UI to word.
+- Drift DAOs live in each feature's `data/datasource/` and are built in that feature's injection file, so `core/` never imports features.
+
+**Testing**
+- Widget tests run the real app (`setupDependencies` with an in-memory database, fake notifications, Asia/Baghdad, a hand-driven ticker). Drift needs `DatabaseConnection(…, closeStreamsSynchronously: true)` there, or its stream-close timer fails the test.
+- The test binding doesn't pass `alwaysUse24HourFormatTestValue` on to `MediaQuery` (Flutter 3.47), so widget tests see 12-hour times; the app follows `MediaQuery` (D-29).
+- Goldens (`test/helpers/golden.dart`) run on macOS in CI, where they were generated; the Linux jobs exclude the `golden` tag.
+
+**Deferred to later phases** (not in Phase 1 scope or optional)
+- Task link in the entry editor (Phase 5); "You have an open Study entry — end it now?" hint (§6.9); swipe actions in List mode (§5.3, `flutter_slidable` is optional); haptics on save (§12.5).

@@ -24,6 +24,7 @@ Future<UndoableAction?> openEntryForm(BuildContext context, EntryFormRequest req
       } else {
         outcome = await showModalBottomSheet<EntryFormOutcome>(
           context: context,
+          useRootNavigator: true,
           isScrollControlled: true,
           useSafeArea: true,
           builder: (_) => BlocProvider.value(value: bloc, child: const QuickAddSheet()),
@@ -44,8 +45,10 @@ Future<UndoableAction?> openEntryForm(BuildContext context, EntryFormRequest req
   }
 }
 
-Future<EntryFormOutcome?> _pushEditor(BuildContext context, EntryFormBloc bloc) => Navigator.of(context).push(
-  MaterialPageRoute<EntryFormOutcome>(
-    builder: (_) => BlocProvider.value(value: bloc, child: const EntryEditorPage()),
-  ),
-);
+// Full screen, above the tab bar.
+Future<EntryFormOutcome?> _pushEditor(BuildContext context, EntryFormBloc bloc) =>
+    Navigator.of(context, rootNavigator: true).push(
+      MaterialPageRoute<EntryFormOutcome>(
+        builder: (_) => BlocProvider.value(value: bloc, child: const EntryEditorPage()),
+      ),
+    );

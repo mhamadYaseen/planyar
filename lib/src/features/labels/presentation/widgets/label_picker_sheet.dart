@@ -14,6 +14,7 @@ import 'label_visuals.dart';
 /// Opens the label picker (S4) and returns the chosen, created or restored label.
 Future<Label?> showLabelPicker(BuildContext context) => showModalBottomSheet<Label>(
   context: context,
+  useRootNavigator: true,
   isScrollControlled: true,
   useSafeArea: true,
   builder: (_) => BlocProvider(

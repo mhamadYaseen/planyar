@@ -555,4 +555,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String devSeeded(int count) {
     return 'Added $count entries.';
   }
+
+  @override
+  String get devFrameTimingSection => 'Frame timing';
+
+  @override
+  String get devFrameHint => 'Tap Start, scroll the timeline and swipe days for a while, then come back and tap Stop.';
+
+  @override
+  String get devFrameRecording => 'Recording… go scroll Today, then come back.';
+
+  @override
+  String get devFrameStart => 'Start recording';
+
+  @override
+  String get devFrameStop => 'Stop and show results';
+
+  @override
+  String devFrameResult(int frames, String p50, String p90, String p99, String slow) {
+    return '$frames frames · median $p50 ms · 90% $p90 ms · 99% $p99 ms · over 16.7 ms: $slow%';
+  }
 }

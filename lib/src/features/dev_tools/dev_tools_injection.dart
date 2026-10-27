@@ -5,6 +5,7 @@ import '../../core/time/time_zone_service.dart';
 import 'domain/usecases/notification_spike_usecases.dart';
 import 'domain/usecases/seed_sample_data.dart';
 import 'presentation/bloc/dev_tools_bloc.dart';
+import 'presentation/frame_timing_recorder.dart';
 
 /// Registered only in the dev flavor.
 void registerDevToolsFeature(GetIt sl) {
@@ -15,6 +16,7 @@ void registerDevToolsFeature(GetIt sl) {
     ..registerLazySingleton(() => ScheduleTestNotification(sl<NotificationGateway>(), sl<TimeZoneService>()))
     ..registerLazySingleton(() => CancelTestNotifications(sl<NotificationGateway>()))
     ..registerLazySingleton(() => SeedSampleData(sl(), sl(), sl()))
+    ..registerLazySingleton(FrameTimingRecorder.new)
     ..registerFactory(
       () => DevToolsBloc(
         getStatus: sl(),

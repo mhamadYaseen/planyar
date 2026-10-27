@@ -820,5 +820,46 @@
         "type": "int"
       }
     }
+  },
+  "devFrameTimingSection": "Frame timing",
+  "@devFrameTimingSection": {
+    "description": "Dev tools section."
+  },
+  "devFrameHint": "Tap Start, scroll the timeline and swipe days for a while, then come back and tap Stop.",
+  "@devFrameHint": {
+    "description": "Dev tools hint."
+  },
+  "devFrameRecording": "Recording… go scroll Today, then come back.",
+  "@devFrameRecording": {
+    "description": "Dev tools: recording."
+  },
+  "devFrameStart": "Start recording",
+  "@devFrameStart": {
+    "description": "Button."
+  },
+  "devFrameStop": "Stop and show results",
+  "@devFrameStop": {
+    "description": "Button."
+  },
+  "devFrameResult": "{frames} frames · median {p50} ms · 90% {p90} ms · 99% {p99} ms · over 16.7 ms: {slow}%",
+  "@devFrameResult": {
+    "description": "Dev tools: frame stats.",
+    "placeholders": {
+      "frames": {
+        "type": "int"
+      },
+      "p50": {
+        "type": "String"
+      },
+      "p90": {
+        "type": "String"
+      },
+      "p99": {
+        "type": "String"
+      },
+      "slow": {
+        "type": "String"
+      }
+    }
   }
 }
