@@ -165,11 +165,11 @@ return unexpected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  database,TResult Function( String message)?  validation,TResult Function( String message)?  notFound,TResult Function( String message)?  platform,TResult Function( String message)?  unexpected,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  database,TResult Function( String message,  Object? reason)?  validation,TResult Function( String message)?  notFound,TResult Function( String message)?  platform,TResult Function( String message)?  unexpected,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case DatabaseFailure() when database != null:
 return database(_that.message);case ValidationFailure() when validation != null:
-return validation(_that.message);case NotFoundFailure() when notFound != null:
+return validation(_that.message,_that.reason);case NotFoundFailure() when notFound != null:
 return notFound(_that.message);case PlatformFailure() when platform != null:
 return platform(_that.message);case UnexpectedFailure() when unexpected != null:
 return unexpected(_that.message);case _:
@@ -190,11 +190,11 @@ return unexpected(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  database,required TResult Function( String message)  validation,required TResult Function( String message)  notFound,required TResult Function( String message)  platform,required TResult Function( String message)  unexpected,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  database,required TResult Function( String message,  Object? reason)  validation,required TResult Function( String message)  notFound,required TResult Function( String message)  platform,required TResult Function( String message)  unexpected,}) {final _that = this;
 switch (_that) {
 case DatabaseFailure():
 return database(_that.message);case ValidationFailure():
-return validation(_that.message);case NotFoundFailure():
+return validation(_that.message,_that.reason);case NotFoundFailure():
 return notFound(_that.message);case PlatformFailure():
 return platform(_that.message);case UnexpectedFailure():
 return unexpected(_that.message);}
@@ -211,11 +211,11 @@ return unexpected(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  database,TResult? Function( String message)?  validation,TResult? Function( String message)?  notFound,TResult? Function( String message)?  platform,TResult? Function( String message)?  unexpected,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  database,TResult? Function( String message,  Object? reason)?  validation,TResult? Function( String message)?  notFound,TResult? Function( String message)?  platform,TResult? Function( String message)?  unexpected,}) {final _that = this;
 switch (_that) {
 case DatabaseFailure() when database != null:
 return database(_that.message);case ValidationFailure() when validation != null:
-return validation(_that.message);case NotFoundFailure() when notFound != null:
+return validation(_that.message,_that.reason);case NotFoundFailure() when notFound != null:
 return notFound(_that.message);case PlatformFailure() when platform != null:
 return platform(_that.message);case UnexpectedFailure() when unexpected != null:
 return unexpected(_that.message);case _:
@@ -298,10 +298,11 @@ as String,
 
 
 class ValidationFailure implements Failure {
-  const ValidationFailure(this.message);
+  const ValidationFailure(this.message, {this.reason});
   
 
 @override final  String message;
+ final  Object? reason;
 
 /// Create a copy of Failure
 /// with the given fields replaced by the non-null parameter values.
@@ -313,18 +314,18 @@ $ValidationFailureCopyWith<ValidationFailure> get copyWith => _$ValidationFailur
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is ValidationFailure&&(identical(other.message, message) || other.message == message));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ValidationFailure&&(identical(other.message, message) || other.message == message)&&const DeepCollectionEquality().equals(other.reason, reason));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,message);
+    return Object.hash(runtimeType,message,const DeepCollectionEquality().hash(reason));
 }
 
 @override
 String toString() {
-    return 'Failure.validation(message: $message)';
+    return 'Failure.validation(message: $message, reason: $reason)';
 }
 
 
@@ -335,7 +336,7 @@ abstract mixin class $ValidationFailureCopyWith<$Res> implements $FailureCopyWit
   factory $ValidationFailureCopyWith(ValidationFailure value, $Res Function(ValidationFailure) _then) = _$ValidationFailureCopyWithImpl;
 @override @useResult
 $Res call({
- String message
+ String message, Object? reason
 });
 
 
@@ -352,10 +353,10 @@ class _$ValidationFailureCopyWithImpl<$Res>
 
 /// Create a copy of Failure
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? message = null,Object? reason = freezed,}) {
   return _then(ValidationFailure(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as String,
+as String,reason: freezed == reason ? _self.reason : reason ,
   ));
 }
 

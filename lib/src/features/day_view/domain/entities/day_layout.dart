@@ -3,17 +3,7 @@ import '../../../../core/time/local_date.dart';
 import '../../../../core/time/wall_time.dart';
 import '../../../entries/domain/entities/entry.dart';
 
-/// Timeline lanes setting (VIEW-03, D-32). Stored as a portable setting.
-enum LaneMode {
-  /// Plan | Actual side by side (default).
-  split,
-
-  /// One lane with both kinds.
-  combined,
-}
-
-/// Day view mode (VIEW-01). Remembered.
-enum DayViewMode { timeline, list }
+export '../../../settings/domain/entities/app_settings.dart' show DayViewMode, LaneMode;
 
 enum TimelineLane { plan, actual, combined }
 

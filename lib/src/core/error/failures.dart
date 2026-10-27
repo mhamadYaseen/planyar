@@ -9,8 +9,9 @@ sealed class Failure with _$Failure {
   /// The database rejected or couldn't complete the operation.
   const factory Failure.database(String message) = DatabaseFailure;
 
-  /// Input broke a domain rule (e.g. end before start).
-  const factory Failure.validation(String message) = ValidationFailure;
+  /// Input broke a domain rule (e.g. end before start). [reason] carries a
+  /// feature's own value (e.g. `NameProblem.duplicate`) for the UI to word.
+  const factory Failure.validation(String message, {Object? reason}) = ValidationFailure;
 
   /// The record no longer exists (e.g. a deleted task from a notification).
   const factory Failure.notFound(String message) = NotFoundFailure;
