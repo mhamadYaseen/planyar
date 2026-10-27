@@ -6,8 +6,6 @@ formatter:
 
 analyzer:
   exclude:
-    - "**/*.g.dart"
-    - "**/*.freezed.dart"
     - lib/src/config/localization/l10n/generated/**
     - test/core/database/migrations/generated/**
     - build/**
