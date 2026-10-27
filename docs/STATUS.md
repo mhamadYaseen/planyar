@@ -39,7 +39,7 @@ _Last updated: 2026-10-27, Phase 0 session._
 | `flutter build apk --release --flavor prod` | ✅ 59 MB, signed with the release key (certificate SHA-256 matches `~/planyar-signing`), **no `INTERNET` permission**, 16 KB aligned |
 | Dev build on the Pixel_9 emulator (Android 16) | Launches; Warm Focus theme correct; DEV banner; permission prompt "Allow Planyar Dev to send you notifications?"; exact alarm granted via `USE_EXACT_ALARM`; **test reminder fired on time** (16:04:50, app in background) on the Routines channel. The dev build stays installed on that emulator. |
 | iOS build | ⚠️ **Not verified.** Xcode 26 started downloading the iOS platform (several GB) and the build was stopped after ~3 h. Install it once on a fast connection (Xcode → Settings → Components → iOS), then run `flutter build ios --no-codesign --flavor dev`. |
-| GitHub Actions CI | First run happens on push (see below). |
+| GitHub Actions CI | ✅ Green on `a7ea6bf`: codegen current, format, analyze, tests, 7-zone TZ matrix, dev + prod Android builds, release APK check. (The first run caught a test that only passed in this Mac's own zone — fixed.) |
 
 ## Owner to-do
 
