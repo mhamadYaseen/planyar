@@ -22,9 +22,11 @@ void main() {
 
   setUpAll(tzdata.initializeTimeZones);
 
-  setUp(() {
+  setUp(() async {
     gateway = FakeNotificationGateway();
     timeZones = TimeZoneService(() async => 'Asia/Baghdad');
+    // As at app startup; otherwise DayMath falls back to the machine's zone.
+    await timeZones.refresh();
   });
 
   DevToolsBloc build() => DevToolsBloc(
