@@ -85,6 +85,17 @@ gradle.taskGraph.whenReady {
                 "(kept outside the repo). See docs/RELEASE.md.",
         )
     }
+    // Debug and profile builds are signed with the debug key. Installing one
+    // over the real app fails, and `flutter run` then UNINSTALLS the real app
+    // — deleting its data — to install it. So the real app is release-only.
+    val buildsDebugProd = allTasks.any { it.name.matches(Regex("(assemble|bundle|package|install)Prod(Debug|Profile)")) }
+    if (buildsDebugProd) {
+        throw GradleException(
+            "The real app (prod) is built in release mode only: a debug or profile build would " +
+                "replace it on the phone and erase its data. Use --flavor dev to debug, or " +
+                "`flutter build apk --release --flavor prod` for the real app. See docs/RELEASE.md.",
+        )
+    }
 }
 
 kotlin {

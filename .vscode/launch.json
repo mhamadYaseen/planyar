@@ -1,0 +1,30 @@
+{
+  // Run ▸ pick one of these. "Planyar Dev" keeps its own data; the real app
+  // ("Planyar") is release-only, so a debug build can never replace it.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Planyar Dev (debug)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["--flavor", "dev"]
+    },
+    {
+      "name": "Planyar Dev (release, for speed checks)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "release",
+      "args": ["--flavor", "dev"]
+    },
+    {
+      "name": "Planyar — real app (release)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "release",
+      "args": ["--flavor", "prod"]
+    }
+  ]
+}

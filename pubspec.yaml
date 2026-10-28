@@ -81,6 +81,10 @@ dev_dependencies:
 flutter:
   generate: true
 
+  # A plain "Run" (VS Code, Android Studio, `flutter run`) builds "Planyar Dev".
+  # An explicit --flavor still wins: the real app is `--release --flavor prod`.
+  default-flavor: dev
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
