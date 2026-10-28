@@ -124,3 +124,48 @@ Run in a scratch app with every planned package; widget tests pumped a `material
 
 **Deferred to later phases** (not in Phase 1 scope or optional)
 - Task link in the entry editor (Phase 5); "You have an open Study entry — end it now?" hint (§6.9); swipe actions in List mode (§5.3, `flutter_slidable` is optional); haptics on save (§12.5).
+
+## 2026-10-28 — Phase 2 (backup, export, import, recovery)
+
+**Format and files** (plan §10.4–10.5)
+- `data.json` is canonical: records sorted by ID, fixed field order, settings keys sorted, one-space indent. Equal data always gives equal bytes, which the round-trip test relies on. Instants are ISO-8601 UTC with `Z`; local dates are `YYYY-MM-DD`.
+- Portable settings in a backup: `themeMode`, `firstDayOfWeek`, `timelineMode`, `laneMode`. The import only takes those keys, and only with the right shape (strings ≤ 32 characters, a weekday 1–7). An unknown enum name falls back to the default when read, so a newer app's value never makes a file unreadable. Device-only keys: `onboardingCompleted`, `lastExportAt`, `importLog` (last 5 imports).
+- Export writes to the temporary folder in a background isolate, then opens the share sheet or the system "Save as" dialog. The temp file is always deleted afterwards. A dismissed share sheet doesn't count as an export; "the platform can't tell" does.
+- Import picks **any file type** (Android filters are unreliable). The picked file is streamed into a temp copy with a 200 MB cap; only `manifest.json` and `data.json` are read, by exact name and in memory. The guards are: 500 MB unpacked, a compression ratio of at most 100 (for files over 1 MB), strict UTF-8, SHA-256 match, and `formatVersion` ≤ 1. An `encryption` value other than `none` is treated as "newer version" (BAK-07 comes later).
+- A frozen v1 fixture lives at `test/fixtures/backups/v1/`. **Never regenerate it.** A new format version gets its own `vN/` folder plus a `BackupUpgrader` step.
+
+**Validation and merge rules** (plan §10.6–10.7; all covered by tests)
+- Record checks mirror every database CHECK, so anything the reader accepts can be inserted. A fuzz test applies 1,500 randomly broken files in both modes against a device that shares IDs and names with them; none fails at the database.
+- Text: names drop control characters (`LabelRules.cleanName`, which the app's own label/category code uses too). U+0000 is refused in titles and routine names, because SQLite's `length()` stops there. Lone UTF-16 surrogates are refused anywhere, because SQLite would store U+FFFD instead.
+- `Instant.parse` is strict now: it needs a time and a zone, and real field values (no month 13, no 25:61, offsets ≤ 18:00). Before, `2026-10-25` alone was read in the device's zone.
+- Inside one file: the first record wins per ID. A later label or category with the same name is folded into the first, and references move with it. Likewise for a second occurrence or exception for the same routine and day, and a second unfinished task in one series (it becomes standalone).
+- Safe repairs, all listed in the preview: unknown color → gray; unknown icon → none; seconds rounded to the minute; a missing label → the archived "Imported – unknown label"; a missing optional link → cleared; `completedAt` made consistent with the status. A repair is listed only if its record is actually written.
+- Merge rules as in §10.7 (D-25/26/27). A rename onto a name another local label keeps is left out with a reason ("would take a name… already has"). An exact-duplicate check compares a missing note and the text "null" as different. Merging a file that is already fully on the phone keeps the button off ("Everything in this backup is already on this phone").
+- **Replace previews against the device too:** new / updated / unchanged / deleted, plus the "N records on this phone were changed after this backup was made" warning.
+- Invalid records block the import until the user ticks "Import without them" (J17 AC2). Replace asks once more.
+
+**Applying** (one transaction)
+- `PRAGMA defer_foreign_keys = ON` comes first, and is never switched off (switching it off resets SQLite's counter). The unique keys of rows about to change are parked (`' ' || id` for name keys, `'~' || id` for occurrence dates), so renames, name swaps and moved occurrences can't collide midway. Rows are upserted by primary key as **companions with every column present** (`toCompanion(false)`). A data-class upsert would skip NULL columns, so a merge couldn't clear a note or reopen a completed task. The review found this; it's fixed and tested.
+- `PRAGMA foreign_key_check` must not gain new rows, or everything rolls back. It is compared with a baseline taken first, so an old orphan can't block every import. Afterwards `PRAGMA quick_check` runs; a problem shows a warning on the result screen (the data stays, and the safety backup can undo it).
+- Routines written by an import get `generated_through = NULL`, so Phase 3's generator fills them in.
+
+**Safety and recovery** (plan §10.8–10.9, BAK-04, S28, SET-06)
+- Safety backups are named `planyar-safety-<utc ms>-<reason>.zip` in `<support>/safety/`. The newest 5 are kept; writes are atomic (temp file + rename). One is made before every import and before erase, but only when there is data to save. If it fails, nothing is imported or erased.
+- **Before every schema migration:** `VACUUM INTO` writes a raw `.sqlite` copy at the old version (drift runs `onUpgrade` outside a transaction). If the copy fails, the migration doesn't run and startup shows the Recovery screen. Raw copies can be shared, but not restored in the app (they'd have to migrate again).
+- **Startup:** every start runs `PRAGMA quick_check` (≈ 13 ms). If the database can't be opened, migrated or checked, the app shows the Recovery screen instead of the app. It offers Try again, Restore the latest safety backup, Import a backup… and Export the database file. Restoring moves the broken file (and `-wal`/`-shm`) to `<support>/recovery/`, never deleting it, then writes the backup into a new database and marks onboarding done. Other startup errors show a simpler screen with Try again.
+- The database path is now explicit (`<documents>/planyar.sqlite`, the same file drift used before), so recovery can find it.
+- Erase all data needs the word ERASE typed, offers an export first, saves a safety backup, deletes every record and setting, and cancels pending notifications. The app then returns to onboarding by itself.
+- The welcome screen has **Restore from a backup** for a new phone. It uses the same preview; a finished import skips the starter labels.
+- Android Auto Backup and device transfer stay on (D-24) and exclude `safety/` and `recovery/` (`res/xml/data_extraction_rules.xml`, `backup_rules.xml`).
+- An entry saved with a start outside 2000…today+5y (an import, or a phone with a wrong clock) can still be edited while its start is kept.
+
+**Verification**
+- 419 tests: J15–J17 and erase as app-level widget tests. Also: a new-phone restore, the Recovery screen, the round trip (seeded by the app's own code → export → Replace into an empty database → export: byte-identical), 30 malformed-file cases that leave the database unchanged, rollback on a mid-apply failure (the safety backup is still there), and 1,500 fuzzed files.
+- Speed on the Mac: 10,000 entries export in 0.19 s and preview + Replace-import in 0.35 s (budget 5 s); 20,000 import in 0.66 s.
+- On the Pixel_9 emulator, release build: export → share sheet; Save to device → Downloads (manifest and checksum verified on the computer); import preview of the same file ("5005 unchanged", Merge off); Erase all data → welcome screen; Restore from a backup → 5,018 records back.
+- Before merging, a four-angle review of the domain engines (validator, planner, round trip, SQLite apply), with each finding re-checked by an independent reviewer: 1 high and 9 medium/low real findings. All are fixed, with tests.
+
+**Deferred** (needs later phases)
+- §10.6 stage 10 after an import: regenerate routine occurrences and update `lastKnownTimeZone` (Phase 3), resync notifications (Phase 6). J15 AC3 depends on these.
+- Backup reminder (BAK-05 / NTF-05) → Phase 6. "Last full export: N days ago" is shipped.
+- iOS: the share popover anchor is passed, but iOS is still unverified (platform not downloaded).

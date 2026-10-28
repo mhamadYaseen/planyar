@@ -47,6 +47,12 @@ adb install -r build/app/outputs/flutter-apk/app-dev-debug.apk
 
 **Before reinstalling or switching phones, export a full backup in the app first** (backup arrives in Phase 2).
 
+## Your data
+
+- **Export a backup now and then:** Settings → Backup & restore → Export all data, and save it off the phone (Drive, a computer). The safety backups the app makes by itself are deleted when you uninstall.
+- **Before uninstalling or changing phones**, always export first. On the new phone: install, then **Restore from a backup** on the welcome screen.
+- Android's own cloud backup also includes Planyar's data (D-24), so restoring a phone from a Google backup usually brings it back too. Don't rely on it alone.
+
 ## iOS
 
 iOS stays buildable but isn't released (D-02). Schemes `dev` and `prod` exist:

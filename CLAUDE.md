@@ -79,6 +79,16 @@ Schema changes: bump `schemaVersion`, run `dart run drift_dev make-migrations`, 
 - **Goldens:** `flutter test --update-goldens --tags golden`; they're compared on macOS in CI.
 - **Dev data:** Settings → Developer tools → "Add ~5,000 sample entries" (dev flavor) for performance checks.
 
+## Gotchas found in Phase 2
+
+- **Drift upserts:** pass companions with every column (`row.toCompanion(false)`). A data-class row leaves its NULL columns out of `DO UPDATE SET`, so an overwrite can't clear a field.
+- **Foreign keys inside a write transaction:** `PRAGMA defer_foreign_keys = ON` must be the first statement, and never turn it off before commit (that resets SQLite's violation counter). With it on, RESTRICT is deferred too; SET NULL / CASCADE still fire at once.
+- **Backup format:** a new table or field means updating `BackupRecords`, `BackupJsonWriter`, `BackupJsonReader` (mirror every DB CHECK), `BackupRecordMapper`, `BackupDao` and the fixture test. Adding optional fields keeps `formatVersion`. A breaking change bumps it, adds a `BackupUpgrader` step and a new `test/fixtures/backups/vN/`. **Never regenerate a released fixture.**
+- **Schema changes:** the pre-migration safety copy is automatic (`MigrationSafetyCopy`). Foreign keys are off during `onUpgrade`, so end each migration step with `PRAGMA foreign_key_check`.
+- **`Instant.parse` is strict:** it needs a time and a zone (`2026-10-25T14:30Z`). Names go through `LabelRules.cleanName`, which also drops control characters.
+- **Files:** all share, picker and path calls go through `FileGateway`. Tests use `FakeFileGateway` (real temp folders); `pumpPlanyar(files: …)` injects it.
+- **Widget tests with background work** (isolates, files): spinners never settle, so don't `pumpAndSettle`. Use the `waitUntil` / `tapOnly` helpers in `test/journeys/phase2_journeys_test.dart`. Awaiting a database call inside one `tester.runAsync` while the app's streams run can deadlock; use the `real()` helper there.
+
 ## Working style
 
 - Work phase by phase (plan §13) and cite requirement IDs. Write tests first for the domain engines (DayMath, occurrence planner, task recurrence, reports, import validation, notification planner).
