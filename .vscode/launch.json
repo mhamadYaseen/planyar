@@ -1,6 +1,9 @@
 {
-  // Run ▸ pick one of these. "Planyar Dev" keeps its own data; the real app
-  // ("Planyar") is release-only, so a debug build can never replace it.
+  // Run ▸ pick one. Both build "Planyar Dev", which has its own data.
+  // The real app ("Planyar") is never run from here: `flutter run` uninstalls
+  // an app (deleting its data) whenever an install fails, e.g. for an older
+  // version than the phone has. Install it with `adb install -r` instead
+  // (docs/RELEASE.md), which just fails safely.
   "version": "0.2.0",
   "configurations": [
     {
@@ -17,14 +20,6 @@
       "program": "lib/main.dart",
       "flutterMode": "release",
       "args": ["--flavor", "dev"]
-    },
-    {
-      "name": "Planyar — real app (release)",
-      "request": "launch",
-      "type": "dart",
-      "program": "lib/main.dart",
-      "flutterMode": "release",
-      "args": ["--flavor", "prod"]
     }
   ]
 }

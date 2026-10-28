@@ -174,4 +174,4 @@ Run in a scratch app with every planned package; widget tests pumped a `material
 
 - A plain Run failed with "Gradle build failed to produce an .apk file": without `--flavor`, Gradle built both flavors and Flutter couldn't pick one. `pubspec.yaml` now sets `default-flavor: dev`, so Run, `flutter run` and `flutter build` without a flavor give **Planyar Dev**. An explicit `--flavor` still wins (CI and the release commands pass one).
 - **The prod flavor is release-only.** The Android build fails for `ProdDebug` / `ProdProfile`. Those builds are debug-signed; installing one over the real app fails, and `flutter run` then uninstalls the real app (deleting its data) and retries.
-- `.vscode/launch.json` offers Planyar Dev (debug), Planyar Dev (release) and the real app (release).
+- `.vscode/launch.json` offers Planyar Dev (debug) and Planyar Dev (release) only. The real app is installed with `adb install -r`, never with `flutter run`. After *any* failed install (for example an older `versionCode` than the one on the phone, not only a key mismatch), `flutter run` uninstalls the app with its data and retries.

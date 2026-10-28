@@ -87,6 +87,7 @@ Schema changes: bump `schemaVersion`, run `dart run drift_dev make-migrations`, 
 - **Backup format:** a new table or field means updating `BackupRecords`, `BackupJsonWriter`, `BackupJsonReader` (mirror every DB CHECK), `BackupRecordMapper`, `BackupDao` and the fixture test. Adding optional fields keeps `formatVersion`. A breaking change bumps it, adds a `BackupUpgrader` step and a new `test/fixtures/backups/vN/`. **Never regenerate a released fixture.**
 - **Schema changes:** the pre-migration safety copy is automatic (`MigrationSafetyCopy`). Foreign keys are off during `onUpgrade`, so end each migration step with `PRAGMA foreign_key_check`.
 - **`Instant.parse` is strict:** it needs a time and a zone (`2026-10-25T14:30Z`). Names go through `LabelRules.cleanName`, which also drops control characters.
+- **Never `flutter run` the prod flavor** (the owner's real app). After any failed install, `flutter run` uninstalls the app and its data, then retries. Install the real app only with `adb install -r` (docs/RELEASE.md). Gradle already refuses prod debug/profile builds.
 - **Files:** all share, picker and path calls go through `FileGateway`. Tests use `FakeFileGateway` (real temp folders); `pumpPlanyar(files: …)` injects it.
 - **Widget tests with background work** (isolates, files): spinners never settle, so don't `pumpAndSettle`. Use the `waitUntil` / `tapOnly` helpers in `test/journeys/phase2_journeys_test.dart`. Awaiting a database call inside one `tester.runAsync` while the app's streams run can deadlock; use the `real()` helper there.
 

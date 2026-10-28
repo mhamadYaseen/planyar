@@ -36,8 +36,9 @@ Before each release, bump `version:` in `pubspec.yaml` (e.g. `1.0.0+1` → `1.0.
 
 ## Run from VS Code or Android Studio
 
-- A plain **Run** (or `flutter run`) builds **Planyar Dev**: `default-flavor: dev` in `pubspec.yaml`. In VS Code, Run ▸ also offers "Planyar Dev (release, for speed checks)" and "Planyar — real app (release)" (`.vscode/launch.json`).
-- **The real app is release-only.** Debug and profile builds are signed with a different key; installing one fails, and `flutter run` then *uninstalls the real app, deleting its data*, to put it on. The Android build refuses `--flavor prod` in debug or profile mode, so this can't happen by accident.
+- A plain **Run** (or `flutter run`) builds **Planyar Dev**: `default-flavor: dev` in `pubspec.yaml`. In VS Code, Run ▸ also offers "Planyar Dev (release, for speed checks)" (`.vscode/launch.json`).
+- The first debug Run on a phone that has a release-built Planyar Dev shows "Uninstalling old version…": the two are signed with different keys, so the dev app's test data is replaced. That's expected for the dev app.
+- **Never use Run or `flutter run` for the real app.** Whenever an install fails (a different signing key, an older version than the one on the phone, low storage), `flutter run` *uninstalls the app, deleting its data*, and tries again. The Android build refuses `--flavor prod` in debug or profile mode. For the real app, always build with `flutter build apk --release --flavor prod` and install with `adb install -r …` (below): if that install fails, it just fails and your data stays.
 
 ## Install
 
