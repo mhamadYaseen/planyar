@@ -6,6 +6,7 @@ import '../../../../app/routes/route_names.dart';
 import '../../../../config/localization/l10n/generated/app_localizations.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/widgets/undo_snack_bar.dart';
+import '../../../backup/presentation/widgets/backup_texts.dart';
 import '../../domain/entities/starter_label.dart';
 import '../bloc/onboarding_bloc.dart';
 
@@ -13,16 +14,34 @@ import '../bloc/onboarding_bloc.dart';
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
 
+  /// Moving from another phone: the same import preview as in Settings.
+  /// A finished import ends onboarding (no starter labels needed).
+  static Future<void> _openRestore(BuildContext context, OnboardingState state) async {
+    final bloc = context.read<OnboardingBloc>()..add(const OnboardingEvent.restoreOpened());
+    final imported = await context.pushNamed<bool>(RouteNames.onboardingRestore, extra: state.pendingRestore);
+    if (imported ?? false) bloc.add(const OnboardingEvent.restored());
+  }
+
   @override
   Widget build(BuildContext context) => BlocProvider(
     create: (_) => sl<OnboardingBloc>(),
     child: BlocConsumer<OnboardingBloc, OnboardingState>(
-      listenWhen: (a, b) => a.done != b.done || (b.failure != null && a.failure != b.failure),
+      listenWhen: (a, b) =>
+          a.done != b.done ||
+          (b.failure != null && a.failure != b.failure) ||
+          (b.pendingRestore != null && a.pendingRestore != b.pendingRestore),
       listener: (context, state) {
         if (state.done) {
           context.goNamed(RouteNames.today);
-        } else if (state.failure != null) {
-          showErrorSnackBar(context);
+        } else if (state.pendingRestore != null) {
+          _openRestore(context, state);
+        } else if (state.failure case final failure?) {
+          final problem = AppLocalizations.of(context).fileProblemOf(failure);
+          if (problem == null) {
+            showErrorSnackBar(context);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(problem)));
+          }
         }
       },
       builder: (context, state) => Scaffold(
@@ -61,6 +80,14 @@ class _Welcome extends StatelessWidget {
           style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),
           onPressed: () => context.read<OnboardingBloc>().add(const OnboardingEvent.nextPressed()),
           child: Text(l10n.getStarted),
+        ),
+        const SizedBox(height: 8),
+        TextButton.icon(
+          onPressed: context.select((OnboardingBloc b) => b.state.picking)
+              ? null
+              : () => context.read<OnboardingBloc>().add(const OnboardingEvent.restorePressed()),
+          icon: const Icon(Icons.settings_backup_restore),
+          label: Text(l10n.onboardingRestore),
         ),
       ],
     );

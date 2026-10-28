@@ -29,8 +29,20 @@ class SettingsPage extends StatelessWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.pushNamed(RouteNames.appearance),
           ),
+          ListTile(
+            leading: const Icon(Icons.settings_backup_restore),
+            title: Text(l10n.settingsBackup),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.pushNamed(RouteNames.backup),
+          ),
           const Divider(),
-          ListTile(leading: const Icon(Icons.lock_outline), title: Text(l10n.settingsPrivacy)),
+          ListTile(
+            leading: const Icon(Icons.lock_outline),
+            title: Text(l10n.settingsAbout),
+            subtitle: Text(l10n.settingsPrivacy),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.pushNamed(RouteNames.about),
+          ),
           if (showDevTools)
             ListTile(
               leading: const Icon(Icons.build_outlined),

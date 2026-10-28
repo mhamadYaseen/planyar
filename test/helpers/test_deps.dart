@@ -1,5 +1,8 @@
 import 'package:planyar/src/core/database/app_database.dart';
+import 'package:planyar/src/core/files/safety_backup_store.dart';
 import 'package:planyar/src/core/time/time_zone_service.dart';
+import 'package:planyar/src/features/backup/data/repositories/backup_files_repository_impl.dart';
+import 'package:planyar/src/features/backup/domain/usecases/backup_usecases.dart';
 import 'package:planyar/src/features/day_view/domain/usecases/day_usecases.dart';
 import 'package:planyar/src/features/entries/data/datasource/entries_dao.dart';
 import 'package:planyar/src/features/entries/data/repositories/entries_repository_impl.dart';
@@ -16,6 +19,7 @@ import 'package:planyar/src/features/onboarding/presentation/bloc/onboarding_blo
 import 'package:planyar/src/features/settings/data/datasource/settings_dao.dart';
 import 'package:planyar/src/features/settings/data/repositories/settings_repository_impl.dart';
 
+import 'fake_file_gateway.dart';
 import 'test_database.dart';
 
 /// Real repositories and use cases over an in-memory database (Baghdad).
@@ -28,6 +32,7 @@ class TestDeps {
   final AppDatabase db;
   final TimeZoneService zones;
   final ids = SequentialIds();
+  final files = FakeFileGateway();
 
   late final entries = EntriesRepositoryImpl(EntriesDao(db), ids, zones);
   late final labels = LabelsRepositoryImpl(LabelsDao(db), ids);
@@ -74,7 +79,22 @@ class TestDeps {
     usage: GetLabelUsage(labels),
   );
 
-  OnboardingBloc onboarding() => OnboardingBloc(FinishOnboarding(labels, categories, settings));
+  OnboardingBloc onboarding() => OnboardingBloc(
+    FinishOnboarding(labels, categories, settings),
+    PickBackupFile(
+      BackupFilesRepositoryImpl(
+        files: files,
+        safety: SafetyBackupStore(files.supportDirectory),
+        timeZones: zones,
+        appVersion: '1.0.0+1',
+        dbSchemaVersion: AppDatabase.currentSchemaVersion,
+        platform: 'android',
+      ),
+    ),
+  );
 
-  Future<void> close() => db.close();
+  Future<void> close() async {
+    await db.close();
+    files.dispose();
+  }
 }

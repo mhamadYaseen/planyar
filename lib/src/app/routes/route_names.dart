@@ -15,6 +15,11 @@ abstract final class RouteNames {
   static const categoryEdit = 'category-edit';
   static const appearance = 'appearance';
   static const onboarding = 'onboarding';
+  static const onboardingRestore = 'onboarding-restore';
+  static const backup = 'backup';
+  static const backupImport = 'backup-import';
+  static const about = 'about';
+  static const erase = 'erase';
 }
 
 abstract final class RoutePaths {
@@ -28,4 +33,8 @@ abstract final class RoutePaths {
   static const labels = '/settings/labels';
   static const appearance = '/settings/appearance';
   static const onboarding = '/onboarding';
+  static const backup = '/settings/backup';
+  static const backupImport = '/settings/backup/import';
+  static const about = '/settings/about';
+  static const erase = '/settings/about/erase';
 }

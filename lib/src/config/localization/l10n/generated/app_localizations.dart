@@ -1074,6 +1074,924 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{frames} frames · median {p50} ms · 90% {p90} ms · 99% {p99} ms · over 16.7 ms: {slow}%'**
   String devFrameResult(int frames, String p50, String p90, String p99, String slow);
+
+  /// Settings hub tile (S22).
+  ///
+  /// In en, this message translates to:
+  /// **'Backup & restore'**
+  String get settingsBackup;
+
+  /// Settings hub tile (S26).
+  ///
+  /// In en, this message translates to:
+  /// **'About & privacy'**
+  String get settingsAbout;
+
+  /// S22 title.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup & restore'**
+  String get backupTitle;
+
+  /// BAK-05. when = backupDaysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'Last full export: {when}'**
+  String backupLastExport(String when);
+
+  /// Relative age of the last export.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =0{today} =1{yesterday} other{{days} days ago}}'**
+  String backupDaysAgo(int days);
+
+  /// BAK-05 when there was never an export.
+  ///
+  /// In en, this message translates to:
+  /// **'No full export yet'**
+  String get backupNeverExported;
+
+  /// S22 explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'One file with all your entries, labels, routines, tasks and settings. Keep a copy somewhere other than this phone.'**
+  String get backupExportIntro;
+
+  /// BAK-01 button: opens the share sheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Export all data'**
+  String get backupExportButton;
+
+  /// BAK-01 button: the system "Save as" dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to device'**
+  String get backupSaveButton;
+
+  /// Privacy note (§10.10).
+  ///
+  /// In en, this message translates to:
+  /// **'Backups aren\'t encrypted: anyone with the file can read it.'**
+  String get backupPlainNote;
+
+  /// While exporting.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing the backup…'**
+  String get backupExporting;
+
+  /// Snackbar after sharing.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup ready: {fileName}'**
+  String backupShared(String fileName);
+
+  /// Snackbar after Save to device.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved {fileName}'**
+  String backupSavedToDevice(String fileName);
+
+  /// Export error.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t export your data.'**
+  String get backupExportFailed;
+
+  /// S22 section.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get backupRestoreSection;
+
+  /// BAK-03 button: opens the file picker.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a backup…'**
+  String get backupImportButton;
+
+  /// Under the import button.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ll see what\'s in the file before anything changes.'**
+  String get backupImportHint;
+
+  /// S22 section (BAK-04).
+  ///
+  /// In en, this message translates to:
+  /// **'Safety backups'**
+  String get backupSafetySection;
+
+  /// Safety backups explanation (§10.8).
+  ///
+  /// In en, this message translates to:
+  /// **'Planyar saves your data by itself before every import and before erasing. The last 5 are kept on this phone; they\'re removed if you uninstall the app.'**
+  String get backupSafetyIntro;
+
+  /// No safety backups.
+  ///
+  /// In en, this message translates to:
+  /// **'None yet.'**
+  String get backupSafetyNone;
+
+  /// Safety backup row.
+  ///
+  /// In en, this message translates to:
+  /// **'{reason} · {when}'**
+  String backupSafetyTitle(String reason, String when);
+
+  /// Safety backup reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Before an import'**
+  String get safetyReasonImport;
+
+  /// Safety backup reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Before erasing all data'**
+  String get safetyReasonErase;
+
+  /// Safety backup reason: raw database copy.
+  ///
+  /// In en, this message translates to:
+  /// **'Before an app update (database file)'**
+  String get safetyReasonMigration;
+
+  /// Safety backup action.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get safetyRestore;
+
+  /// Safety backup action.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get safetyShare;
+
+  /// Tooltip of the safety backup menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions for this safety backup'**
+  String get safetyActions;
+
+  /// Import log (last 5).
+  ///
+  /// In en, this message translates to:
+  /// **'Recent imports'**
+  String get backupHistorySection;
+
+  /// Import log line.
+  ///
+  /// In en, this message translates to:
+  /// **'Merged {fileName}'**
+  String importLogMerged(String fileName);
+
+  /// Import log line.
+  ///
+  /// In en, this message translates to:
+  /// **'Replaced with {fileName}'**
+  String importLogReplaced(String fileName);
+
+  /// Import log details.
+  ///
+  /// In en, this message translates to:
+  /// **'{when} · {written} added or updated, {skipped} unchanged, {invalid} left out'**
+  String importLogCounts(String when, int written, int skipped, int invalid);
+
+  /// J17 AC1.
+  ///
+  /// In en, this message translates to:
+  /// **'This file isn\'t a Planyar backup or is damaged.'**
+  String get backupProblemNotABackup;
+
+  /// J17 AC3, BAK-06.
+  ///
+  /// In en, this message translates to:
+  /// **'This backup was made by a newer version of Planyar. Update the app to import it.'**
+  String get backupProblemNewer;
+
+  /// Over 200 MB.
+  ///
+  /// In en, this message translates to:
+  /// **'This file is too large to be a Planyar backup.'**
+  String get backupProblemTooLarge;
+
+  /// The file could not be read.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open this file. Try picking it again.'**
+  String get backupProblemUnreadable;
+
+  /// Reassurance after a refused file.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing was changed.'**
+  String get backupNothingChanged;
+
+  /// S23 title.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a backup'**
+  String get importTitle;
+
+  /// While reading and validating.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking the file…'**
+  String get importReading;
+
+  /// When the backup was created.
+  ///
+  /// In en, this message translates to:
+  /// **'Made {when}'**
+  String importFileCreated(String when);
+
+  /// Where the backup was made.
+  ///
+  /// In en, this message translates to:
+  /// **'{platform} · Planyar {version} · {zone}'**
+  String importFileOrigin(String platform, String version, String zone);
+
+  /// File size and record count.
+  ///
+  /// In en, this message translates to:
+  /// **'{size} · {count} records'**
+  String importFileSize(String size, int count);
+
+  /// Mode choice heading.
+  ///
+  /// In en, this message translates to:
+  /// **'How to import'**
+  String get importModeTitle;
+
+  /// Mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge'**
+  String get importModeMerge;
+
+  /// Merge explanation (§10.7).
+  ///
+  /// In en, this message translates to:
+  /// **'Adds new records and updates ones that changed. Nothing on this phone is deleted.'**
+  String get importModeMergeHint;
+
+  /// Mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get importModeReplace;
+
+  /// Replace explanation (§10.7).
+  ///
+  /// In en, this message translates to:
+  /// **'Deletes all data on this phone, then restores this backup.'**
+  String get importModeReplaceHint;
+
+  /// Safety backup restore is always Replace.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring a safety backup replaces all data on this phone with the data it saved.'**
+  String get importRestoreHint;
+
+  /// Counts heading.
+  ///
+  /// In en, this message translates to:
+  /// **'What will happen'**
+  String get importWhatHappens;
+
+  /// Record type.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get tableCategories;
+
+  /// Record type.
+  ///
+  /// In en, this message translates to:
+  /// **'Labels'**
+  String get tableLabels;
+
+  /// Record type.
+  ///
+  /// In en, this message translates to:
+  /// **'Entries'**
+  String get tableEntries;
+
+  /// Record type.
+  ///
+  /// In en, this message translates to:
+  /// **'Routines'**
+  String get tableRoutines;
+
+  /// Record type: one-day routine exceptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Routine changes'**
+  String get tableRoutineExceptions;
+
+  /// Record type: task series.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeating tasks'**
+  String get tableTaskSeries;
+
+  /// Record type.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks'**
+  String get tableTasks;
+
+  /// Record type.
+  ///
+  /// In en, this message translates to:
+  /// **'Task reminders'**
+  String get tableTaskReminders;
+
+  /// Preview count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} new'**
+  String countNew(int count);
+
+  /// Preview count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} updated'**
+  String countUpdated(int count);
+
+  /// Preview count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} unchanged'**
+  String countUnchanged(int count);
+
+  /// Preview count: invalid records.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} left out'**
+  String countInvalid(int count);
+
+  /// Preview count: exact duplicate entries skipped (D-27).
+  ///
+  /// In en, this message translates to:
+  /// **'{count} already on this phone'**
+  String countDuplicates(int count);
+
+  /// Preview count: D-25.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} matched by name'**
+  String countMatchedByName(int count);
+
+  /// Preview count: routine occurrence/exception key clash.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} replace this phone\'s for the same day'**
+  String countReplacedByKey(int count);
+
+  /// Replace preview count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} deleted from this phone'**
+  String countRemoved(int count);
+
+  /// Merge with nothing to write.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything in this backup is already on this phone.'**
+  String get importNothingNew;
+
+  /// Merge warning (§10.6 stage 6).
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 record on this phone was changed after this backup was made and will be overwritten.} other{{count} records on this phone were changed after this backup was made and will be overwritten.}}'**
+  String importLocalNewer(int count);
+
+  /// Merge note (D-25).
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 label or category has the same name as one on this phone and will be combined with it.} other{{count} labels or categories have the same name as ones on this phone and will be combined with them.}}'**
+  String importMatchedByName(int count);
+
+  /// Merge note (D-27).
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 entry is already on this phone and will be skipped.} other{{count} entries are already on this phone and will be skipped.}}'**
+  String importDuplicates(int count);
+
+  /// Replace warning: local records missing from the file.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 record on this phone isn\'t in the backup and will be deleted.} other{{count} records on this phone aren\'t in the backup and will be deleted.}}'**
+  String importReplaceRemoves(int count);
+
+  /// Merge option (D-26).
+  ///
+  /// In en, this message translates to:
+  /// **'Also import settings'**
+  String get importAlsoSettings;
+
+  /// Merge option detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme, first day of week and view options. Otherwise this phone\'s settings stay.'**
+  String get importAlsoSettingsHint;
+
+  /// Replace note.
+  ///
+  /// In en, this message translates to:
+  /// **'The backup\'s settings replace this phone\'s (theme, first day of week, view options).'**
+  String get importReplaceSettings;
+
+  /// Invalid records heading (J17 AC2).
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 record can\'t be imported} other{{count} records can\'t be imported}}'**
+  String importInvalidTitle(int count);
+
+  /// Required confirmation when records are invalid (J17 AC2).
+  ///
+  /// In en, this message translates to:
+  /// **'Import without them'**
+  String get importSkipInvalid;
+
+  /// Safe repairs heading (§10.6).
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 small fix will be made} other{{count} small fixes will be made}}'**
+  String importRepairsTitle(int count);
+
+  /// Stage 8 reassurance.
+  ///
+  /// In en, this message translates to:
+  /// **'A safety backup of this phone\'s data is saved first.'**
+  String get importSafetyNote;
+
+  /// Record named by its place in the file.
+  ///
+  /// In en, this message translates to:
+  /// **'{type} #{position}'**
+  String importRecordAt(String type, int position);
+
+  /// Record named by the start of its ID.
+  ///
+  /// In en, this message translates to:
+  /// **'{type} {id}'**
+  String importRecordId(String type, String id);
+
+  /// One invalid record or repair.
+  ///
+  /// In en, this message translates to:
+  /// **'{record}: {reason}'**
+  String importIssueLine(String record, String reason);
+
+  /// Record type, singular.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get recordCategory;
+
+  /// Record type, singular.
+  ///
+  /// In en, this message translates to:
+  /// **'Label'**
+  String get recordLabel;
+
+  /// Record type, singular.
+  ///
+  /// In en, this message translates to:
+  /// **'Entry'**
+  String get recordEntry;
+
+  /// Record type, singular.
+  ///
+  /// In en, this message translates to:
+  /// **'Routine'**
+  String get recordRoutine;
+
+  /// Record type, singular.
+  ///
+  /// In en, this message translates to:
+  /// **'Routine change'**
+  String get recordRoutineException;
+
+  /// Record type, singular.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeating task'**
+  String get recordTaskSeries;
+
+  /// Record type, singular.
+  ///
+  /// In en, this message translates to:
+  /// **'Task'**
+  String get recordTask;
+
+  /// Record type, singular.
+  ///
+  /// In en, this message translates to:
+  /// **'Task reminder'**
+  String get recordTaskReminder;
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'isn\'t a record'**
+  String get issueNotAnObject;
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'“{field}” is missing'**
+  String issueMissingField(String field);
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'“{field}” has the wrong type'**
+  String issueWrongType(String field);
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'“{field}” isn\'t a valid ID'**
+  String issueBadId(String field);
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'“{field}” has a value that isn\'t allowed'**
+  String issueBadValue(String field);
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'“{field}” is too long'**
+  String issueTooLong(String field);
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'“{field}” isn\'t a valid time'**
+  String issueBadTime(String field);
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'“{field}” isn\'t a valid date'**
+  String issueBadDate(String field);
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'ends before it starts'**
+  String get issueEndNotAfterStart;
+
+  /// Invalid record reason (ENT-04).
+  ///
+  /// In en, this message translates to:
+  /// **'is longer than 7 days'**
+  String get issueLongerThan7Days;
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'has the same ID as another record'**
+  String get issueDuplicateId;
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'has the same name as another one in the file; they are combined'**
+  String get issueDuplicateName;
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'is a second copy for the same routine and day'**
+  String get issueDuplicateOccurrence;
+
+  /// Invalid record reason.
+  ///
+  /// In en, this message translates to:
+  /// **'refers to something that\'s neither in the backup nor on this phone'**
+  String get issueMissingReference;
+
+  /// Invalid record reason (merge).
+  ///
+  /// In en, this message translates to:
+  /// **'would take a name that another one on this phone already has'**
+  String get issueNameUsedOnDevice;
+
+  /// Repair.
+  ///
+  /// In en, this message translates to:
+  /// **'unknown color, gray is used'**
+  String get repairColorReplaced;
+
+  /// Repair.
+  ///
+  /// In en, this message translates to:
+  /// **'unknown icon, shown without one'**
+  String get repairIconRemoved;
+
+  /// Repair.
+  ///
+  /// In en, this message translates to:
+  /// **'time rounded to the minute'**
+  String get repairRoundedToMinute;
+
+  /// Repair.
+  ///
+  /// In en, this message translates to:
+  /// **'its label is missing, so it goes under “Imported – unknown label”'**
+  String get repairPlaceholderLabel;
+
+  /// Repair.
+  ///
+  /// In en, this message translates to:
+  /// **'a link to a missing record is removed'**
+  String get repairReferenceCleared;
+
+  /// Repair.
+  ///
+  /// In en, this message translates to:
+  /// **'completion time set to its last change'**
+  String get repairCompletedAtSet;
+
+  /// Repair.
+  ///
+  /// In en, this message translates to:
+  /// **'completion time removed (not completed)'**
+  String get repairCompletedAtCleared;
+
+  /// Repair.
+  ///
+  /// In en, this message translates to:
+  /// **'becomes a one-off task (its series already has an open one)'**
+  String get repairDetachedFromSeries;
+
+  /// Confirm button.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge'**
+  String get importMergeButton;
+
+  /// Confirm button.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get importReplaceButton;
+
+  /// Extra confirmation for Replace (§10.6 stage 7).
+  ///
+  /// In en, this message translates to:
+  /// **'Replace all data?'**
+  String get importReplaceConfirmTitle;
+
+  /// Replace confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{The data on this phone is replaced with the backup. A safety backup is saved first.} =1{The data on this phone is replaced with the backup, and 1 record that isn\'t in it is deleted. A safety backup is saved first.} other{The data on this phone is replaced with the backup, and {count} records that aren\'t in it are deleted. A safety backup is saved first.}}'**
+  String importReplaceConfirmBody(int count);
+
+  /// While the import runs.
+  ///
+  /// In en, this message translates to:
+  /// **'Importing…'**
+  String get importRunning;
+
+  /// S24 title.
+  ///
+  /// In en, this message translates to:
+  /// **'Import complete'**
+  String get importDoneTitle;
+
+  /// S24 summary.
+  ///
+  /// In en, this message translates to:
+  /// **'{written} added or updated, {skipped} unchanged, {invalid} left out.'**
+  String importDoneSummary(int written, int skipped, int invalid);
+
+  /// S24: the safety backup (BAK-04).
+  ///
+  /// In en, this message translates to:
+  /// **'Safety backup of the earlier data: {name}'**
+  String importDoneSafety(String name);
+
+  /// Post-import quick_check failed.
+  ///
+  /// In en, this message translates to:
+  /// **'A check after the import found a problem. If anything looks wrong, restore the safety backup from Backup & restore.'**
+  String get importIntegrityWarning;
+
+  /// Stage 8 failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save a safety backup first, so nothing was imported. Your data was not changed.'**
+  String get importSafetyFailed;
+
+  /// Stage 9 failure (rolled back).
+  ///
+  /// In en, this message translates to:
+  /// **'The import failed. Your data was not changed.'**
+  String get importFailed;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// S26 title.
+  ///
+  /// In en, this message translates to:
+  /// **'About & privacy'**
+  String get aboutTitle;
+
+  /// App version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String aboutVersion(String version);
+
+  /// S26 section.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get aboutPrivacyTitle;
+
+  /// SET-05 privacy statement.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data never leaves this device unless you export it. Planyar has no account, no ads and no analytics, and it can\'t use the internet.'**
+  String get aboutPrivacyBody;
+
+  /// S26 tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source licenses'**
+  String get aboutLicenses;
+
+  /// S26 section with Erase all data.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get aboutDangerSection;
+
+  /// SET-06 title and tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Erase all data'**
+  String get eraseTitle;
+
+  /// SET-06 explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'This deletes every entry, label, routine, task and setting on this phone. Planyar then starts again from the welcome screen.'**
+  String get eraseBody;
+
+  /// SET-06: offer an export first.
+  ///
+  /// In en, this message translates to:
+  /// **'Export a backup first'**
+  String get eraseExportFirst;
+
+  /// After exporting from the erase page.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup ready: {fileName}'**
+  String eraseExported(String fileName);
+
+  /// SET-06 reassurance.
+  ///
+  /// In en, this message translates to:
+  /// **'A safety backup is also saved on this phone first. You can restore it from Backup & restore.'**
+  String get eraseSafetyNote;
+
+  /// SET-06 confirmation field. Keep the word ERASE in English: the app checks for it.
+  ///
+  /// In en, this message translates to:
+  /// **'Type ERASE to confirm'**
+  String get eraseTypeLabel;
+
+  /// SET-06 destructive button.
+  ///
+  /// In en, this message translates to:
+  /// **'Erase everything'**
+  String get eraseButton;
+
+  /// While erasing.
+  ///
+  /// In en, this message translates to:
+  /// **'Erasing…'**
+  String get eraseRunning;
+
+  /// Erase failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save a safety backup first, so nothing was erased.'**
+  String get eraseSafetyFailed;
+
+  /// Erase failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t erase your data. Nothing was deleted.'**
+  String get eraseFailed;
+
+  /// S28 explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong while opening the database. Nothing has been deleted. You can try again, restore a backup, or keep a copy of the database file.'**
+  String get recoveryBody;
+
+  /// S28 action.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get recoveryRetry;
+
+  /// S28 action.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore the latest safety backup'**
+  String get recoveryRestoreLatest;
+
+  /// S28 action detail.
+  ///
+  /// In en, this message translates to:
+  /// **'{when}: your data as it was then'**
+  String recoveryRestoreLatestHint(String when);
+
+  /// S28 action.
+  ///
+  /// In en, this message translates to:
+  /// **'Export the database file'**
+  String get recoveryExportDatabase;
+
+  /// S28 action detail.
+  ///
+  /// In en, this message translates to:
+  /// **'A copy to look at on a computer or to send to the developer.'**
+  String get recoveryExportDatabaseHint;
+
+  /// S28 action.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a backup…'**
+  String get recoveryImport;
+
+  /// S28 confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore this backup?'**
+  String get recoveryConfirmTitle;
+
+  /// S28 confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{The current database file is moved aside (not deleted) and the backup is restored: 1 record.} other{The current database file is moved aside (not deleted) and the backup is restored: {count} records.}}'**
+  String recoveryConfirmBody(int count);
+
+  /// S28 confirm button.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get recoveryRestore;
+
+  /// S28 progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Working…'**
+  String get recoveryWorking;
+
+  /// S28 failure.
+  ///
+  /// In en, this message translates to:
+  /// **'That didn\'t work. Nothing was changed.'**
+  String get recoveryActionFailed;
+
+  /// S28 expandable details.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical details'**
+  String get recoveryDetails;
+
+  /// Welcome step: moving from another phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore from a backup'**
+  String get onboardingRestore;
+
+  /// After the first 100 issues or fixes.
+  ///
+  /// In en, this message translates to:
+  /// **'…and {count} more'**
+  String importMoreIssues(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

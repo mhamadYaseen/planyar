@@ -6,5 +6,5 @@ import 'presentation/bloc/onboarding_bloc.dart';
 void registerOnboardingFeature(GetIt sl) {
   sl
     ..registerLazySingleton(() => FinishOnboarding(sl(), sl(), sl()))
-    ..registerFactory(() => OnboardingBloc(sl()));
+    ..registerFactory(() => OnboardingBloc(sl(), sl()));
 }

@@ -4,6 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../../flavors.dart';
+import '../../features/backup/domain/entities/backup_actions.dart';
+import '../../features/backup/presentation/pages/backup_page.dart';
+import '../../features/backup/presentation/pages/erase_data_page.dart';
+import '../../features/backup/presentation/pages/import_page.dart';
 import '../../features/calendar/presentation/pages/calendar_page.dart';
 import '../../features/day_view/presentation/pages/today_page.dart';
 import '../../features/dev_tools/presentation/pages/dev_tools_page.dart';
@@ -14,6 +18,7 @@ import '../../features/labels/presentation/pages/labels_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/reports/presentation/pages/reports_page.dart';
 import '../../features/settings/presentation/bloc/app_settings_bloc.dart';
+import '../../features/settings/presentation/pages/about_page.dart';
 import '../../features/settings/presentation/pages/appearance_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/tasks/presentation/pages/tasks_page.dart';
@@ -33,13 +38,26 @@ class AppRouter {
     refreshListenable: _OnboardingChanges(_settings),
     redirect: (context, state) {
       final done = _settings.state.onboardingCompleted;
-      final atOnboarding = state.matchedLocation == RoutePaths.onboarding;
+      // Includes /onboarding/restore (importing a backup on a new phone).
+      final atOnboarding = state.matchedLocation.startsWith(RoutePaths.onboarding);
       if (!done && !atOnboarding) return RoutePaths.onboarding;
       if (done && atOnboarding) return RoutePaths.today;
       return null;
     },
     routes: [
-      GoRoute(path: RoutePaths.onboarding, name: RouteNames.onboarding, builder: (_, _) => const OnboardingPage()),
+      GoRoute(
+        path: RoutePaths.onboarding,
+        name: RouteNames.onboarding,
+        builder: (_, _) => const OnboardingPage(),
+        routes: [
+          GoRoute(
+            path: 'restore',
+            name: RouteNames.onboardingRestore,
+            redirect: (_, state) => state.extra is ImportSource ? null : RoutePaths.onboarding,
+            builder: (_, state) => ImportPage(source: state.extra! as ImportSource),
+          ),
+        ],
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) => AppShell(navigationShell: navigationShell),
         branches: [
@@ -99,6 +117,27 @@ class AppRouter {
             ],
           ),
           GoRoute(path: 'appearance', name: RouteNames.appearance, builder: (_, _) => const AppearancePage()),
+          GoRoute(
+            path: 'backup',
+            name: RouteNames.backup,
+            builder: (_, _) => const BackupPage(),
+            routes: [
+              GoRoute(
+                path: 'import',
+                name: RouteNames.backupImport,
+                // The file to import travels as `extra`; without one (e.g. a
+                // restored route) there's nothing to show.
+                redirect: (_, state) => state.extra is ImportSource ? null : RoutePaths.backup,
+                builder: (_, state) => ImportPage(source: state.extra! as ImportSource),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: 'about',
+            name: RouteNames.about,
+            builder: (_, _) => const AboutPage(),
+            routes: [GoRoute(path: 'erase', name: RouteNames.erase, builder: (_, _) => const EraseDataPage())],
+          ),
           if (flavor == Flavor.dev)
             GoRoute(path: 'dev-tools', name: RouteNames.devTools, builder: (_, _) => const DevToolsPage()),
         ],

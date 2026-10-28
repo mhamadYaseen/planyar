@@ -16,6 +16,7 @@ import 'package:planyar/src/features/settings/domain/entities/app_settings.dart'
 import 'package:planyar/src/features/settings/domain/usecases/settings_usecases.dart';
 import 'package:planyar/src/features/settings/presentation/bloc/app_settings_bloc.dart';
 
+import 'fake_file_gateway.dart';
 import 'fake_notification_gateway.dart';
 
 /// A ticker the test drives by hand (no real timers left pending).
@@ -38,17 +39,21 @@ void usePhoneSize(WidgetTester tester) {
 
 /// Starts the real app (real DI, repositories and router) on an in-memory
 /// database in Asia/Baghdad. [settings] are saved before the first frame;
-/// [seed] runs after setup, before the first frame.
+/// [seed] runs after setup, before the first frame. [files] defaults to a
+/// fresh [FakeFileGateway] over temporary folders.
 Future<FakeNotificationGateway> pumpPlanyar(
   WidgetTester tester, {
   Flavor flavor = Flavor.prod,
   AppSettings settings = const AppSettings(onboardingCompleted: true),
   Future<void> Function()? seed,
   bool phone = true,
+  FakeFileGateway? files,
 }) async {
   if (phone) usePhoneSize(tester);
   F.appFlavor = flavor;
   final notifications = FakeNotificationGateway();
+  final fileGateway = files ?? FakeFileGateway();
+  if (files == null) addTearDown(fileGateway.dispose);
   await tester.runAsync(() async {
     await sl.reset();
     await setupDependencies(
@@ -56,6 +61,7 @@ Future<FakeNotificationGateway> pumpPlanyar(
       // Stops query streams right away, so no drift timer outlives the test.
       database: DatabaseConnection(NativeDatabase.memory(), closeStreamsSynchronously: true),
       notifications: notifications,
+      files: fileGateway,
       readTimeZone: () async => 'Asia/Baghdad',
       ticker: ManualTicker(),
     );

@@ -861,5 +861,868 @@
         "type": "String"
       }
     }
+  },
+  "settingsBackup": "Backup & restore",
+  "@settingsBackup": {
+    "description": "Settings hub tile (S22)."
+  },
+  "settingsAbout": "About & privacy",
+  "@settingsAbout": {
+    "description": "Settings hub tile (S26)."
+  },
+  "backupTitle": "Backup & restore",
+  "@backupTitle": {
+    "description": "S22 title."
+  },
+  "backupLastExport": "Last full export: {when}",
+  "@backupLastExport": {
+    "description": "BAK-05. when = backupDaysAgo.",
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "backupDaysAgo": "{days, plural, =0{today} =1{yesterday} other{{days} days ago}}",
+  "@backupDaysAgo": {
+    "description": "Relative age of the last export.",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "backupNeverExported": "No full export yet",
+  "@backupNeverExported": {
+    "description": "BAK-05 when there was never an export."
+  },
+  "backupExportIntro": "One file with all your entries, labels, routines, tasks and settings. Keep a copy somewhere other than this phone.",
+  "@backupExportIntro": {
+    "description": "S22 explanation."
+  },
+  "backupExportButton": "Export all data",
+  "@backupExportButton": {
+    "description": "BAK-01 button: opens the share sheet."
+  },
+  "backupSaveButton": "Save to device",
+  "@backupSaveButton": {
+    "description": "BAK-01 button: the system \"Save as\" dialog."
+  },
+  "backupPlainNote": "Backups aren't encrypted: anyone with the file can read it.",
+  "@backupPlainNote": {
+    "description": "Privacy note (§10.10)."
+  },
+  "backupExporting": "Preparing the backup…",
+  "@backupExporting": {
+    "description": "While exporting."
+  },
+  "backupShared": "Backup ready: {fileName}",
+  "@backupShared": {
+    "description": "Snackbar after sharing.",
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "backupSavedToDevice": "Saved {fileName}",
+  "@backupSavedToDevice": {
+    "description": "Snackbar after Save to device.",
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "backupExportFailed": "Couldn't export your data.",
+  "@backupExportFailed": {
+    "description": "Export error."
+  },
+  "backupRestoreSection": "Restore",
+  "@backupRestoreSection": {
+    "description": "S22 section."
+  },
+  "backupImportButton": "Import a backup…",
+  "@backupImportButton": {
+    "description": "BAK-03 button: opens the file picker."
+  },
+  "backupImportHint": "You'll see what's in the file before anything changes.",
+  "@backupImportHint": {
+    "description": "Under the import button."
+  },
+  "backupSafetySection": "Safety backups",
+  "@backupSafetySection": {
+    "description": "S22 section (BAK-04)."
+  },
+  "backupSafetyIntro": "Planyar saves your data by itself before every import and before erasing. The last 5 are kept on this phone; they're removed if you uninstall the app.",
+  "@backupSafetyIntro": {
+    "description": "Safety backups explanation (§10.8)."
+  },
+  "backupSafetyNone": "None yet.",
+  "@backupSafetyNone": {
+    "description": "No safety backups."
+  },
+  "backupSafetyTitle": "{reason} · {when}",
+  "@backupSafetyTitle": {
+    "description": "Safety backup row.",
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyReasonImport": "Before an import",
+  "@safetyReasonImport": {
+    "description": "Safety backup reason."
+  },
+  "safetyReasonErase": "Before erasing all data",
+  "@safetyReasonErase": {
+    "description": "Safety backup reason."
+  },
+  "safetyReasonMigration": "Before an app update (database file)",
+  "@safetyReasonMigration": {
+    "description": "Safety backup reason: raw database copy."
+  },
+  "safetyRestore": "Restore",
+  "@safetyRestore": {
+    "description": "Safety backup action."
+  },
+  "safetyShare": "Share",
+  "@safetyShare": {
+    "description": "Safety backup action."
+  },
+  "safetyActions": "Actions for this safety backup",
+  "@safetyActions": {
+    "description": "Tooltip of the safety backup menu."
+  },
+  "backupHistorySection": "Recent imports",
+  "@backupHistorySection": {
+    "description": "Import log (last 5)."
+  },
+  "importLogMerged": "Merged {fileName}",
+  "@importLogMerged": {
+    "description": "Import log line.",
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "importLogReplaced": "Replaced with {fileName}",
+  "@importLogReplaced": {
+    "description": "Import log line.",
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "importLogCounts": "{when} · {written} added or updated, {skipped} unchanged, {invalid} left out",
+  "@importLogCounts": {
+    "description": "Import log details.",
+    "placeholders": {
+      "when": {
+        "type": "String"
+      },
+      "written": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      },
+      "invalid": {
+        "type": "int"
+      }
+    }
+  },
+  "backupProblemNotABackup": "This file isn't a Planyar backup or is damaged.",
+  "@backupProblemNotABackup": {
+    "description": "J17 AC1."
+  },
+  "backupProblemNewer": "This backup was made by a newer version of Planyar. Update the app to import it.",
+  "@backupProblemNewer": {
+    "description": "J17 AC3, BAK-06."
+  },
+  "backupProblemTooLarge": "This file is too large to be a Planyar backup.",
+  "@backupProblemTooLarge": {
+    "description": "Over 200 MB."
+  },
+  "backupProblemUnreadable": "Couldn't open this file. Try picking it again.",
+  "@backupProblemUnreadable": {
+    "description": "The file could not be read."
+  },
+  "backupNothingChanged": "Nothing was changed.",
+  "@backupNothingChanged": {
+    "description": "Reassurance after a refused file."
+  },
+  "importTitle": "Import a backup",
+  "@importTitle": {
+    "description": "S23 title."
+  },
+  "importReading": "Checking the file…",
+  "@importReading": {
+    "description": "While reading and validating."
+  },
+  "importFileCreated": "Made {when}",
+  "@importFileCreated": {
+    "description": "When the backup was created.",
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "importFileOrigin": "{platform} · Planyar {version} · {zone}",
+  "@importFileOrigin": {
+    "description": "Where the backup was made.",
+    "placeholders": {
+      "platform": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      },
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "importFileSize": "{size} · {count} records",
+  "@importFileSize": {
+    "description": "File size and record count.",
+    "placeholders": {
+      "size": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importModeTitle": "How to import",
+  "@importModeTitle": {
+    "description": "Mode choice heading."
+  },
+  "importModeMerge": "Merge",
+  "@importModeMerge": {
+    "description": "Mode."
+  },
+  "importModeMergeHint": "Adds new records and updates ones that changed. Nothing on this phone is deleted.",
+  "@importModeMergeHint": {
+    "description": "Merge explanation (§10.7)."
+  },
+  "importModeReplace": "Replace",
+  "@importModeReplace": {
+    "description": "Mode."
+  },
+  "importModeReplaceHint": "Deletes all data on this phone, then restores this backup.",
+  "@importModeReplaceHint": {
+    "description": "Replace explanation (§10.7)."
+  },
+  "importRestoreHint": "Restoring a safety backup replaces all data on this phone with the data it saved.",
+  "@importRestoreHint": {
+    "description": "Safety backup restore is always Replace."
+  },
+  "importWhatHappens": "What will happen",
+  "@importWhatHappens": {
+    "description": "Counts heading."
+  },
+  "tableCategories": "Categories",
+  "@tableCategories": {
+    "description": "Record type."
+  },
+  "tableLabels": "Labels",
+  "@tableLabels": {
+    "description": "Record type."
+  },
+  "tableEntries": "Entries",
+  "@tableEntries": {
+    "description": "Record type."
+  },
+  "tableRoutines": "Routines",
+  "@tableRoutines": {
+    "description": "Record type."
+  },
+  "tableRoutineExceptions": "Routine changes",
+  "@tableRoutineExceptions": {
+    "description": "Record type: one-day routine exceptions."
+  },
+  "tableTaskSeries": "Repeating tasks",
+  "@tableTaskSeries": {
+    "description": "Record type: task series."
+  },
+  "tableTasks": "Tasks",
+  "@tableTasks": {
+    "description": "Record type."
+  },
+  "tableTaskReminders": "Task reminders",
+  "@tableTaskReminders": {
+    "description": "Record type."
+  },
+  "countNew": "{count} new",
+  "@countNew": {
+    "description": "Preview count.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "countUpdated": "{count} updated",
+  "@countUpdated": {
+    "description": "Preview count.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "countUnchanged": "{count} unchanged",
+  "@countUnchanged": {
+    "description": "Preview count.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "countInvalid": "{count} left out",
+  "@countInvalid": {
+    "description": "Preview count: invalid records.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "countDuplicates": "{count} already on this phone",
+  "@countDuplicates": {
+    "description": "Preview count: exact duplicate entries skipped (D-27).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "countMatchedByName": "{count} matched by name",
+  "@countMatchedByName": {
+    "description": "Preview count: D-25.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "countReplacedByKey": "{count} replace this phone's for the same day",
+  "@countReplacedByKey": {
+    "description": "Preview count: routine occurrence/exception key clash.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "countRemoved": "{count} deleted from this phone",
+  "@countRemoved": {
+    "description": "Replace preview count.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importNothingNew": "Everything in this backup is already on this phone.",
+  "@importNothingNew": {
+    "description": "Merge with nothing to write."
+  },
+  "importLocalNewer": "{count, plural, =1{1 record on this phone was changed after this backup was made and will be overwritten.} other{{count} records on this phone were changed after this backup was made and will be overwritten.}}",
+  "@importLocalNewer": {
+    "description": "Merge warning (§10.6 stage 6).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importMatchedByName": "{count, plural, =1{1 label or category has the same name as one on this phone and will be combined with it.} other{{count} labels or categories have the same name as ones on this phone and will be combined with them.}}",
+  "@importMatchedByName": {
+    "description": "Merge note (D-25).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importDuplicates": "{count, plural, =1{1 entry is already on this phone and will be skipped.} other{{count} entries are already on this phone and will be skipped.}}",
+  "@importDuplicates": {
+    "description": "Merge note (D-27).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importReplaceRemoves": "{count, plural, =1{1 record on this phone isn't in the backup and will be deleted.} other{{count} records on this phone aren't in the backup and will be deleted.}}",
+  "@importReplaceRemoves": {
+    "description": "Replace warning: local records missing from the file.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importAlsoSettings": "Also import settings",
+  "@importAlsoSettings": {
+    "description": "Merge option (D-26)."
+  },
+  "importAlsoSettingsHint": "Theme, first day of week and view options. Otherwise this phone's settings stay.",
+  "@importAlsoSettingsHint": {
+    "description": "Merge option detail."
+  },
+  "importReplaceSettings": "The backup's settings replace this phone's (theme, first day of week, view options).",
+  "@importReplaceSettings": {
+    "description": "Replace note."
+  },
+  "importInvalidTitle": "{count, plural, =1{1 record can't be imported} other{{count} records can't be imported}}",
+  "@importInvalidTitle": {
+    "description": "Invalid records heading (J17 AC2).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importSkipInvalid": "Import without them",
+  "@importSkipInvalid": {
+    "description": "Required confirmation when records are invalid (J17 AC2)."
+  },
+  "importRepairsTitle": "{count, plural, =1{1 small fix will be made} other{{count} small fixes will be made}}",
+  "@importRepairsTitle": {
+    "description": "Safe repairs heading (§10.6).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importSafetyNote": "A safety backup of this phone's data is saved first.",
+  "@importSafetyNote": {
+    "description": "Stage 8 reassurance."
+  },
+  "importRecordAt": "{type} #{position}",
+  "@importRecordAt": {
+    "description": "Record named by its place in the file.",
+    "placeholders": {
+      "type": {
+        "type": "String"
+      },
+      "position": {
+        "type": "int"
+      }
+    }
+  },
+  "importRecordId": "{type} {id}",
+  "@importRecordId": {
+    "description": "Record named by the start of its ID.",
+    "placeholders": {
+      "type": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "importIssueLine": "{record}: {reason}",
+  "@importIssueLine": {
+    "description": "One invalid record or repair.",
+    "placeholders": {
+      "record": {
+        "type": "String"
+      },
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "recordCategory": "Category",
+  "@recordCategory": {
+    "description": "Record type, singular."
+  },
+  "recordLabel": "Label",
+  "@recordLabel": {
+    "description": "Record type, singular."
+  },
+  "recordEntry": "Entry",
+  "@recordEntry": {
+    "description": "Record type, singular."
+  },
+  "recordRoutine": "Routine",
+  "@recordRoutine": {
+    "description": "Record type, singular."
+  },
+  "recordRoutineException": "Routine change",
+  "@recordRoutineException": {
+    "description": "Record type, singular."
+  },
+  "recordTaskSeries": "Repeating task",
+  "@recordTaskSeries": {
+    "description": "Record type, singular."
+  },
+  "recordTask": "Task",
+  "@recordTask": {
+    "description": "Record type, singular."
+  },
+  "recordTaskReminder": "Task reminder",
+  "@recordTaskReminder": {
+    "description": "Record type, singular."
+  },
+  "issueNotAnObject": "isn't a record",
+  "@issueNotAnObject": {
+    "description": "Invalid record reason."
+  },
+  "issueMissingField": "“{field}” is missing",
+  "@issueMissingField": {
+    "description": "Invalid record reason.",
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "issueWrongType": "“{field}” has the wrong type",
+  "@issueWrongType": {
+    "description": "Invalid record reason.",
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "issueBadId": "“{field}” isn't a valid ID",
+  "@issueBadId": {
+    "description": "Invalid record reason.",
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "issueBadValue": "“{field}” has a value that isn't allowed",
+  "@issueBadValue": {
+    "description": "Invalid record reason.",
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "issueTooLong": "“{field}” is too long",
+  "@issueTooLong": {
+    "description": "Invalid record reason.",
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "issueBadTime": "“{field}” isn't a valid time",
+  "@issueBadTime": {
+    "description": "Invalid record reason.",
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "issueBadDate": "“{field}” isn't a valid date",
+  "@issueBadDate": {
+    "description": "Invalid record reason.",
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "issueEndNotAfterStart": "ends before it starts",
+  "@issueEndNotAfterStart": {
+    "description": "Invalid record reason."
+  },
+  "issueLongerThan7Days": "is longer than 7 days",
+  "@issueLongerThan7Days": {
+    "description": "Invalid record reason (ENT-04)."
+  },
+  "issueDuplicateId": "has the same ID as another record",
+  "@issueDuplicateId": {
+    "description": "Invalid record reason."
+  },
+  "issueDuplicateName": "has the same name as another one in the file; they are combined",
+  "@issueDuplicateName": {
+    "description": "Invalid record reason."
+  },
+  "issueDuplicateOccurrence": "is a second copy for the same routine and day",
+  "@issueDuplicateOccurrence": {
+    "description": "Invalid record reason."
+  },
+  "issueMissingReference": "refers to something that's neither in the backup nor on this phone",
+  "@issueMissingReference": {
+    "description": "Invalid record reason."
+  },
+  "issueNameUsedOnDevice": "would take a name that another one on this phone already has",
+  "@issueNameUsedOnDevice": {
+    "description": "Invalid record reason (merge)."
+  },
+  "repairColorReplaced": "unknown color, gray is used",
+  "@repairColorReplaced": {
+    "description": "Repair."
+  },
+  "repairIconRemoved": "unknown icon, shown without one",
+  "@repairIconRemoved": {
+    "description": "Repair."
+  },
+  "repairRoundedToMinute": "time rounded to the minute",
+  "@repairRoundedToMinute": {
+    "description": "Repair."
+  },
+  "repairPlaceholderLabel": "its label is missing, so it goes under “Imported – unknown label”",
+  "@repairPlaceholderLabel": {
+    "description": "Repair."
+  },
+  "repairReferenceCleared": "a link to a missing record is removed",
+  "@repairReferenceCleared": {
+    "description": "Repair."
+  },
+  "repairCompletedAtSet": "completion time set to its last change",
+  "@repairCompletedAtSet": {
+    "description": "Repair."
+  },
+  "repairCompletedAtCleared": "completion time removed (not completed)",
+  "@repairCompletedAtCleared": {
+    "description": "Repair."
+  },
+  "repairDetachedFromSeries": "becomes a one-off task (its series already has an open one)",
+  "@repairDetachedFromSeries": {
+    "description": "Repair."
+  },
+  "importMergeButton": "Merge",
+  "@importMergeButton": {
+    "description": "Confirm button."
+  },
+  "importReplaceButton": "Replace",
+  "@importReplaceButton": {
+    "description": "Confirm button."
+  },
+  "importReplaceConfirmTitle": "Replace all data?",
+  "@importReplaceConfirmTitle": {
+    "description": "Extra confirmation for Replace (§10.6 stage 7)."
+  },
+  "importReplaceConfirmBody": "{count, plural, =0{The data on this phone is replaced with the backup. A safety backup is saved first.} =1{The data on this phone is replaced with the backup, and 1 record that isn't in it is deleted. A safety backup is saved first.} other{The data on this phone is replaced with the backup, and {count} records that aren't in it are deleted. A safety backup is saved first.}}",
+  "@importReplaceConfirmBody": {
+    "description": "Replace confirmation.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importRunning": "Importing…",
+  "@importRunning": {
+    "description": "While the import runs."
+  },
+  "importDoneTitle": "Import complete",
+  "@importDoneTitle": {
+    "description": "S24 title."
+  },
+  "importDoneSummary": "{written} added or updated, {skipped} unchanged, {invalid} left out.",
+  "@importDoneSummary": {
+    "description": "S24 summary.",
+    "placeholders": {
+      "written": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      },
+      "invalid": {
+        "type": "int"
+      }
+    }
+  },
+  "importDoneSafety": "Safety backup of the earlier data: {name}",
+  "@importDoneSafety": {
+    "description": "S24: the safety backup (BAK-04).",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "importIntegrityWarning": "A check after the import found a problem. If anything looks wrong, restore the safety backup from Backup & restore.",
+  "@importIntegrityWarning": {
+    "description": "Post-import quick_check failed."
+  },
+  "importSafetyFailed": "Couldn't save a safety backup first, so nothing was imported. Your data was not changed.",
+  "@importSafetyFailed": {
+    "description": "Stage 8 failure."
+  },
+  "importFailed": "The import failed. Your data was not changed.",
+  "@importFailed": {
+    "description": "Stage 9 failure (rolled back)."
+  },
+  "done": "Done",
+  "@done": {
+    "description": "Button."
+  },
+  "aboutTitle": "About & privacy",
+  "@aboutTitle": {
+    "description": "S26 title."
+  },
+  "aboutVersion": "Version {version}",
+  "@aboutVersion": {
+    "description": "App version.",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "aboutPrivacyTitle": "Privacy",
+  "@aboutPrivacyTitle": {
+    "description": "S26 section."
+  },
+  "aboutPrivacyBody": "Your data never leaves this device unless you export it. Planyar has no account, no ads and no analytics, and it can't use the internet.",
+  "@aboutPrivacyBody": {
+    "description": "SET-05 privacy statement."
+  },
+  "aboutLicenses": "Open-source licenses",
+  "@aboutLicenses": {
+    "description": "S26 tile."
+  },
+  "aboutDangerSection": "Start over",
+  "@aboutDangerSection": {
+    "description": "S26 section with Erase all data."
+  },
+  "eraseTitle": "Erase all data",
+  "@eraseTitle": {
+    "description": "SET-06 title and tile."
+  },
+  "eraseBody": "This deletes every entry, label, routine, task and setting on this phone. Planyar then starts again from the welcome screen.",
+  "@eraseBody": {
+    "description": "SET-06 explanation."
+  },
+  "eraseExportFirst": "Export a backup first",
+  "@eraseExportFirst": {
+    "description": "SET-06: offer an export first."
+  },
+  "eraseExported": "Backup ready: {fileName}",
+  "@eraseExported": {
+    "description": "After exporting from the erase page.",
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "eraseSafetyNote": "A safety backup is also saved on this phone first. You can restore it from Backup & restore.",
+  "@eraseSafetyNote": {
+    "description": "SET-06 reassurance."
+  },
+  "eraseTypeLabel": "Type ERASE to confirm",
+  "@eraseTypeLabel": {
+    "description": "SET-06 confirmation field. Keep the word ERASE in English: the app checks for it."
+  },
+  "eraseButton": "Erase everything",
+  "@eraseButton": {
+    "description": "SET-06 destructive button."
+  },
+  "eraseRunning": "Erasing…",
+  "@eraseRunning": {
+    "description": "While erasing."
+  },
+  "eraseSafetyFailed": "Couldn't save a safety backup first, so nothing was erased.",
+  "@eraseSafetyFailed": {
+    "description": "Erase failure."
+  },
+  "eraseFailed": "Couldn't erase your data. Nothing was deleted.",
+  "@eraseFailed": {
+    "description": "Erase failure."
+  },
+  "recoveryBody": "Something went wrong while opening the database. Nothing has been deleted. You can try again, restore a backup, or keep a copy of the database file.",
+  "@recoveryBody": {
+    "description": "S28 explanation."
+  },
+  "recoveryRetry": "Try again",
+  "@recoveryRetry": {
+    "description": "S28 action."
+  },
+  "recoveryRestoreLatest": "Restore the latest safety backup",
+  "@recoveryRestoreLatest": {
+    "description": "S28 action."
+  },
+  "recoveryRestoreLatestHint": "{when}: your data as it was then",
+  "@recoveryRestoreLatestHint": {
+    "description": "S28 action detail.",
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "recoveryExportDatabase": "Export the database file",
+  "@recoveryExportDatabase": {
+    "description": "S28 action."
+  },
+  "recoveryExportDatabaseHint": "A copy to look at on a computer or to send to the developer.",
+  "@recoveryExportDatabaseHint": {
+    "description": "S28 action detail."
+  },
+  "recoveryImport": "Import a backup…",
+  "@recoveryImport": {
+    "description": "S28 action."
+  },
+  "recoveryConfirmTitle": "Restore this backup?",
+  "@recoveryConfirmTitle": {
+    "description": "S28 confirmation."
+  },
+  "recoveryConfirmBody": "{count, plural, =1{The current database file is moved aside (not deleted) and the backup is restored: 1 record.} other{The current database file is moved aside (not deleted) and the backup is restored: {count} records.}}",
+  "@recoveryConfirmBody": {
+    "description": "S28 confirmation.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recoveryRestore": "Restore",
+  "@recoveryRestore": {
+    "description": "S28 confirm button."
+  },
+  "recoveryWorking": "Working…",
+  "@recoveryWorking": {
+    "description": "S28 progress."
+  },
+  "recoveryActionFailed": "That didn't work. Nothing was changed.",
+  "@recoveryActionFailed": {
+    "description": "S28 failure."
+  },
+  "recoveryDetails": "Technical details",
+  "@recoveryDetails": {
+    "description": "S28 expandable details."
+  },
+  "onboardingRestore": "Restore from a backup",
+  "@onboardingRestore": {
+    "description": "Welcome step: moving from another phone."
+  },
+  "importMoreIssues": "…and {count} more",
+  "@importMoreIssues": {
+    "description": "After the first 100 issues or fixes.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }
