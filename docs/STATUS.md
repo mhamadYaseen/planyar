@@ -6,7 +6,7 @@ _Last updated: 2026-10-28, end of the Phase 2 session._
 
 - **Phase 0 (foundation): done.**
 - **Phase 1 (entries, labels, Today): done**, merged into `main`. Left for you: the 60 fps check and a reminder test on your phone (see "Your to-do").
-- **Phase 2 (backup, export, import): done in code** on branch `phase-2`. It is merged into `main` once CI is green. From here on you can use the app for real: your data can be backed up and restored.
+- **Phase 2 (backup, export, import): done**, merged into `main` (CI green on all 10 jobs, 2026-10-28). From here on you can use the app for real: your data can be backed up and restored.
 - **Next: Phase 3 — routines and the month calendar** (plan §13).
 
 ## Phase 2 — what's in the app
