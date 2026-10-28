@@ -34,14 +34,16 @@ final class EntryValidator {
   static final earliestDate = LocalDate(2000, 1, 1);
   static const yearsAhead = 5;
 
-  EntryCheck check({required Instant start, Instant? end, String? note, required Instant now}) {
+  /// [savedStart] is the start of the entry being edited: an unchanged start
+  /// is never out of range, so an entry from an import or an old phone clock
+  /// can still get a new note or label.
+  EntryCheck check({required Instant start, Instant? end, String? note, required Instant now, Instant? savedStart}) {
     final problems = <EntryProblem>{};
     final notices = <EntryNotice>{};
 
     final latestDate = _math.dateOf(now).addYears(yearsAhead);
-    if (start < _math.startOfDay(earliestDate) || !start.isBefore(_math.dayBounds(latestDate).end)) {
-      problems.add(EntryProblem.startOutOfRange);
-    }
+    final outOfRange = start < _math.startOfDay(earliestDate) || !start.isBefore(_math.dayBounds(latestDate).end);
+    if (outOfRange && start != savedStart) problems.add(EntryProblem.startOutOfRange);
     if (!start.isMinuteAligned || (end != null && !end.isMinuteAligned)) {
       problems.add(EntryProblem.notMinuteAligned);
     }

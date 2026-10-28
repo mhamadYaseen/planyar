@@ -216,7 +216,9 @@ class EntryFormBloc extends Bloc<EntryFormEvent, EntryFormState> {
     final start = next.start;
     final check = start == null
         ? const EntryCheck()
-        : EntryValidator(_math).check(start: start, end: next.end, note: next.note, now: Instant.now());
+        : EntryValidator(
+            _math,
+          ).check(start: start, end: next.end, note: next.note, now: Instant.now(), savedStart: next.original?.start);
     emit(next.copyWith(check: check, failure: null));
     if (recheckOverlaps) add(const EntryFormEvent.overlapCheckRequested());
   }

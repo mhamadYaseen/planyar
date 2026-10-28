@@ -32,8 +32,13 @@ final class SaveEntry implements UseCase<DataState<Entry>, SaveEntryParams> {
   @override
   Future<DataState<Entry>> call(SaveEntryParams params) async {
     final draft = params.draft;
-    final check = EntryValidator(_timeZones.dayMath)
-        .check(start: draft.start, end: draft.end, note: draft.note, now: Instant.now());
+    final check = EntryValidator(_timeZones.dayMath).check(
+      start: draft.start,
+      end: draft.end,
+      note: draft.note,
+      now: Instant.now(),
+      savedStart: params.existing?.start,
+    );
     if (!check.canSave) return DataState.error(Failure.validation('Entry not saved', reason: check));
     final existing = params.existing;
     return guard(

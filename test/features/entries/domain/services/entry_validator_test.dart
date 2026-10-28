@@ -44,6 +44,13 @@ void main() {
     expect(check('2031-10-26T00:00:00', end: '2031-10-26T01:00:00').problems, {EntryProblem.startOutOfRange});
   });
 
+  test('an entry already saved out of range (import, wrong clock) stays editable while its start is kept', () {
+    final old = at('1999-06-01T08:00:00');
+    expect(validator.check(start: old, note: 'new note', now: now, savedStart: old).canSave, isTrue);
+    final moved = at('1999-06-01T09:00:00');
+    expect(validator.check(start: moved, now: now, savedStart: old).problems, {EntryProblem.startOutOfRange});
+  });
+
   test('minute precision (ENT-03)', () {
     expect(check('2026-10-25T14:00:30').problems, {EntryProblem.notMinuteAligned});
   });
