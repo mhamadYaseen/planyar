@@ -32,7 +32,12 @@ tool/check_release_apk.sh build/app/outputs/flutter-apk/app-prod-release.apk
 
 `check_release_apk.sh` confirms the release APK has **no `INTERNET` permission** and that its native libraries are 16 KB aligned.
 
-Before each release, bump `version:` in `pubspec.yaml` (e.g. `1.0.0+1` → `1.0.1+2`). The number after `+` (the Android `versionCode`) must go up every time, or the phone refuses the update.
+Before each release, bump `version:` in `pubspec.yaml` (e.g. `1.0.0+1` → `1.0.1+2`) and the same value in `lib/src/core/app_info.dart` (a test checks they match). The number after `+` (the Android `versionCode`) must go up every time, or the phone refuses the update.
+
+## Run from VS Code or Android Studio
+
+- A plain **Run** (or `flutter run`) builds **Planyar Dev**: `default-flavor: dev` in `pubspec.yaml`. In VS Code, Run ▸ also offers "Planyar Dev (release, for speed checks)" and "Planyar — real app (release)" (`.vscode/launch.json`).
+- **The real app is release-only.** Debug and profile builds are signed with a different key; installing one fails, and `flutter run` then *uninstalls the real app, deleting its data*, to put it on. The Android build refuses `--flavor prod` in debug or profile mode, so this can't happen by accident.
 
 ## Install
 
@@ -45,7 +50,7 @@ adb install -r build/app/outputs/flutter-apk/app-dev-debug.apk
 
 **Without a cable:** copy the APK to the phone (e.g. via Files or Drive), open it, and allow "Install unknown apps" for that app once.
 
-**Before reinstalling or switching phones, export a full backup in the app first** (backup arrives in Phase 2).
+**Before reinstalling or switching phones, export a full backup in the app first** (Settings → Backup & restore → Export all data).
 
 ## Your data
 

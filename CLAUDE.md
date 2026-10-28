@@ -54,8 +54,9 @@ tool/format.sh                     # formats hand-written code only; never forma
 flutter analyze --fatal-infos
 flutter test
 TZ=America/Santiago flutter test test/core test/features   # one entry of the CI time-zone matrix
+flutter run                                                # builds "Planyar Dev" (default-flavor: dev in pubspec.yaml)
 flutter build apk --debug --flavor dev                     # "Planyar Dev", separate app ID and database
-flutter build apk --release --flavor prod                  # needs android/key.properties (docs/RELEASE.md)
+flutter build apk --release --flavor prod                  # needs android/key.properties; prod is release-only (debug/profile builds are refused: they'd replace the real app and erase its data)
 tool/check_release_apk.sh build/app/outputs/flutter-apk/app-prod-release.apk
 ```
 
