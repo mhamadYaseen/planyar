@@ -9,6 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// Packages that tie code to Flutter, the database or the platform.
 const _forbiddenInPureCode = [
   'dart:ui',
+  // Files and processes belong to the data layer (e.g. backup files).
+  'dart:io',
   'package:flutter/',
   'package:flutter_test/',
   'package:material_ui/',
@@ -30,8 +32,13 @@ const _forbiddenInPureCode = [
 /// Core folders that hold pure Dart engines and value types.
 const _pureCoreDirs = ['lib/src/core/time', 'lib/src/core/error', 'lib/src/core/usecases', 'lib/src/core/utils'];
 
-/// Pure interface files that live next to their plugin implementations.
-const _pureCoreFiles = ['lib/src/core/notifications/notification_gateway.dart'];
+/// Pure files that live next to their plugin or file-system implementations.
+const _pureCoreFiles = [
+  'lib/src/core/notifications/notification_gateway.dart',
+  'lib/src/core/files/file_gateway.dart',
+  'lib/src/core/files/safety_backup.dart',
+  'lib/src/core/app_info.dart',
+];
 
 final _importPattern = RegExp(r'''^\s*(?:import|export)\s+['"]([^'"]+)['"]''', multiLine: true);
 
