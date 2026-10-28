@@ -39,6 +39,30 @@ void main() {
       expect(Instant.parse('2026-10-25T17:30:00+03:00'), a);
       expect(() => Instant.parse('2026-10-25T14:30'), throwsFormatException);
     });
+
+    test('parsing is strict: a time and a zone, with real field values (backups are untrusted)', () {
+      final a = Instant.fromDateTime(DateTime.utc(2026, 10, 25, 14, 30));
+      expect(Instant.parse('2026-10-25T14:30Z'), a);
+      expect(Instant.parse('2026-10-25T14:30:00.123456789Z').utcMs, a.utcMs + 123);
+      expect(Instant.parse('2024-02-29T00:00:00Z').toString(), '2024-02-29T00:00:00.000Z');
+      for (final bad in [
+        '2026-10-25', // date only: "-25" looked like a zone and read in local time
+        '2026-1025T14:30Z',
+        '+2026-10-25T14:30Z',
+        '2026-10-25 14:30Z',
+        '2026-13-01T00:00Z',
+        '2026-02-30T00:00Z',
+        '2025-02-29T00:00Z',
+        '2026-10-25T24:00Z',
+        '2026-10-25T14:60Z',
+        '2026-10-25T14:30:60Z',
+        '2026-10-25T14:30+99:99',
+        '2026-10-25T14:30+0300',
+        '',
+      ]) {
+        expect(() => Instant.parse(bad), throwsFormatException, reason: bad);
+      }
+    });
   });
 
   group('InstantRange', () {

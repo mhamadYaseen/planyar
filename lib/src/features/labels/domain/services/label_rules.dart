@@ -36,8 +36,14 @@ abstract final class LabelRules {
   static const maxQuickChips = 8;
   static final _spaces = RegExp(r'\s+');
 
-  /// Trimmed with inner whitespace collapsed — the stored display name.
-  static String cleanName(String name) => name.trim().replaceAll(_spaces, ' ');
+  /// Control characters other than whitespace (C0, DEL, C1). SQLite's
+  /// length() stops at U+0000, so a name holding one would fail the
+  /// database's length CHECK.
+  static final _controls = RegExp(r'[\x00-\x08\x0E-\x1F\x7F-\x9F]');
+
+  /// Control characters removed, trimmed, inner whitespace collapsed — the
+  /// stored display name.
+  static String cleanName(String name) => name.replaceAll(_controls, '').trim().replaceAll(_spaces, ' ');
 
   /// Lower-cased [cleanName] — enforces "unique ignoring case and spaces".
   static String nameKeyOf(String name) => cleanName(name).toLowerCase();

@@ -1,5 +1,7 @@
 import 'package:clock/clock.dart';
 
+import 'local_date.dart';
+
 /// An exact moment, stored as UTC milliseconds since the Unix epoch
 /// (plan §6.1). Entry start/end, `completedAt`, `createdAt/updatedAt` and
 /// custom reminder times are instants.
@@ -11,17 +13,26 @@ final class Instant implements Comparable<Instant> {
   /// The current moment from `package:clock`, so tests can fix "now".
   factory Instant.now() => Instant.fromDateTime(clock.now());
 
-  /// Parses ISO-8601 text that carries a zone (`Z` or `±hh:mm`).
-  /// Throws [FormatException] for text without a zone, because that would be
-  /// read in the device's local zone.
+  /// Parses ISO-8601 text with a time and a zone: `2026-10-25T14:30Z`,
+  /// `…T14:30:05.123+03:00`. Throws [FormatException] for anything else —
+  /// text without a zone would be read in the device's zone, and
+  /// `DateTime.parse` would roll impossible values (month 13, 25:61) over
+  /// instead of failing. Backups are untrusted input, so this is strict.
   factory Instant.parse(String text) {
-    if (!_hasZone.hasMatch(text)) {
-      throw FormatException('Instant text needs a zone (Z or ±hh:mm)', text);
-    }
+    final m = _iso.firstMatch(text);
+    if (m == null) throw FormatException('Not an ISO-8601 time with a zone', text);
+    int part(int group) => int.parse(m.group(group)!);
+    final (year, month, day, hour, minute) = (part(1), part(2), part(3), part(4), part(5));
+    final second = m.group(6) == null ? 0 : part(6);
+    final zone = m.group(8)!;
+    final validDate = month >= 1 && month <= 12 && day >= 1 && day <= LocalDate.daysInMonth(year, month);
+    final validTime = hour <= 23 && minute <= 59 && second <= 59;
+    final validZone = zone == 'Z' || (int.parse(zone.substring(1, 3)) <= 18 && int.parse(zone.substring(4)) <= 59);
+    if (!validDate || !validTime || !validZone) throw FormatException('Not a valid time', text);
     return Instant.fromDateTime(DateTime.parse(text));
   }
 
-  static final _hasZone = RegExp(r'(Z|[+-]\d{2}(:?\d{2})?)$');
+  static final _iso = RegExp(r'^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(\.\d{1,9})?)?(Z|[+-]\d{2}:\d{2})$');
   static const _msPerMinute = Duration.millisecondsPerMinute;
 
   final int utcMs;

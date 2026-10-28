@@ -5,6 +5,7 @@ import 'package:drift/drift.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/time/instant.dart';
 import '../../domain/entities/app_settings.dart';
+import '../../domain/entities/setting_keys.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../datasource/settings_dao.dart';
 
@@ -20,11 +21,11 @@ final class SettingsRepositoryImpl implements SettingsRepository {
 
   /// Key → (scope, value from settings). Keys are stable: backups use them.
   static Map<String, (String, Object)> _entries(AppSettings s) => {
-    'themeMode': (_portable, s.themeMode.name),
-    'firstDayOfWeek': (_portable, s.firstDayOfWeek),
-    'timelineMode': (_portable, s.dayViewMode.name),
-    'laneMode': (_portable, s.laneMode.name),
-    'onboardingCompleted': (_device, s.onboardingCompleted),
+    SettingKeys.themeMode: (_portable, s.themeMode.name),
+    SettingKeys.firstDayOfWeek: (_portable, s.firstDayOfWeek),
+    SettingKeys.timelineMode: (_portable, s.dayViewMode.name),
+    SettingKeys.laneMode: (_portable, s.laneMode.name),
+    SettingKeys.onboardingCompleted: (_device, s.onboardingCompleted),
   };
 
   @override
@@ -58,15 +59,15 @@ final class SettingsRepositoryImpl implements SettingsRepository {
     T pick<T extends Enum>(List<T> options, Object? raw, T fallback) =>
         options.firstWhere((o) => o.name == raw, orElse: () => fallback);
     const defaults = AppSettings();
-    final firstDay = values['firstDayOfWeek'];
+    final firstDay = values[SettingKeys.firstDayOfWeek];
     return AppSettings(
-      themeMode: pick(AppThemeMode.values, values['themeMode'], defaults.themeMode),
+      themeMode: pick(AppThemeMode.values, values[SettingKeys.themeMode], defaults.themeMode),
       firstDayOfWeek: firstDay is int && firstDay >= DateTime.monday && firstDay <= DateTime.sunday
           ? firstDay
           : defaults.firstDayOfWeek,
-      dayViewMode: pick(DayViewMode.values, values['timelineMode'], defaults.dayViewMode),
-      laneMode: pick(LaneMode.values, values['laneMode'], defaults.laneMode),
-      onboardingCompleted: values['onboardingCompleted'] == true,
+      dayViewMode: pick(DayViewMode.values, values[SettingKeys.timelineMode], defaults.dayViewMode),
+      laneMode: pick(LaneMode.values, values[SettingKeys.laneMode], defaults.laneMode),
+      onboardingCompleted: values[SettingKeys.onboardingCompleted] == true,
     );
   }
 }

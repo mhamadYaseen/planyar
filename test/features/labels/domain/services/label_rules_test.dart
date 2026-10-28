@@ -1,9 +1,11 @@
 // Label rules (LBL-01, LBL-02, LBL-05, LBL-06, J3).
 import 'package:flutter_test/flutter_test.dart';
+import 'package:planyar/src/app/theme/label_icons.dart';
 import 'package:planyar/src/app/theme/label_palette.dart';
 import 'package:planyar/src/core/time/instant.dart';
 import 'package:planyar/src/features/labels/domain/entities/label.dart';
 import 'package:planyar/src/features/labels/domain/entities/label_color_keys.dart';
+import 'package:planyar/src/features/labels/domain/entities/label_icon_keys.dart';
 import 'package:planyar/src/features/labels/domain/services/label_rules.dart';
 
 final t0 = Instant.parse('2026-10-01T00:00:00Z');
@@ -38,6 +40,10 @@ void main() {
     test('the domain keys match the theme palette', () {
       expect(labelColorKeys, LabelColor.values.map((c) => c.key).toList());
       expect(labelColorAutoOrder.toSet(), labelColorKeys.toSet());
+    });
+
+    test('the domain icon keys match the theme icons (backups validate against them)', () {
+      expect(labelIconKeys, LabelIcons.all.keys.toList());
     });
 
     test('next color is the first unused in auto order', () {
